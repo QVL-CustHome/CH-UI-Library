@@ -21,4 +21,7 @@ export {
   type ChCardProps,
   Layout,
   type ChLayoutProps,
+  Spinner,
+  type ChSpinnerProps,
+  type ChSpinnerSize,
 } from "./components";
