@@ -1,4 +1,3 @@
-export { Button, type ChButtonProps, type ChButtonSize, type ChButtonVariant } from "./Button";
 export {
   TextField,
   type ChTextFieldProps,
