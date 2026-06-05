@@ -80,9 +80,9 @@ describe("TextField", () => {
     renderField(
       <TextField label="Mot de passe" type="password" value="secret" onChange={() => undefined} />
     );
-    await user.click(screen.getByRole("button", { name: "Afficher le mot de passe" }));
+    await user.click(screen.getByRole("button", { name: "Afficher la saisie" }));
     expect(screen.getByLabelText("Mot de passe")).toHaveAttribute("type", "text");
-    await user.click(screen.getByRole("button", { name: "Masquer le mot de passe" }));
+    await user.click(screen.getByRole("button", { name: "Masquer la saisie" }));
     expect(screen.getByLabelText("Mot de passe")).toHaveAttribute("type", "password");
   });
 

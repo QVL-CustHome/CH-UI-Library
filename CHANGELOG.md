@@ -2,6 +2,12 @@
 
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/) et le versioning [semver](https://semver.org/lang/fr/).
 
+## [0.1.1] — 2026-06-05
+
+### Modifié
+
+- `TextField` : aria-labels du toggle de visibilité password renommés en « Afficher la saisie » / « Masquer la saisie » pour ne pas entrer en collision avec les requêtes `getByLabelText(/mot de passe/i)` des consommateurs
+
 ## [0.1.0] — 2026-06-05
 
 Première version du design system CustHome.
