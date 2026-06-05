@@ -32,6 +32,22 @@ function App() {
 }
 ```
 
+## Module Federation
+
+La lib est conçue pour être partagée en singleton entre les micro-frontends. Configuration `shared` recommandée ([@module-federation/vite](https://github.com/module-federation/vite)), identique côté host et remotes :
+
+```ts
+federation({
+  shared: {
+    react: { singleton: true },
+    "react-dom": { singleton: true },
+    "@custhome/ui": { singleton: true },
+  },
+})
+```
+
+`react`, `react-dom` et `@custhome/ui` ne sont alors chargés qu'une fois pour tout l'écosystème : les remotes utilisent l'instance React et le `ChThemeProvider` du host. POC fonctionnel : [poc/module-federation](poc/module-federation/README.md).
+
 ## Développement
 
 ```bash
