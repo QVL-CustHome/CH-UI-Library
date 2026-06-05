@@ -9,6 +9,7 @@ export {
 } from "./Heading";
 export { Layout, type ChLayoutProps } from "./Layout";
 export { Spinner, type ChSpinnerProps, type ChSpinnerSize } from "./Spinner";
+export { Stack, type ChStackElement, type ChStackGap, type ChStackProps } from "./Stack";
 export {
   TextField,
   type ChTextFieldProps,
