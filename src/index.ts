@@ -13,4 +13,7 @@ export {
   type ChTextFieldProps,
   type ChTextFieldSize,
   type ChTextFieldType,
+  Feedback,
+  type ChFeedbackProps,
+  type ChFeedbackSeverity,
 } from "./components";
