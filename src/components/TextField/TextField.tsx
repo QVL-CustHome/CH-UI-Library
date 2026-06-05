@@ -81,7 +81,7 @@ export function TextField({
           endAdornment: isPassword ? (
             <InputAdornment position="end">
               <IconButton
-                aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+                aria-label={showPassword ? "Masquer la saisie" : "Afficher la saisie"}
                 onClick={() => setShowPassword((visible) => !visible)}
                 edge="end"
               >
