@@ -4,6 +4,7 @@ node_modules/
 # Build
 dist/
 coverage/
+build/
 
 # Jira / backlog local — ne jamais pousser
 docs/BACKLOG-JIRA.md

@@ -9,7 +9,7 @@ export default defineConfig({
     dts({
       tsconfigPath: "./tsconfig.app.json",
       entryRoot: "src",
-      exclude: ["src/test/**", "**/*.test.*"],
+      exclude: ["src/test/**", "**/*.test.*", "**/*.stories.*"],
     }),
   ],
   build: {
@@ -40,7 +40,7 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "html"],
       include: ["src/**/*.{ts,tsx}"],
-      exclude: ["src/test/**", "**/*.test.*"],
+      exclude: ["src/test/**", "**/*.test.*", "**/*.stories.*"],
       thresholds: {
         lines: 80,
         functions: 80,
