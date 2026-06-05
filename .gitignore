@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+coverage/
+
+# Jira / backlog local — ne jamais pousser
+docs/BACKLOG-JIRA.md
+*.jira
+
+# Claude local
+.claude/settings.local.json
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
