@@ -1,37 +1,58 @@
 import { describe, expect, it } from "vitest";
-import { palette, radius, shadows, spacing, tokens, typography } from "./index";
+import { palette, paletteDark, radius, shadows, spacing, tokens, typography } from "./index";
 
 describe("tokens", () => {
-  it("regroupe les cinq familles de tokens", () => {
-    expect(tokens).toEqual({ palette, typography, spacing, radius, shadows });
+  it("regroupe les six familles de tokens", () => {
+    expect(tokens).toEqual({ palette, paletteDark, typography, spacing, radius, shadows });
   });
 
-  it("expose la palette CustHome", () => {
-    expect(palette.primary.main).toBe("#2456a6");
-    expect(palette.background.default).toBe("#f4f5f7");
-    expect(palette.text.primary).toBe("#1c1e21");
+  it("expose la palette de marque CustHome (clair)", () => {
+    expect(palette.primary.main).toBe("#f4ad15");
+    expect(palette.secondary.main).toBe("#bcc2a8");
+    expect(palette.accent.main).toBe("#1e6244");
+    expect(palette.background.default).toBe("#fbfaf9");
+    expect(palette.text.primary).toBe("#060504");
     expect(palette.error.main).toBe("#b3261e");
   });
 
-  it("expose des couleurs hexadécimales valides", () => {
-    const flat = [
-      ...Object.values(palette.primary),
-      ...Object.values(palette.secondary),
-      ...Object.values(palette.error),
-      ...Object.values(palette.warning),
-      ...Object.values(palette.info),
-      ...Object.values(palette.success),
-      ...Object.values(palette.background),
-      ...Object.values(palette.text),
-      palette.divider,
-    ];
-    for (const color of flat) {
-      expect(color).toMatch(/^#[0-9a-f]{6}$/);
+  it("expose la palette de marque CustHome (sombre)", () => {
+    expect(paletteDark.primary.main).toBe("#eaa30b");
+    expect(paletteDark.secondary.main).toBe("#51573d");
+    expect(paletteDark.accent.main).toBe("#9de1c4");
+    expect(paletteDark.background.default).toBe("#060504");
+    expect(paletteDark.text.primary).toBe("#fbfaf9");
+  });
+
+  it("expose des couleurs hexadécimales valides dans les deux déclinaisons", () => {
+    for (const p of [palette, paletteDark]) {
+      const flat = [
+        ...Object.values(p.primary),
+        ...Object.values(p.secondary),
+        ...Object.values(p.accent),
+        ...Object.values(p.error),
+        ...Object.values(p.warning),
+        ...Object.values(p.info),
+        ...Object.values(p.success),
+        ...Object.values(p.background),
+        ...Object.values(p.text),
+        p.divider,
+      ];
+      for (const color of flat) {
+        expect(color).toMatch(/^#[0-9a-f]{6}$/);
+      }
     }
   });
 
-  it("expose typo, espacements, radius et ombres", () => {
-    expect(typography.fontFamily).toContain("system-ui");
+  it("expose la typo Chivo et l'échelle de titres 1.333", () => {
+    expect(typography.fontFamily).toContain("Chivo");
+    expect(typography.heading.h1).toBe("4.21rem");
+    expect(typography.heading.h2).toBe("3.158rem");
+    expect(typography.heading.h3).toBe("2.369rem");
+    expect(typography.heading.h4).toBe("1.777rem");
+    expect(typography.heading.h5).toBe("1.333rem");
+  });
+
+  it("expose espacements, radius et ombres", () => {
     expect(spacing.unit).toBe(8);
     expect(radius.md).toBe("8px");
     expect(shadows.md).toContain("rgba");

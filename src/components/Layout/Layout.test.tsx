@@ -23,6 +23,12 @@ describe("Layout", () => {
     expect(screen.getByRole("heading", { level: 1, name: "HealthServ" })).toBeInTheDocument();
   });
 
+  it("affiche le logo à côté du brand", () => {
+    renderLayout(<Layout logo={<svg data-testid="logo" />}>Contenu</Layout>);
+    expect(screen.getByTestId("logo")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "CustHome" })).toBeInTheDocument();
+  });
+
   it("remplace le brand par un header personnalisé", () => {
     renderLayout(<Layout header={<nav>Menu portail</nav>}>Contenu</Layout>);
     expect(screen.getByText("Menu portail")).toBeInTheDocument();

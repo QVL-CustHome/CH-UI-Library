@@ -1,15 +1,24 @@
+// Palette de marque CustHome (US-7.5) : ambre/sauge/vert sur fonds chauds.
+// Deux déclinaisons : clair (par défaut) et sombre, sélectionnées par createChTheme(mode).
 export const palette = {
   primary: {
-    main: "#2456a6",
-    light: "#4f7ec2",
-    dark: "#1a4f8b",
-    contrastText: "#ffffff",
+    main: "#f4ad15",
+    light: "#f7c24f",
+    dark: "#c98c0a",
+    contrastText: "#060504",
   },
   secondary: {
-    main: "#5c6b7f",
-    light: "#8494a8",
-    dark: "#3e4a5a",
-    contrastText: "#ffffff",
+    main: "#bcc2a8",
+    light: "#d2d6c4",
+    dark: "#99a181",
+    contrastText: "#060504",
+  },
+  // Couleur d'accent de la marque (vert CustHome), hors sémantique MUI standard.
+  accent: {
+    main: "#1e6244",
+    light: "#2c8a61",
+    dark: "#154731",
+    contrastText: "#fbfaf9",
   },
   error: {
     main: "#b3261e",
@@ -36,13 +45,68 @@ export const palette = {
     contrastText: "#ffffff",
   },
   background: {
-    default: "#f4f5f7",
+    default: "#fbfaf9",
     paper: "#ffffff",
   },
   text: {
-    primary: "#1c1e21",
-    secondary: "#5c6470",
-    disabled: "#9aa1ab",
+    primary: "#060504",
+    secondary: "#5a564e",
+    disabled: "#9b968c",
   },
-  divider: "#d9dde3",
+  divider: "#e6e3dc",
+} as const;
+
+export const paletteDark = {
+  primary: {
+    main: "#eaa30b",
+    light: "#f4ad15",
+    dark: "#b87f08",
+    contrastText: "#060504",
+  },
+  secondary: {
+    main: "#51573d",
+    light: "#6b7253",
+    dark: "#3a3f2c",
+    contrastText: "#fbfaf9",
+  },
+  accent: {
+    main: "#9de1c4",
+    light: "#c2eeda",
+    dark: "#6fbf9e",
+    contrastText: "#060504",
+  },
+  error: {
+    main: "#e2726b",
+    light: "#3a1513",
+    dark: "#b3261e",
+    contrastText: "#060504",
+  },
+  warning: {
+    main: "#e0a542",
+    light: "#3a2a0e",
+    dark: "#b26a00",
+    contrastText: "#060504",
+  },
+  info: {
+    main: "#7aaede",
+    light: "#102a45",
+    dark: "#1a4f8b",
+    contrastText: "#060504",
+  },
+  success: {
+    main: "#81c784",
+    light: "#10290f",
+    dark: "#2e7d32",
+    contrastText: "#060504",
+  },
+  background: {
+    default: "#060504",
+    paper: "#171511",
+  },
+  text: {
+    primary: "#fbfaf9",
+    secondary: "#c6c2b8",
+    disabled: "#807b71",
+  },
+  divider: "#2e2b25",
 } as const;

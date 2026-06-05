@@ -1,2 +1,2 @@
 export { ChThemeProvider, type ChThemeProviderProps } from "./ChThemeProvider";
-export { chTheme, createChTheme } from "./createChTheme";
+export { chTheme, createChTheme, type ChThemeMode } from "./createChTheme";
