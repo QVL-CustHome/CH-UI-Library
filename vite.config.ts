@@ -38,8 +38,9 @@ export default defineConfig({
     setupFiles: ["./src/test/setup.ts"],
     coverage: {
       provider: "v8",
+      reporter: ["text", "html"],
       include: ["src/**/*.{ts,tsx}"],
-      exclude: ["src/test/**"],
+      exclude: ["src/test/**", "**/*.test.*"],
       thresholds: {
         lines: 80,
         functions: 80,
