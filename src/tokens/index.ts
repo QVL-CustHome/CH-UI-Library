@@ -1,4 +1,4 @@
-import { palette } from "./palette";
+import { palette, paletteDark } from "./palette";
 import { radius } from "./radius";
 import { shadows } from "./shadows";
 import { spacing } from "./spacing";
@@ -6,6 +6,7 @@ import { typography } from "./typography";
 
 export const tokens = {
   palette,
+  paletteDark,
   typography,
   spacing,
   radius,
@@ -14,4 +15,4 @@ export const tokens = {
 
 export type ChTokens = typeof tokens;
 
-export { palette, typography, spacing, radius, shadows };
+export { palette, paletteDark, typography, spacing, radius, shadows };

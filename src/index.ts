@@ -2,8 +2,23 @@ import "./styles.css";
 
 export const CH_UI_VERSION = "0.1.1";
 
-export { tokens, palette, typography, spacing, radius, shadows, type ChTokens } from "./tokens";
-export { ChThemeProvider, type ChThemeProviderProps, chTheme, createChTheme } from "./theme";
+export {
+  tokens,
+  palette,
+  paletteDark,
+  typography,
+  spacing,
+  radius,
+  shadows,
+  type ChTokens,
+} from "./tokens";
+export {
+  ChThemeProvider,
+  type ChThemeProviderProps,
+  type ChThemeMode,
+  chTheme,
+  createChTheme,
+} from "./theme";
 export {
   Button,
   type ChButtonProps,

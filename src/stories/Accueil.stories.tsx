@@ -1,6 +1,12 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { palette, radius, shadows, spacing, typography } from "../tokens";
+import { Button } from "../components/Button";
+import { Card } from "../components/Card";
+import { Heading } from "../components/Heading";
+import { Stack } from "../components/Stack";
+import { TextField } from "../components/TextField";
+import { ChThemeProvider } from "../theme";
+import { palette, paletteDark, radius, shadows, spacing, typography } from "../tokens";
 
 export default {
   title: "Accueil",
@@ -29,6 +35,7 @@ export const Presentation = () => (
 const colorGroups = {
   primary: palette.primary,
   secondary: palette.secondary,
+  accent: palette.accent,
   error: palette.error,
   warning: palette.warning,
   info: palette.info,
@@ -103,6 +110,11 @@ export const Typographie = () => (
     <Typography variant="body2" color="text.secondary">
       {typography.fontFamily}
     </Typography>
+    {Object.entries(typography.heading).map(([name, size]) => (
+      <Typography key={name} sx={{ fontSize: size, fontWeight: typography.fontWeight.bold }}>
+        {name} ({size}) — CustHome
+      </Typography>
+    ))}
     {Object.entries(typography.fontSize).map(([name, size]) => (
       <Typography key={name} sx={{ fontSize: size }}>
         {name} ({size}) — Portail client CustHome
@@ -116,6 +128,22 @@ export const Typographie = () => (
       ))}
     </Box>
   </Box>
+);
+
+export const ModeSombre = () => (
+  <ChThemeProvider mode="dark">
+    <Box sx={{ backgroundColor: paletteDark.background.default, padding: 4 }}>
+      <Card>
+        <Heading>Connexion</Heading>
+        <Stack as="form" onSubmit={(e) => e.preventDefault()}>
+          <TextField label="Email" type="email" value="" onChange={() => {}} />
+          <Button type="submit" fullWidth>
+            Se connecter
+          </Button>
+        </Stack>
+      </Card>
+    </Box>
+  </ChThemeProvider>
 );
 
 export const Espacements = () => (

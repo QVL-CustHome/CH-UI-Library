@@ -14,18 +14,18 @@ describe("Heading", () => {
   });
 
   it.each([
-    [1, "2rem"],
-    [2, "1.5rem"],
-    [3, "1.25rem"],
-    [4, "1rem"],
-  ] as const)("rend un h%s avec la taille %s", (level, fontSize) => {
+    [1, "4.21rem"],
+    [2, "3.158rem"],
+    [3, "2.369rem"],
+    [4, "1.777rem"],
+  ] as const)("rend un h%s avec la taille %s (échelle Chivo 1.333)", (level, fontSize) => {
     renderHeading(<Heading level={level}>Titre</Heading>);
     const heading = screen.getByRole("heading", { level, name: "Titre" });
     expect(heading.tagName).toBe(`H${level}`);
     expect(heading).toHaveStyle({ fontSize });
   });
 
-  it("met le niveau 1 en gras et les autres en semi-gras", () => {
+  it("met tous les niveaux en gras (Chivo 700)", () => {
     renderHeading(
       <>
         <Heading level={1}>Principal</Heading>
@@ -33,7 +33,7 @@ describe("Heading", () => {
       </>,
     );
     expect(screen.getByRole("heading", { level: 1 })).toHaveStyle({ fontWeight: 700 });
-    expect(screen.getByRole("heading", { level: 3 })).toHaveStyle({ fontWeight: 600 });
+    expect(screen.getByRole("heading", { level: 3 })).toHaveStyle({ fontWeight: 700 });
   });
 
   it("aligne à gauche par défaut et au centre sur demande", () => {

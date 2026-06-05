@@ -13,11 +13,12 @@ export interface ChHeadingProps {
   children: ReactNode;
 }
 
+// Échelle de titres de la marque (Chivo 700, ratio 1.333) — US-7.5.
 const levelMapping = {
-  1: { fontSize: tokens.typography.fontSize.xxl, fontWeight: tokens.typography.fontWeight.bold },
-  2: { fontSize: tokens.typography.fontSize.xl, fontWeight: tokens.typography.fontWeight.semibold },
-  3: { fontSize: tokens.typography.fontSize.lg, fontWeight: tokens.typography.fontWeight.semibold },
-  4: { fontSize: tokens.typography.fontSize.md, fontWeight: tokens.typography.fontWeight.semibold },
+  1: { fontSize: tokens.typography.heading.h1, fontWeight: tokens.typography.fontWeight.bold },
+  2: { fontSize: tokens.typography.heading.h2, fontWeight: tokens.typography.fontWeight.bold },
+  3: { fontSize: tokens.typography.heading.h3, fontWeight: tokens.typography.fontWeight.bold },
+  4: { fontSize: tokens.typography.heading.h4, fontWeight: tokens.typography.fontWeight.bold },
 } as const;
 
 export function Heading({
