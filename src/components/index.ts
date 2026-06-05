@@ -1,5 +1,10 @@
 export { Button, type ChButtonProps, type ChButtonSize, type ChButtonVariant } from "./Button";
 export { Card, type ChCardElevation, type ChCardProps } from "./Card";
+export {
+  DescriptionList,
+  type ChDescriptionItem,
+  type ChDescriptionListProps,
+} from "./DescriptionList";
 export { Feedback, type ChFeedbackProps, type ChFeedbackSeverity } from "./Feedback";
 export {
   Heading,
