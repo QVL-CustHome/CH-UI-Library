@@ -8,6 +8,7 @@ export {
   type ChHeadingProps,
 } from "./Heading";
 export { Layout, type ChLayoutProps } from "./Layout";
+export { Link, type ChLinkProps, type ChLinkSize } from "./Link";
 export { Spinner, type ChSpinnerProps, type ChSpinnerSize } from "./Spinner";
 export { Stack, type ChStackElement, type ChStackGap, type ChStackProps } from "./Stack";
 export {
