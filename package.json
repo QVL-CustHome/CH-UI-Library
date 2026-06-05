@@ -23,6 +23,7 @@
   },
   "scripts": {
     "build": "tsc -b && vite build",
+    "prepare": "npm run build",
     "ladle": "ladle serve",
     "ladle:build": "ladle build",
     "lint": "eslint .",
