@@ -2,7 +2,7 @@ import { createTheme, type Theme } from "@mui/material/styles";
 import { tokens } from "../tokens";
 
 export function createChTheme(): Theme {
-  return createTheme({
+  const theme = createTheme({
     cssVariables: {
       cssVarPrefix: "ch",
     },
@@ -28,6 +28,10 @@ export function createChTheme(): Theme {
       borderRadius: parseInt(tokens.radius.md, 10),
     },
   });
+  theme.shadows[1] = tokens.shadows.sm;
+  theme.shadows[2] = tokens.shadows.md;
+  theme.shadows[3] = tokens.shadows.lg;
+  return theme;
 }
 
 export const chTheme = createChTheme();

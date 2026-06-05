@@ -16,4 +16,7 @@ export {
   Feedback,
   type ChFeedbackProps,
   type ChFeedbackSeverity,
+  Card,
+  type ChCardElevation,
+  type ChCardProps,
 } from "./components";
