@@ -19,4 +19,6 @@ export {
   Card,
   type ChCardElevation,
   type ChCardProps,
+  Layout,
+  type ChLayoutProps,
 } from "./components";
