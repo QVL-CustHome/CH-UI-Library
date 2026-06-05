@@ -28,4 +28,8 @@ export {
   Spinner,
   type ChSpinnerProps,
   type ChSpinnerSize,
+  Stack,
+  type ChStackElement,
+  type ChStackGap,
+  type ChStackProps,
 } from "./components";
