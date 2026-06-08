@@ -1,5 +1,6 @@
+import MuiCard from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import type { ReactNode } from "react";
-import { Card } from "../Card";
 import { Heading } from "../Heading";
 import { Stack } from "../Stack";
 
@@ -11,14 +12,16 @@ export interface ChPageContentProps {
 
 export function PageContent({ title, footer, children }: ChPageContentProps) {
   return (
-    <Card>
-      {title ? (
-        <Heading level={2} size={4}>
-          {title}
-        </Heading>
-      ) : null}
-      <Stack gap="md">{children}</Stack>
-      {footer}
-    </Card>
+    <MuiCard elevation={1}>
+      <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+        {title ? (
+          <Heading level={2} size={4}>
+            {title}
+          </Heading>
+        ) : null}
+        <Stack gap="md">{children}</Stack>
+        {footer}
+      </CardContent>
+    </MuiCard>
   );
 }

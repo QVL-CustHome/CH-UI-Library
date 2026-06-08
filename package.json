@@ -1,6 +1,6 @@
 {
   "name": "@custhome/ui",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "type": "module",
   "description": "Design system CustHome - librairie de composants React (wrapper MUI) partagee entre tous les portails",
   "license": "UNLICENSED",

@@ -1,5 +1,18 @@
 export { Button, type ChButtonProps, type ChButtonSize, type ChButtonVariant } from "./Button";
 export { Card, type ChCardElevation, type ChCardProps } from "./Card";
+export { ConfirmDialog, type ChConfirmDialogProps } from "./ConfirmDialog";
+export {
+  DataTable,
+  type ChColumn,
+  type ChDataTableProps,
+  type ChSortDirection,
+} from "./DataTable";
+export {
+  MultiSelect,
+  type ChMultiSelectOption,
+  type ChMultiSelectProps,
+} from "./MultiSelect";
+export { StatusChip, type ChStatusChipProps, type ChStatusTone } from "./StatusChip";
 export {
   DescriptionList,
   type ChDescriptionItem,
