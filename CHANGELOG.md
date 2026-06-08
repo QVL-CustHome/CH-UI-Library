@@ -8,10 +8,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/) et le versioni
 
 - **Composants typographie & mise en page** : `Heading` (niveaux h1–h6, alignement, tailles sémantiques), `Stack` (espacement vertical cohérent via tokens), `Link` (polymorphe, compatible react-router), `DescriptionList` (paires terme/définition)
 - **Identité visuelle CustHome** intégrée au thème : police Chivo, palettes claire et sombre, couleur d'accent
+- **Bascule de thème au runtime** : hook `useChTheme()` (`mode`, `resolvedMode`, `setMode`, `toggleMode`), `ChThemeProvider` avec `defaultMode` (`light`/`dark`/`system`), suivi de `prefers-color-scheme` et persistance `localStorage` (clé `ch-theme-mode`)
+- **Composants de structure de page réutilisables** : `PageScaffold` (cadre de page : marque + zone centrée + `ThemeToggle` fixe en bas à gauche), `PageContent` (surface de contenu), `Form` (formulaire : champs + erreur + bouton de soumission, logique extraite dans `useForm`) et `ThemeToggle` (bouton de bascule clair/sombre, logique extraite dans `useThemeToggle`)
+- **Composant `Icon`** backé par `vite-plugin-svgr` : icônes SVG de `src/assets/icons` en composants React, variantes `outline`/`solid`, recoloration via `currentColor` (couleurs du thème)
+- **Composants d'input par type** : `Input` (base), `InputText`, `InputEmail`, `InputPassword` — icône intégrée, toggle de visibilité du mot de passe, validation regex front à la perte de focus, libellés/erreurs i18n
+- **Internationalisation** : `ChI18nProvider` + hook `useTranslation` (`t(clé, vars)`, `locale`, `locales`, `setLocale`), changement de langue au runtime persisté (`localStorage` `ch-locale`), messages de base `fr`/`en`, fusion avec les messages de l'application
+- **`LanguageSelector`** : sélecteur de langue (couleur secondary), rendu en haut à droite de `PageContent`, masqué si une seule locale
+- **Validation partagée** : `EMAIL_REGEX`, `PASSWORD_MIN_LENGTH`, `isValidEmail`, `isValidPassword`
 
 ### Modifié
 
-- Index public (`src/index.ts`) : export des nouveaux composants `Heading`, `Stack`, `Link`, `DescriptionList` et de leurs types
+- `Button` : la variante `secondary` utilise désormais la **couleur secondary** de la palette (au lieu d'un outlined primary)
+- `Heading` : nouvelle prop `size` (taille visuelle 1–5) découplée de `level` (sémantique) + prop `color` ; le `Layout` rend la marque en titre proéminent (h1, taille 2) et `PageContent` rend le titre de page plus petit (h2, taille 4) pour une hiérarchie cohérente
+- **Suppression de `TextField`** au profit des composants `Input*` (un composant par type d'input)
+
+### Modifié
+
+- Index public (`src/index.ts`) : export des nouveaux composants `Heading`, `Stack`, `Link`, `DescriptionList` et de leurs types, ainsi que `useChTheme` et les types `ChThemePreference` / `ChThemeContextValue`
+- `ChThemeProvider` : nouvelles props `defaultMode` et `storageKey` ; la prop `mode` reste un mode forcé (contrôlé), rétro-compatible
 
 ## [0.1.1] — 2026-06-05
 

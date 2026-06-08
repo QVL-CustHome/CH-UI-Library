@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import type { ReactNode } from "react";
+import { Heading } from "../Heading";
 
 export interface ChLayoutProps {
   brand?: string;
@@ -36,9 +36,9 @@ export function Layout({
       ) : (
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, marginBottom: 2 }}>
           {logo}
-          <Typography variant="h4" component="h1" sx={{ color: "accent.main" }}>
+          <Heading level={1} size={2} gutterBottom={false} color="accent.main">
             {brand}
-          </Typography>
+          </Heading>
         </Box>
       )}
       <Box style={{ width: "100%", maxWidth }}>{children}</Box>

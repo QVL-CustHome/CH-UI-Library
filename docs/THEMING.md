@@ -23,6 +23,43 @@ function App() {
 }
 ```
 
+## Bascule clair / sombre au runtime
+
+Les palettes claire et sombre sont fournies par la lib. `ChThemeProvider` gère la bascule au runtime, persistée dans `localStorage` et capable de suivre le réglage système.
+
+```tsx
+import { ChThemeProvider } from "@custhome/ui";
+
+// defaultMode : "light" (défaut) | "dark" | "system"
+<ChThemeProvider defaultMode="system">
+  <App />
+</ChThemeProvider>;
+```
+
+Le hook `useChTheme()` donne accès au mode et à sa bascule depuis n'importe quel composant sous le provider :
+
+```tsx
+import { useChTheme } from "@custhome/ui";
+
+function ThemeToggle() {
+  const { resolvedMode, toggleMode } = useChTheme();
+  return (
+    <button onClick={toggleMode}>
+      {resolvedMode === "dark" ? "Passer en clair" : "Passer en sombre"}
+    </button>
+  );
+}
+```
+
+`useChTheme()` renvoie `{ mode, resolvedMode, setMode, toggleMode }` :
+
+- `mode` — la préférence choisie (`"light" | "dark" | "system"`)
+- `resolvedMode` — le mode effectivement appliqué (`"light" | "dark"`), avec `"system"` résolu via `prefers-color-scheme`
+- `setMode(mode)` — fixe explicitement la préférence
+- `toggleMode()` — alterne clair ⇄ sombre
+
+La persistance utilise la clé `ch-theme-mode` ; passer `storageKey={null}` à `ChThemeProvider` la désactive. La prop `mode` (mode forcé, contrôlé) reste disponible et désactive alors la bascule runtime.
+
 ## POC — surcharge sans rebuild (dark mode / white-label)
 
 Surcharger 2-3 variables dans une feuille de style chargée après la lib suffit à changer le rendu, sans recompiler ni la lib ni le portail :

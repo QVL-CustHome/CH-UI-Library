@@ -1,8 +1,8 @@
 import { Button } from "../Button";
 import { Card } from "../Card";
 import { Heading } from "../Heading";
+import { InputEmail } from "../Input";
 import { Stack } from "../Stack";
-import { TextField } from "../TextField";
 import { Link } from "./Link";
 
 export default {
@@ -22,7 +22,7 @@ export const SousFormulaire = () => (
   <Card>
     <Heading>Connexion</Heading>
     <Stack as="form" onSubmit={(e) => e.preventDefault()}>
-      <TextField label="Email" type="email" value="" onChange={() => {}} />
+      <InputEmail label="Email" value="" onChange={() => {}} />
       <Button type="submit" fullWidth>
         Se connecter
       </Button>
