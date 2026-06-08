@@ -1,0 +1,26 @@
+import EnvelopeOutline from "../../assets/icons/envelope-outline.svg?react";
+import EnvelopeSolid from "../../assets/icons/envelope-solid.svg?react";
+import EyeOutline from "../../assets/icons/eye-outline.svg?react";
+import EyeSolid from "../../assets/icons/eye-solid.svg?react";
+import EyeClosedOutline from "../../assets/icons/eye-closed-outline.svg?react";
+import EyeClosedSolid from "../../assets/icons/eye-closed-solid.svg?react";
+import LockOutline from "../../assets/icons/lock-outline.svg?react";
+import LockSolid from "../../assets/icons/lock-solid.svg?react";
+import MoonOutline from "../../assets/icons/moon-outline.svg?react";
+import MoonSolid from "../../assets/icons/moon-solid.svg?react";
+import SunOutline from "../../assets/icons/sun-outline.svg?react";
+import SunSolid from "../../assets/icons/sun-solid.svg?react";
+import UserOutline from "../../assets/icons/user-outline.svg?react";
+import UserSolid from "../../assets/icons/user-solid.svg?react";
+
+export const icons = {
+  moon: { outline: MoonOutline, solid: MoonSolid },
+  sun: { outline: SunOutline, solid: SunSolid },
+  mail: { outline: EnvelopeOutline, solid: EnvelopeSolid },
+  lock: { outline: LockOutline, solid: LockSolid },
+  eye: { outline: EyeOutline, solid: EyeSolid },
+  eyeOff: { outline: EyeClosedOutline, solid: EyeClosedSolid },
+  user: { outline: UserOutline, solid: UserSolid },
+} as const;
+
+export type ChIconName = keyof typeof icons;

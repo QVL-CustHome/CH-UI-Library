@@ -1,7 +1,7 @@
 import { Button } from "../Button";
 import { Card } from "../Card";
 import { Heading } from "../Heading";
-import { TextField } from "../TextField";
+import { InputEmail, InputPassword } from "../Input";
 import { Stack } from "./Stack";
 
 export default {
@@ -23,8 +23,8 @@ export const Formulaire = () => (
   <Card>
     <Heading>Connexion</Heading>
     <Stack as="form" onSubmit={(e) => e.preventDefault()}>
-      <TextField label="Email" type="email" value="" onChange={() => {}} />
-      <TextField label="Mot de passe" type="password" value="" onChange={() => {}} />
+      <InputEmail label="Email" value="" onChange={() => {}} />
+      <InputPassword label="Mot de passe" value="" onChange={() => {}} />
       <Button type="submit" fullWidth>
         Se connecter
       </Button>

@@ -3,8 +3,8 @@ import Typography from "@mui/material/Typography";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { Heading } from "../components/Heading";
+import { InputEmail } from "../components/Input";
 import { Stack } from "../components/Stack";
-import { TextField } from "../components/TextField";
 import { ChThemeProvider } from "../theme";
 import { palette, paletteDark, radius, shadows, spacing, typography } from "../tokens";
 
@@ -27,7 +27,7 @@ export const Presentation = () => (
       restent surchargeables sans rebuild (voir docs/THEMING.md).
     </Typography>
     <Typography paragraph>
-      Composants v1 : Button, TextField, Feedback, Card, Layout, Spinner.
+      Composants : Button, Input (Text/Email/Password), Feedback, Card, Layout, Spinner, Icon.
     </Typography>
   </Box>
 );
@@ -136,7 +136,7 @@ export const ModeSombre = () => (
       <Card>
         <Heading>Connexion</Heading>
         <Stack as="form" onSubmit={(e) => e.preventDefault()}>
-          <TextField label="Email" type="email" value="" onChange={() => {}} />
+          <InputEmail label="Email" value="" onChange={() => {}} />
           <Button type="submit" fullWidth>
             Se connecter
           </Button>

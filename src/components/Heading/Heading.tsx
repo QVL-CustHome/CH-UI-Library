@@ -3,41 +3,44 @@ import type { ReactNode } from "react";
 import { tokens } from "../../tokens";
 
 export type ChHeadingLevel = 1 | 2 | 3 | 4;
+export type ChHeadingSize = 1 | 2 | 3 | 4 | 5;
 export type ChHeadingAlign = "left" | "center";
 
 export interface ChHeadingProps {
-  /** Niveau sémantique et visuel (h1 à h4). Le niveau 2 correspond au titre de page standard. */
   level?: ChHeadingLevel;
+  size?: ChHeadingSize;
   align?: ChHeadingAlign;
   gutterBottom?: boolean;
+  color?: string;
   children: ReactNode;
 }
 
-// Échelle de titres de la marque (Chivo 700, ratio 1.333) — US-7.5.
-const levelMapping = {
-  1: { fontSize: tokens.typography.heading.h1, fontWeight: tokens.typography.fontWeight.bold },
-  2: { fontSize: tokens.typography.heading.h2, fontWeight: tokens.typography.fontWeight.bold },
-  3: { fontSize: tokens.typography.heading.h3, fontWeight: tokens.typography.fontWeight.bold },
-  4: { fontSize: tokens.typography.heading.h4, fontWeight: tokens.typography.fontWeight.bold },
+const sizeMapping = {
+  1: tokens.typography.heading.h1,
+  2: tokens.typography.heading.h2,
+  3: tokens.typography.heading.h3,
+  4: tokens.typography.heading.h4,
+  5: tokens.typography.heading.h5,
 } as const;
 
 export function Heading({
   level = 2,
+  size,
   align = "left",
   gutterBottom = true,
+  color = "text.primary",
   children,
 }: ChHeadingProps) {
-  const mapped = levelMapping[level];
   return (
     <Typography
       component={`h${level}`}
       align={align}
       gutterBottom={gutterBottom}
       sx={{
-        fontSize: mapped.fontSize,
-        fontWeight: mapped.fontWeight,
+        fontSize: sizeMapping[size ?? level],
+        fontWeight: tokens.typography.fontWeight.bold,
         lineHeight: tokens.typography.lineHeight.tight,
-        color: "text.primary",
+        color,
       }}
     >
       {children}
