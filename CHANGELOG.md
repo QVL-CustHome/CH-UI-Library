@@ -2,6 +2,17 @@
 
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/) et le versioning [semver](https://semver.org/lang/fr/).
 
+## [0.2.0] — 2026-06-08
+
+### Ajouté
+
+- **Composants typographie & mise en page** : `Heading` (niveaux h1–h6, alignement, tailles sémantiques), `Stack` (espacement vertical cohérent via tokens), `Link` (polymorphe, compatible react-router), `DescriptionList` (paires terme/définition)
+- **Identité visuelle CustHome** intégrée au thème : police Chivo, palettes claire et sombre, couleur d'accent
+
+### Modifié
+
+- Index public (`src/index.ts`) : export des nouveaux composants `Heading`, `Stack`, `Link`, `DescriptionList` et de leurs types
+
 ## [0.1.1] — 2026-06-05
 
 ### Modifié
