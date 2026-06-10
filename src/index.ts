@@ -80,6 +80,18 @@ export {
   ThemeToggle,
   useThemeToggle,
   type UseThemeToggleResult,
+  StatusChip,
+  type ChStatusChipProps,
+  type ChStatusTone,
+  ConfirmDialog,
+  type ChConfirmDialogProps,
+  DataTable,
+  type ChColumn,
+  type ChDataTableProps,
+  type ChSortDirection,
+  MultiSelect,
+  type ChMultiSelectOption,
+  type ChMultiSelectProps,
 } from "./components";
 export {
   ChI18nProvider,

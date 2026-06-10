@@ -6,6 +6,11 @@ import EyeClosedOutline from "../../assets/icons/eye-closed-outline.svg?react";
 import EyeClosedSolid from "../../assets/icons/eye-closed-solid.svg?react";
 import LockOutline from "../../assets/icons/lock-outline.svg?react";
 import LockSolid from "../../assets/icons/lock-solid.svg?react";
+import PlusIcon from "../../assets/icons/plus.svg?react";
+import PencilIcon from "../../assets/icons/pencil.svg?react";
+import TrashIcon from "../../assets/icons/trash.svg?react";
+import MenuIcon from "../../assets/icons/menu.svg?react";
+import CloseIcon from "../../assets/icons/close.svg?react";
 import MoonOutline from "../../assets/icons/moon-outline.svg?react";
 import MoonSolid from "../../assets/icons/moon-solid.svg?react";
 import SunOutline from "../../assets/icons/sun-outline.svg?react";
@@ -21,6 +26,11 @@ export const icons = {
   eye: { outline: EyeOutline, solid: EyeSolid },
   eyeOff: { outline: EyeClosedOutline, solid: EyeClosedSolid },
   user: { outline: UserOutline, solid: UserSolid },
+  plus: { outline: PlusIcon, solid: PlusIcon },
+  pencil: { outline: PencilIcon, solid: PencilIcon },
+  trash: { outline: TrashIcon, solid: TrashIcon },
+  menu: { outline: MenuIcon, solid: MenuIcon },
+  close: { outline: CloseIcon, solid: CloseIcon },
 } as const;
 
 export type ChIconName = keyof typeof icons;
