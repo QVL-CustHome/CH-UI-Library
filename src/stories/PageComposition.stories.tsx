@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Form } from "../components/Form";
 import { InputEmail, InputPassword } from "../components/Input";
+import { Layout } from "../components/Layout";
 import { Link } from "../components/Link";
 import { PageContent } from "../components/PageContent";
-import { PageScaffold } from "../components/PageScaffold";
 import { Stack } from "../components/Stack";
 
 export default {
@@ -14,7 +14,7 @@ export const Connexion = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <PageScaffold>
+    <Layout>
       <PageContent
         title="Connexion"
         footer={
@@ -33,6 +33,6 @@ export const Connexion = () => {
           <InputPassword label="Mot de passe" value={password} onChange={setPassword} />
         </Form>
       </PageContent>
-    </PageScaffold>
+    </Layout>
   );
 };

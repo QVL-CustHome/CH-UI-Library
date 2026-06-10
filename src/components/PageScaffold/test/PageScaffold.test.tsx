@@ -1,33 +1,94 @@
 import type { ReactNode } from "react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { ChThemeProvider } from "../../../theme";
+import { ChI18nProvider } from "../../../i18n";
 import { PageScaffold } from "../PageScaffold";
+import type { ChNavbarItem } from "../../Navbar";
+
+function mockMatchMedia(matches: boolean) {
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
+    value: vi.fn().mockImplementation((query: string) => ({
+      matches,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  });
+}
+
+const items: ChNavbarItem[] = [
+  { label: "Dashboard", href: "/dashboard", icon: "apps" },
+  { label: "Utilisateurs", href: "/users", icon: "user" },
+];
 
 function renderScaffold(ui: ReactNode) {
-  return render(<ChThemeProvider>{ui}</ChThemeProvider>);
+  return render(
+    <ChI18nProvider locale="fr">
+      <ChThemeProvider>{ui}</ChThemeProvider>
+    </ChI18nProvider>,
+  );
 }
 
 describe("PageScaffold", () => {
-  it("affiche la marque CustHome par défaut, le contenu et le toggle de thème", () => {
-    renderScaffold(
-      <PageScaffold>
-        <p>contenu de page</p>
-      </PageScaffold>
-    );
-
-    expect(screen.getByRole("heading", { name: "CustHome" })).toBeInTheDocument();
-    expect(screen.getByText("contenu de page")).toBeInTheDocument();
-    expect(screen.getByRole("switch", { name: /Activer le thème/ })).toBeInTheDocument();
+  beforeEach(() => {
+    mockMatchMedia(false);
   });
 
-  it("permet de surcharger la marque", () => {
+  it("affiche le titre CustHome par defaut et le contenu", () => {
     renderScaffold(
-      <PageScaffold brand="MonPortail">
-        <p>x</p>
-      </PageScaffold>
+      <PageScaffold items={items}>
+        <p>contenu de page</p>
+      </PageScaffold>,
     );
+    expect(screen.getByRole("heading", { name: "CustHome" })).toBeInTheDocument();
+    expect(screen.getByText("contenu de page")).toBeInTheDocument();
+  });
 
+  it("permet de personnaliser le titre", () => {
+    renderScaffold(
+      <PageScaffold title="MonPortail" items={items}>
+        <p>x</p>
+      </PageScaffold>,
+    );
     expect(screen.getByRole("heading", { name: "MonPortail" })).toBeInTheDocument();
+  });
+
+  it("rend les items de navigation", () => {
+    renderScaffold(
+      <PageScaffold items={items}>
+        <p>x</p>
+      </PageScaffold>,
+    );
+    expect(screen.getByRole("link", { name: "Dashboard" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Utilisateurs" })).toBeInTheDocument();
+  });
+
+  it("affiche le userName et le bouton deconnexion", () => {
+    renderScaffold(
+      <PageScaffold items={items} userName="John Doe" onLogout={vi.fn()}>
+        <p>x</p>
+      </PageScaffold>,
+    );
+    expect(screen.getByText("John Doe")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Déconnexion" })).toBeInTheDocument();
+  });
+
+  it("appelle onNavigate au clic sur un item", async () => {
+    const user = userEvent.setup();
+    const onNavigate = vi.fn();
+    renderScaffold(
+      <PageScaffold items={items} onNavigate={onNavigate}>
+        <p>x</p>
+      </PageScaffold>,
+    );
+    await user.click(screen.getByRole("link", { name: "Utilisateurs" }));
+    expect(onNavigate).toHaveBeenCalledWith("/users");
   });
 });

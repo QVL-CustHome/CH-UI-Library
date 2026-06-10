@@ -17,6 +17,16 @@ import SunOutline from "../../assets/icons/sun-outline.svg?react";
 import SunSolid from "../../assets/icons/sun-solid.svg?react";
 import UserOutline from "../../assets/icons/user-outline.svg?react";
 import UserSolid from "../../assets/icons/user-solid.svg?react";
+import HomeOutline from "../../assets/icons/home-outline.svg?react";
+import HomeSolid from "../../assets/icons/home-solid.svg?react";
+import AppsOutline from "../../assets/icons/apps-outline.svg?react";
+import AppsSolid from "../../assets/icons/apps-solid.svg?react";
+import SettingsOutline from "../../assets/icons/settings-outline.svg?react";
+import SettingsSolid from "../../assets/icons/settings-solid.svg?react";
+import LogoutOutline from "../../assets/icons/logout-outline.svg?react";
+import LogoutSolid from "../../assets/icons/logout-solid.svg?react";
+import ShieldOutline from "../../assets/icons/shield-outline.svg?react";
+import ShieldSolid from "../../assets/icons/shield-solid.svg?react";
 
 export const icons = {
   moon: { outline: MoonOutline, solid: MoonSolid },
@@ -31,6 +41,11 @@ export const icons = {
   trash: { outline: TrashIcon, solid: TrashIcon },
   menu: { outline: MenuIcon, solid: MenuIcon },
   close: { outline: CloseIcon, solid: CloseIcon },
+  home: { outline: HomeOutline, solid: HomeSolid },
+  apps: { outline: AppsOutline, solid: AppsSolid },
+  settings: { outline: SettingsOutline, solid: SettingsSolid },
+  logout: { outline: LogoutOutline, solid: LogoutSolid },
+  shield: { outline: ShieldOutline, solid: ShieldSolid },
 } as const;
 
 export type ChIconName = keyof typeof icons;

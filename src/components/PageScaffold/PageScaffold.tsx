@@ -1,40 +1,35 @@
-import Box from "@mui/material/Box";
 import type { ReactNode } from "react";
-import { LanguageSelector } from "../LanguageSelector";
-import { Layout } from "../Layout";
-import { ThemeToggle } from "../ThemeToggle";
+import { Navbar, type ChNavbarItem } from "../Navbar";
 
 export interface ChPageScaffoldProps {
-  brand?: string;
-  logo?: ReactNode;
-  maxWidth?: number | string;
+  title?: string;
+  items: ChNavbarItem[];
+  activeHref?: string;
+  onNavigate?: (href: string) => void;
+  userName?: string;
+  onLogout?: () => void;
   children: ReactNode;
 }
 
-export function PageScaffold({ brand, logo, maxWidth, children }: ChPageScaffoldProps) {
+export function PageScaffold({
+  title,
+  items,
+  activeHref,
+  onNavigate,
+  userName,
+  onLogout,
+  children,
+}: ChPageScaffoldProps) {
   return (
-    <Layout brand={brand} logo={logo} maxWidth={maxWidth}>
-      <Box
-        sx={{
-          position: "fixed",
-          top: 16,
-          right: 16,
-          zIndex: (theme) => theme.zIndex.appBar,
-        }}
-      >
-        <LanguageSelector />
-      </Box>
+    <Navbar
+      title={title}
+      items={items}
+      activeHref={activeHref}
+      onNavigate={onNavigate}
+      userName={userName}
+      onLogout={onLogout}
+    >
       {children}
-      <Box
-        sx={{
-          position: "fixed",
-          right: 16,
-          bottom: 16,
-          zIndex: (theme) => theme.zIndex.appBar,
-        }}
-      >
-        <ThemeToggle />
-      </Box>
-    </Layout>
+    </Navbar>
   );
 }
