@@ -1,6 +1,8 @@
+export { AddButton, type ChAddButtonProps } from "./AddButton";
 export { Button, type ChButtonProps, type ChButtonSize, type ChButtonVariant } from "./Button";
 export { Card, type ChCardElevation, type ChCardProps } from "./Card";
 export { ConfirmDialog, type ChConfirmDialogProps } from "./ConfirmDialog";
+export { DeleteButton, type ChDeleteButtonProps } from "./DeleteButton";
 export {
   DataTable,
   type ChColumn,
@@ -61,3 +63,5 @@ export { Stack, type ChStackElement, type ChStackGap, type ChStackProps } from "
 export { Navbar, type ChNavbarItem, type ChNavbarProps } from "./Navbar";
 export { ThemeToggle, useThemeToggle, type UseThemeToggleResult } from "./ThemeToggle";
 export { Toggle, type ChToggleProps } from "./Toggle";
+export { Toast, type ChToastProps } from "./Toast";
+export { SidePanel, type ChSidePanelProps } from "./SidePanel";

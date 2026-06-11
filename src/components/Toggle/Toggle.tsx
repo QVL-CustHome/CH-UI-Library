@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 
-export type ChToggleColor = "primary" | "secondary";
+export type ChToggleColor = "primary" | "secondary" | "accent" | "success";
 
 export interface ChToggleProps {
   checked: boolean;
