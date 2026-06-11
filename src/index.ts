@@ -83,6 +83,8 @@ export {
   ThemeToggle,
   useThemeToggle,
   type UseThemeToggleResult,
+  Toggle,
+  type ChToggleProps,
   StatusChip,
   type ChStatusChipProps,
   type ChStatusTone,

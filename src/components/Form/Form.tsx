@@ -6,7 +6,7 @@ import { useForm } from "./useForm";
 
 export interface ChFormProps {
   onSubmit: () => void | Promise<void>;
-  submitLabel: string;
+  submitLabel?: string;
   loading?: boolean;
   error?: string | null;
   gap?: ChStackGap;
@@ -26,9 +26,11 @@ export function Form({
     <Stack as="form" gap={gap} onSubmit={handleSubmit}>
       {children}
       <Feedback error={error} />
-      <Button type="submit" loading={loading} fullWidth>
-        {submitLabel}
-      </Button>
+      {submitLabel && (
+        <Button type="submit" loading={loading} fullWidth>
+          {submitLabel}
+        </Button>
+      )}
     </Stack>
   );
 }

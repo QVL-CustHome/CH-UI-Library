@@ -2,7 +2,7 @@ import MuiIconButton from "@mui/material/IconButton";
 import type { MouseEventHandler } from "react";
 import { Icon, type ChIconName } from "../Icon";
 
-export type ChIconActionButtonVariant = "default" | "danger";
+export type ChIconActionButtonVariant = "default" | "danger" | "secondary";
 
 export interface ChIconActionButtonProps {
   icon: ChIconName;
@@ -16,11 +16,13 @@ export interface ChIconActionButtonProps {
 const bgMap = {
   default: "primary.main",
   danger: "error.main",
+  secondary: "grey.500",
 } as const;
 
 const hoverBgMap = {
   default: "primary.dark",
   danger: "error.dark",
+  secondary: "grey.700",
 } as const;
 
 export function IconActionButton({
@@ -31,7 +33,7 @@ export function IconActionButton({
   onClick,
   "aria-label": ariaLabel,
 }: ChIconActionButtonProps) {
-  const iconSize = Math.round(size * 0.55);
+  const iconSize = Math.round(size * 0.7);
 
   return (
     <MuiIconButton
@@ -50,7 +52,7 @@ export function IconActionButton({
         },
       }}
     >
-      <Icon name={icon} size={iconSize} />
+      <Icon name={icon} size={iconSize} variant="solid" />
     </MuiIconButton>
   );
 }

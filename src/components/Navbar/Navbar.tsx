@@ -144,8 +144,8 @@ export function Navbar({
               sx={{
                 color: "primary.contrastText",
                 bgcolor: "primary.main",
-                borderRadius: "10px",
-                width: 40,
+                borderRadius: "8px",
+                width: "100%",
                 height: 40,
                 "&:hover": { bgcolor: "primary.dark" },
               }}
