@@ -14,15 +14,23 @@ export interface ChIconActionButtonProps {
 }
 
 const bgMap = {
-  default: "primary.main",
+  default: "accent.main",
   danger: "error.main",
-  secondary: "grey.500",
+  secondary: "secondary.main",
 } as const;
 
 const hoverBgMap = {
-  default: "primary.dark",
+  default: "accent.dark",
   danger: "error.dark",
-  secondary: "grey.700",
+  secondary: "secondary.dark",
+} as const;
+
+// Couleur de l'icône : blanc sur les fonds foncés, contrastText sur le
+// fond secondary (sauge clair) pour rester lisible.
+const fgMap = {
+  default: "#fff",
+  danger: "#fff",
+  secondary: "secondary.contrastText",
 } as const;
 
 export function IconActionButton({
@@ -44,7 +52,7 @@ export function IconActionButton({
         width: size,
         height: size,
         borderRadius: "10px",
-        color: disabled ? "action.disabled" : "#fff",
+        color: disabled ? "action.disabled" : fgMap[variant],
         bgcolor: disabled ? "action.disabledBackground" : bgMap[variant],
         transition: "all 0.15s",
         "&:hover": {

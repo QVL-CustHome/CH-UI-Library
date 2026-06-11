@@ -23,6 +23,8 @@ export {
   createChTheme,
 } from "./theme";
 export {
+  AddButton,
+  type ChAddButtonProps,
   Button,
   type ChButtonProps,
   type ChButtonSize,
@@ -85,6 +87,10 @@ export {
   type UseThemeToggleResult,
   Toggle,
   type ChToggleProps,
+  Toast,
+  type ChToastProps,
+  SidePanel,
+  type ChSidePanelProps,
   StatusChip,
   type ChStatusChipProps,
   type ChStatusTone,
@@ -93,6 +99,8 @@ export {
   type ChNavbarProps,
   ConfirmDialog,
   type ChConfirmDialogProps,
+  DeleteButton,
+  type ChDeleteButtonProps,
   DataTable,
   type ChColumn,
   type ChDataTableProps,
