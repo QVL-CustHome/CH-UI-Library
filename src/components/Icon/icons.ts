@@ -27,6 +27,12 @@ import LogoutOutline from "../../assets/icons/logout-outline.svg?react";
 import LogoutSolid from "../../assets/icons/logout-solid.svg?react";
 import ShieldOutline from "../../assets/icons/shield-outline.svg?react";
 import ShieldSolid from "../../assets/icons/shield-solid.svg?react";
+import CheckOutline from "../../assets/icons/check-outline.svg?react";
+import CheckSolid from "../../assets/icons/check-solid.svg?react";
+import CancelOutline from "../../assets/icons/cancel-outline.svg?react";
+import CancelSolid from "../../assets/icons/cancel-solid.svg?react";
+import SaveOutline from "../../assets/icons/save-outline.svg?react";
+import SaveSolid from "../../assets/icons/save-solid.svg?react";
 
 export const icons = {
   moon: { outline: MoonOutline, solid: MoonSolid },
@@ -46,6 +52,9 @@ export const icons = {
   settings: { outline: SettingsOutline, solid: SettingsSolid },
   logout: { outline: LogoutOutline, solid: LogoutSolid },
   shield: { outline: ShieldOutline, solid: ShieldSolid },
+  check: { outline: CheckOutline, solid: CheckSolid },
+  cancel: { outline: CancelOutline, solid: CancelSolid },
+  save: { outline: SaveOutline, solid: SaveSolid },
 } as const;
 
 export type ChIconName = keyof typeof icons;

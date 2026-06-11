@@ -35,6 +35,11 @@ export {
 } from "./Heading";
 export { Icon, type ChIconName, type ChIconProps, type ChIconVariant } from "./Icon";
 export {
+  IconActionButton,
+  type ChIconActionButtonProps,
+  type ChIconActionButtonVariant,
+} from "./IconActionButton";
+export {
   Input,
   type ChInputProps,
   type ChInputSize,
@@ -55,3 +60,4 @@ export { Spinner, type ChSpinnerProps, type ChSpinnerSize } from "./Spinner";
 export { Stack, type ChStackElement, type ChStackGap, type ChStackProps } from "./Stack";
 export { Navbar, type ChNavbarItem, type ChNavbarProps } from "./Navbar";
 export { ThemeToggle, useThemeToggle, type UseThemeToggleResult } from "./ThemeToggle";
+export { Toggle, type ChToggleProps } from "./Toggle";

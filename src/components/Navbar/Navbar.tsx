@@ -3,7 +3,6 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { type ReactNode, useEffect, useState } from "react";
-import { Button } from "../Button";
 import { Heading } from "../Heading";
 import { Icon, type ChIconName } from "../Icon";
 import { useTranslation } from "../../i18n";
@@ -139,9 +138,20 @@ export function Navbar({
             </Box>
           )}
           {onLogout && (
-            <Button variant="secondary" size="small" onClick={onLogout}>
-              {t("ch.navbar.logout")}
-            </Button>
+            <IconButton
+              onClick={onLogout}
+              aria-label={t("ch.navbar.logout")}
+              sx={{
+                color: "primary.contrastText",
+                bgcolor: "primary.main",
+                borderRadius: "8px",
+                width: "100%",
+                height: 40,
+                "&:hover": { bgcolor: "primary.dark" },
+              }}
+            >
+              <Icon name="logout" size={22} />
+            </IconButton>
           )}
         </Box>
       )}

@@ -15,6 +15,7 @@ export interface ChColumn<T> {
   key: string;
   header: ReactNode;
   align?: "left" | "center" | "right";
+  width?: string | number;
   sortable?: boolean;
   render?: (row: T) => ReactNode;
   sortValue?: (row: T) => string | number;
@@ -28,6 +29,8 @@ export interface ChDataTableProps<T> {
   emptyMessage?: ReactNode;
   actions?: (row: T) => ReactNode;
   actionsHeader?: ReactNode;
+  actionsWidth?: string | number;
+  fixedLayout?: boolean;
 }
 
 function fieldValue<T>(row: T, key: string): unknown {
@@ -42,6 +45,8 @@ export function DataTable<T>({
   emptyMessage = "Aucune donnée",
   actions,
   actionsHeader = "",
+  actionsWidth,
+  fixedLayout = false,
 }: ChDataTableProps<T>) {
   const [sort, setSort] = useState<{ key: string; dir: ChSortDirection } | null>(null);
   const colSpan = columns.length + (actions ? 1 : 0);
@@ -77,11 +82,11 @@ export function DataTable<T>({
 
   return (
     <TableContainer>
-      <Table>
+      <Table sx={fixedLayout ? { tableLayout: "fixed" } : undefined}>
         <TableHead>
           <TableRow>
             {columns.map((col) => (
-              <TableCell key={col.key} align={col.align ?? "left"}>
+              <TableCell key={col.key} align={col.align ?? "left"} sx={col.width != null ? { width: col.width } : undefined}>
                 {col.sortable ? (
                   <TableSortLabel
                     active={sort?.key === col.key}
@@ -95,7 +100,7 @@ export function DataTable<T>({
                 )}
               </TableCell>
             ))}
-            {actions ? <TableCell align="right">{actionsHeader}</TableCell> : null}
+            {actions ? <TableCell align="center" sx={actionsWidth != null ? { width: actionsWidth } : undefined}>{actionsHeader}</TableCell> : null}
           </TableRow>
         </TableHead>
         <TableBody>
