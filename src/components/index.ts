@@ -35,6 +35,11 @@ export {
 } from "./Heading";
 export { Icon, type ChIconName, type ChIconProps, type ChIconVariant } from "./Icon";
 export {
+  IconActionButton,
+  type ChIconActionButtonProps,
+  type ChIconActionButtonVariant,
+} from "./IconActionButton";
+export {
   Input,
   type ChInputProps,
   type ChInputSize,

@@ -81,7 +81,7 @@ describe("Navbar", () => {
         Contenu
       </Navbar>,
     );
-    expect(screen.getByRole("button", { name: "Déconnexion" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Déconnexion")).toBeInTheDocument();
   });
 
   it("appelle onLogout au clic sur deconnexion", async () => {
@@ -92,7 +92,7 @@ describe("Navbar", () => {
         Contenu
       </Navbar>,
     );
-    await user.click(screen.getByRole("button", { name: "Déconnexion" }));
+    await user.click(screen.getByLabelText("Déconnexion"));
     expect(onLogout).toHaveBeenCalledOnce();
   });
 
