@@ -1,5 +1,3 @@
-
-
 export const palette = {
   primary: {
     main: "#f4ad15",
@@ -13,7 +11,7 @@ export const palette = {
     dark: "#99a181",
     contrastText: "#060504",
   },
-  
+
   accent: {
     main: "#1e6244",
     light: "#2c8a61",

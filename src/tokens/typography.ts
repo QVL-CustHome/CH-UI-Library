@@ -1,5 +1,3 @@
-
-
 export const typography = {
   fontFamily: "'Chivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
   fontSize: {

@@ -4,7 +4,7 @@ import { Heading } from "../Heading";
 
 export interface ChLayoutProps {
   brand?: string;
-  
+
   logo?: ReactNode;
   header?: ReactNode;
   maxWidth?: number | string;

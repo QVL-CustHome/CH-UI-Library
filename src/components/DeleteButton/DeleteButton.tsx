@@ -4,21 +4,20 @@ import { IconActionButton } from "../IconActionButton";
 import { useTranslation } from "../../i18n";
 
 export interface ChDeleteButtonProps {
-  
+
   onConfirm: () => void | Promise<void>;
   "aria-label": string;
-  
+
   confirmTitle?: string;
-  
+
   confirmMessage?: ReactNode;
-  
+
   confirmLabel?: string;
-  
+
   cancelLabel?: string;
   disabled?: boolean;
   size?: number;
 }
-
 
 export function DeleteButton({
   onConfirm,

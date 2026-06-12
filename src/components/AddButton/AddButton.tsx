@@ -9,7 +9,6 @@ export interface ChAddButtonProps {
   "aria-label": string;
 }
 
-
 export function AddButton({
   onClick,
   disabled = false,
