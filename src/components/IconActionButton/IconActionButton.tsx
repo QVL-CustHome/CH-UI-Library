@@ -25,8 +25,6 @@ const hoverBgMap = {
   secondary: "secondary.dark",
 } as const;
 
-
-
 const fgMap = {
   default: "#fff",
   danger: "#fff",

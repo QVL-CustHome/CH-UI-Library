@@ -30,7 +30,7 @@ describe("DeleteButton", () => {
     renderButton(<DeleteButton aria-label="Supprimer l'élément" onConfirm={onConfirm} />);
 
     await user.click(screen.getByRole("button", { name: "Supprimer l'élément" }));
-    
+
     await user.click(screen.getByRole("button", { name: "Supprimer" }));
     expect(onConfirm).toHaveBeenCalledOnce();
   });

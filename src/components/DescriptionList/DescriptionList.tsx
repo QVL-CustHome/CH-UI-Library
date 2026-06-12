@@ -4,7 +4,7 @@ import { tokens } from "../../tokens";
 
 export interface ChDescriptionItem {
   label: string;
-  
+
   value?: ReactNode;
 }
 

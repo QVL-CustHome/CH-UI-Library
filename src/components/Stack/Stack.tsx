@@ -6,13 +6,13 @@ export type ChStackGap = "xs" | "sm" | "md" | "lg" | "xl";
 export type ChStackElement = "div" | "form" | "nav" | "section";
 
 export interface ChStackProps {
-  
+
   gap?: ChStackGap;
-  
+
   as?: ChStackElement;
-  
+
   label?: string;
-  
+
   onSubmit?: FormEventHandler<HTMLFormElement>;
   children: ReactNode;
 }

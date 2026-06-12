@@ -2,16 +2,15 @@ import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
 
 export interface ChToastProps {
-  
+
   open: boolean;
-  
+
   message: string;
-  
+
   onClose: () => void;
-  
+
   duration?: number;
 }
-
 
 export function Toast({ open, message, onClose, duration = 3000 }: ChToastProps) {
   return (

@@ -3,8 +3,6 @@ import { tokens } from "../tokens";
 
 export type ChThemeMode = "light" | "dark";
 
-
-
 declare module "@mui/material/styles" {
   interface Palette {
     accent: Palette["primary"];

@@ -8,7 +8,6 @@ function renderLink(ui: React.ReactElement) {
   return render(<ChThemeProvider>{ui}</ChThemeProvider>);
 }
 
-
 function RouterLink({ to, children, ...rest }: { to: string; children: ReactNode }) {
   return (
     <a href={to} data-router="true" {...rest}>

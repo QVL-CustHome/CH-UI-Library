@@ -152,7 +152,7 @@ describe("useChTheme — bascule runtime", () => {
     vi.stubGlobal(
       "matchMedia",
       vi.fn().mockReturnValue({
-        matches: true, 
+        matches: true,
         addEventListener: vi.fn(),
         removeEventListener: vi.fn(),
       })

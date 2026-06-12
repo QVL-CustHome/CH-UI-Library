@@ -7,20 +7,19 @@ import { Icon } from "../Icon";
 import { useTranslation } from "../../i18n";
 
 export interface ChSidePanelProps {
-  
+
   open: boolean;
-  
+
   onClose: () => void;
-  
+
   title?: string;
-  
+
   width?: number;
-  
+
   children: ReactNode;
-  
+
   footer?: ReactNode;
 }
-
 
 export function SidePanel({
   open,

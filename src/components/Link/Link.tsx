@@ -5,13 +5,13 @@ import { tokens } from "../../tokens";
 export type ChLinkSize = "small" | "medium";
 
 export interface ChLinkProps {
-  
+
   href?: string;
-  
+
   component?: ElementType;
-  
+
   to?: string;
-  
+
   size?: ChLinkSize;
   children: ReactNode;
 }
@@ -20,8 +20,6 @@ const sizeMapping = {
   small: tokens.typography.fontSize.sm,
   medium: tokens.typography.fontSize.md,
 } as const;
-
-
 
 const Root = MuiLink as ElementType;
 
