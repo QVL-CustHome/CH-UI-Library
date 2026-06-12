@@ -42,12 +42,13 @@ describe("Layout", () => {
 
   it("contraint la largeur du contenu à 380px par défaut", () => {
     renderLayout(<Layout>Contenu</Layout>);
-    const wrapper = screen.getByText("Contenu");
-    expect(wrapper).toHaveStyle({ maxWidth: "380px" });
+    const card = screen.getByText("Contenu").closest(".MuiCard-root");
+    expect(card).toHaveStyle({ maxWidth: "380px" });
   });
 
   it("accepte une largeur personnalisée", () => {
     renderLayout(<Layout maxWidth={600}>Contenu</Layout>);
-    expect(screen.getByText("Contenu")).toHaveStyle({ maxWidth: "600px" });
+    const card = screen.getByText("Contenu").closest(".MuiCard-root");
+    expect(card).toHaveStyle({ maxWidth: "600px" });
   });
 });

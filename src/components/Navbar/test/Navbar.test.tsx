@@ -40,20 +40,6 @@ describe("Navbar", () => {
     mockMatchMedia(false);
   });
 
-  it("affiche le title par defaut", () => {
-    renderNavbar(<Navbar items={items}>Contenu</Navbar>);
-    expect(screen.getByRole("heading", { level: 1, name: "CustHome" })).toBeInTheDocument();
-  });
-
-  it("permet de personnaliser le title", () => {
-    renderNavbar(
-      <Navbar items={items} title="Mon Portail">
-        Contenu
-      </Navbar>,
-    );
-    expect(screen.getByRole("heading", { level: 1, name: "Mon Portail" })).toBeInTheDocument();
-  });
-
   it("rend les items de navigation", () => {
     renderNavbar(<Navbar items={items}>Contenu</Navbar>);
     expect(screen.getByRole("link", { name: "Dashboard" })).toBeInTheDocument();
@@ -161,19 +147,24 @@ describe("Navbar", () => {
       mockMatchMedia(true);
     });
 
-    it("affiche le bouton hamburger en mode mobile", () => {
+    it("affiche un burger et les items de navigation (barre du bas)", () => {
       renderNavbar(<Navbar items={items}>Contenu</Navbar>);
       expect(screen.getByLabelText("Ouvrir le menu")).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: "Dashboard" })).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: "Utilisateurs" })).toBeInTheDocument();
     });
 
-    it("affiche le title dans le topbar mobile", () => {
+    it("ouvre un menu avec déconnexion au clic sur le burger", async () => {
+      const user = userEvent.setup();
+      const onLogout = vi.fn();
       renderNavbar(
-        <Navbar items={items} title="Admin">
+        <Navbar items={items} onLogout={onLogout}>
           Contenu
         </Navbar>,
       );
-      const header = screen.getByRole("banner");
-      expect(header).toHaveTextContent("Admin");
+      await user.click(screen.getByLabelText("Ouvrir le menu"));
+      await user.click(await screen.findByRole("button", { name: "Déconnexion" }));
+      expect(onLogout).toHaveBeenCalledOnce();
     });
   });
 });

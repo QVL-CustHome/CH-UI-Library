@@ -31,6 +31,7 @@ export interface ChDataTableProps<T> {
   actionsHeader?: ReactNode;
   actionsWidth?: string | number;
   fixedLayout?: boolean;
+  rowSx?: (row: T) => Record<string, unknown>;
 }
 
 function fieldValue<T>(row: T, key: string): unknown {
@@ -47,9 +48,11 @@ export function DataTable<T>({
   actionsHeader = "",
   actionsWidth,
   fixedLayout = false,
+  rowSx,
 }: ChDataTableProps<T>) {
   const [sort, setSort] = useState<{ key: string; dir: ChSortDirection } | null>(null);
   const colSpan = columns.length + (actions ? 1 : 0);
+  const cardShadow = "0 0 16px rgba(28, 30, 33, 0.12)";
 
   function toggleSort(key: string) {
     setSort((current) => {
@@ -80,13 +83,36 @@ export function DataTable<T>({
     }
   }
 
+  const cardRowSx = {
+    boxShadow: cardShadow,
+    borderRadius: "14px",
+    "& td": { bgcolor: "background.paper", borderBottom: "none" },
+    "& td:first-of-type": { borderTopLeftRadius: "14px", borderBottomLeftRadius: "14px" },
+    "& td:last-of-type": { borderTopRightRadius: "14px", borderBottomRightRadius: "14px" },
+  };
+
   return (
-    <TableContainer>
-      <Table sx={fixedLayout ? { tableLayout: "fixed" } : undefined}>
+    <TableContainer sx={{ overflow: "visible" }}>
+      <Table
+        sx={{
+          borderCollapse: "separate",
+          borderSpacing: "0 14px",
+          ...(fixedLayout ? { tableLayout: "fixed" } : {}),
+        }}
+      >
         <TableHead>
           <TableRow>
             {columns.map((col) => (
-              <TableCell key={col.key} align={col.align ?? "left"} sx={col.width != null ? { width: col.width } : undefined}>
+              <TableCell
+                key={col.key}
+                align={col.align ?? "left"}
+                sx={{
+                  borderBottom: "none",
+                  color: "text.secondary",
+                  fontWeight: 600,
+                  ...(col.width != null ? { width: col.width } : {}),
+                }}
+              >
                 {col.sortable ? (
                   <TableSortLabel
                     active={sort?.key === col.key}
@@ -100,13 +126,20 @@ export function DataTable<T>({
                 )}
               </TableCell>
             ))}
-            {actions ? <TableCell align="center" sx={actionsWidth != null ? { width: actionsWidth } : undefined}>{actionsHeader}</TableCell> : null}
+            {actions ? (
+              <TableCell
+                align="center"
+                sx={{ borderBottom: "none", ...(actionsWidth != null ? { width: actionsWidth } : {}) }}
+              >
+                {actionsHeader}
+              </TableCell>
+            ) : null}
           </TableRow>
         </TableHead>
         <TableBody>
           {loading ? (
             <TableRow>
-              <TableCell colSpan={colSpan} align="center">
+              <TableCell colSpan={colSpan} align="center" sx={{ borderBottom: "none" }}>
                 <Box sx={{ display: "flex", justifyContent: "center", py: 3 }}>
                   <Spinner />
                 </Box>
@@ -114,13 +147,13 @@ export function DataTable<T>({
             </TableRow>
           ) : displayedRows.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={colSpan} align="center">
+              <TableCell colSpan={colSpan} align="center" sx={{ borderBottom: "none" }}>
                 {emptyMessage}
               </TableCell>
             </TableRow>
           ) : (
             displayedRows.map((row) => (
-              <TableRow key={getRowKey(row)} hover>
+              <TableRow key={getRowKey(row)} sx={{ ...cardRowSx, ...(rowSx ? rowSx(row) : {}) }}>
                 {columns.map((col) => (
                   <TableCell key={col.key} align={col.align ?? "left"}>
                     {col.render ? col.render(row) : (fieldValue(row, col.key) as ReactNode)}
