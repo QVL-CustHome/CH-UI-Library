@@ -5,13 +5,13 @@ import { tokens } from "../../tokens";
 export type ChLinkSize = "small" | "medium";
 
 export interface ChLinkProps {
-  /** Cible du lien pour un <a> classique. Ignoré si component est fourni. */
+  
   href?: string;
-  /** Composant de routage injecté (ex. Link de react-router), sans dépendance de la librairie. */
+  
   component?: ElementType;
-  /** Cible transmise au composant injecté (prop to de react-router). */
+  
   to?: string;
-  /** small correspond aux liens secondaires sous formulaire. */
+  
   size?: ChLinkSize;
   children: ReactNode;
 }
@@ -21,8 +21,8 @@ const sizeMapping = {
   medium: tokens.typography.fontSize.md,
 } as const;
 
-// MuiLink est polymorphe à l'exécution (prop component + props transmises) ;
-// le cast évite d'exposer les génériques MUI dans l'API publique CustHome.
+
+
 const Root = MuiLink as ElementType;
 
 export function Link({ href, component, to, size = "medium", children }: ChLinkProps) {

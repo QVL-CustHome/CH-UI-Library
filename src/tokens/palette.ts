@@ -1,5 +1,5 @@
-// Palette de marque CustHome (US-7.5) : ambre/sauge/vert sur fonds chauds.
-// Deux déclinaisons : clair (par défaut) et sombre, sélectionnées par createChTheme(mode).
+
+
 export const palette = {
   primary: {
     main: "#f4ad15",
@@ -13,7 +13,7 @@ export const palette = {
     dark: "#99a181",
     contrastText: "#060504",
   },
-  // Couleur d'accent de la marque (vert CustHome), hors sémantique MUI standard.
+  
   accent: {
     main: "#1e6244",
     light: "#2c8a61",

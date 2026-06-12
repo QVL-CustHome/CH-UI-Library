@@ -8,7 +8,7 @@ function renderLink(ui: React.ReactElement) {
   return render(<ChThemeProvider>{ui}</ChThemeProvider>);
 }
 
-/** Simule le Link de react-router : reçoit `to` et rend un <a>. */
+
 function RouterLink({ to, children, ...rest }: { to: string; children: ReactNode }) {
   return (
     <a href={to} data-router="true" {...rest}>
