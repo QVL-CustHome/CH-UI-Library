@@ -25,7 +25,7 @@ export const Default = () => (
 );
 
 export const AvecTitrePersonnalise = () => (
-  <Navbar title="CustHome Admin" items={items} activeHref="/users">
+  <Navbar items={items} activeHref="/users">
     <Heading level={2} size={3}>
       Utilisateurs
     </Heading>
@@ -35,7 +35,6 @@ export const AvecTitrePersonnalise = () => (
 
 export const AvecUtilisateur = () => (
   <Navbar
-    title="CustHome Admin"
     items={items}
     activeHref="/dashboard"
     userName="Martin Queval"

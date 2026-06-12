@@ -1,4 +1,6 @@
 import Box from "@mui/material/Box";
+import MuiCard from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import type { ReactNode } from "react";
 import { Heading } from "../Heading";
 
@@ -41,7 +43,9 @@ export function Layout({
           </Heading>
         </Box>
       )}
-      <Box style={{ width: "100%", maxWidth }}>{children}</Box>
+      <MuiCard elevation={1} style={{ width: "100%", maxWidth }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3 } }}>{children}</CardContent>
+      </MuiCard>
     </Box>
   );
 }
