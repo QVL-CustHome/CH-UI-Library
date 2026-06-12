@@ -4,7 +4,7 @@ import { tokens } from "../../tokens";
 
 export interface ChDescriptionItem {
   label: string;
-  /** Valeur riche : texte, liste, emphase... Une valeur nulle ou vide affiche un tiret. */
+  
   value?: ReactNode;
 }
 

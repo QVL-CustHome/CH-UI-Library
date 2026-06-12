@@ -1,5 +1,5 @@
-// Typographie de marque CustHome (US-7.5) : Chivo (400 corps, 700 titres),
-// échelle de titres en ratio 1.333 (perfect fourth), corps 1rem.
+
+
 export const typography = {
   fontFamily: "'Chivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
   fontSize: {

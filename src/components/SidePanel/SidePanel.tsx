@@ -7,24 +7,21 @@ import { Icon } from "../Icon";
 import { useTranslation } from "../../i18n";
 
 export interface ChSidePanelProps {
-  /** Affiche / masque le panneau. */
+  
   open: boolean;
-  /** Appelé à la fermeture (clic sur la croix ou sur l'overlay). */
+  
   onClose: () => void;
-  /** Titre affiché dans l'en-tête. */
+  
   title?: string;
-  /** Largeur du panneau en pixels (plafonnée à 90vw sur petit écran). */
+  
   width?: number;
-  /** Contenu principal (les items). */
+  
   children: ReactNode;
-  /** Zone d'actions optionnelle, épinglée en bas du panneau. */
+  
   footer?: ReactNode;
 }
 
-/**
- * Panneau latéral qui glisse depuis la droite de l'écran (animation MUI Drawer).
- * En-tête avec titre + bouton fermer, corps défilant, footer optionnel.
- */
+
 export function SidePanel({
   open,
   onClose,

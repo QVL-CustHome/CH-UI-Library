@@ -4,26 +4,22 @@ import { IconActionButton } from "../IconActionButton";
 import { useTranslation } from "../../i18n";
 
 export interface ChDeleteButtonProps {
-  /** Action exécutée une fois la suppression confirmée. */
+  
   onConfirm: () => void | Promise<void>;
   "aria-label": string;
-  /** Titre de la pop-up de confirmation (défaut : i18n). */
+  
   confirmTitle?: string;
-  /** Message optionnel affiché dans la pop-up. */
+  
   confirmMessage?: ReactNode;
-  /** Libellé du bouton de confirmation (défaut : i18n). */
+  
   confirmLabel?: string;
-  /** Libellé du bouton d'annulation (défaut : i18n). */
+  
   cancelLabel?: string;
   disabled?: boolean;
   size?: number;
 }
 
-/**
- * Bouton de suppression (icône corbeille, variante danger) avec une pop-up
- * de confirmation intégrée par défaut. `onConfirm` n'est appelé qu'après
- * validation de l'utilisateur dans la boîte de dialogue.
- */
+
 export function DeleteButton({
   onConfirm,
   "aria-label": ariaLabel,

@@ -6,13 +6,13 @@ export type ChStackGap = "xs" | "sm" | "md" | "lg" | "xl";
 export type ChStackElement = "div" | "form" | "nav" | "section";
 
 export interface ChStackProps {
-  /** Espacement vertical entre les enfants, issu des tokens spacing. */
+  
   gap?: ChStackGap;
-  /** Élément HTML rendu : div par défaut, form pour les formulaires, nav pour les groupes de liens. */
+  
   as?: ChStackElement;
-  /** Libellé accessible (aria-label), utile pour les nav. */
+  
   label?: string;
-  /** Soumission du formulaire lorsque as="form". */
+  
   onSubmit?: FormEventHandler<HTMLFormElement>;
   children: ReactNode;
 }

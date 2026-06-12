@@ -3,8 +3,8 @@ import { tokens } from "../tokens";
 
 export type ChThemeMode = "light" | "dark";
 
-// La couleur d'accent CustHome (vert) s'ajoute à la sémantique MUI standard,
-// utilisable partout où une couleur de palette est attendue (sx, color...).
+
+
 declare module "@mui/material/styles" {
   interface Palette {
     accent: Palette["primary"];

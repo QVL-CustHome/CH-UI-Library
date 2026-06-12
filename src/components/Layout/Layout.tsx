@@ -4,7 +4,7 @@ import { Heading } from "../Heading";
 
 export interface ChLayoutProps {
   brand?: string;
-  /** Logo de la marque, affiché à gauche du brand dans l'en-tête par défaut. */
+  
   logo?: ReactNode;
   header?: ReactNode;
   maxWidth?: number | string;

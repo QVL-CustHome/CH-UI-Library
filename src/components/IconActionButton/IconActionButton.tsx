@@ -25,8 +25,8 @@ const hoverBgMap = {
   secondary: "secondary.dark",
 } as const;
 
-// Couleur de l'icône : blanc sur les fonds foncés, contrastText sur le
-// fond secondary (sauge clair) pour rester lisible.
+
+
 const fgMap = {
   default: "#fff",
   danger: "#fff",

@@ -9,10 +9,7 @@ export interface ChAddButtonProps {
   "aria-label": string;
 }
 
-/**
- * Bouton d'ajout "+", basé sur IconActionButton (style action button du
- * design system), centré horizontalement par rapport à son conteneur.
- */
+
 export function AddButton({
   onClick,
   disabled = false,
