@@ -14,16 +14,16 @@ export interface ChCardProps {
   children: ReactNode;
 }
 
-const elevationMapping = {
-  none: 0,
-  sm: 1,
-  md: 2,
-  lg: 3,
+const shadowMapping = {
+  none: "none",
+  sm: "0 0 12px rgba(28, 30, 33, 0.1)",
+  md: "0 0 16px rgba(28, 30, 33, 0.12)",
+  lg: "0 0 28px rgba(28, 30, 33, 0.16)",
 } as const;
 
 export function Card({ title, subtitle, actions, elevation = "sm", children }: ChCardProps) {
   return (
-    <MuiCard elevation={elevationMapping[elevation]}>
+    <MuiCard elevation={0} sx={{ boxShadow: shadowMapping[elevation] }}>
       {title ? <CardHeader title={title} subheader={subtitle} /> : null}
       <CardContent>{children}</CardContent>
       {actions ? <CardActions>{actions}</CardActions> : null}

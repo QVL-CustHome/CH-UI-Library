@@ -6,6 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { useState, type ReactNode } from "react";
 import { Spinner } from "../Spinner";
 
@@ -17,6 +18,7 @@ export interface ChColumn<T> {
   align?: "left" | "center" | "right";
   width?: string | number;
   sortable?: boolean;
+  hideOnMobile?: boolean;
   render?: (row: T) => ReactNode;
   sortValue?: (row: T) => string | number;
 }
@@ -51,7 +53,9 @@ export function DataTable<T>({
   rowSx,
 }: ChDataTableProps<T>) {
   const [sort, setSort] = useState<{ key: string; dir: ChSortDirection } | null>(null);
-  const colSpan = columns.length + (actions ? 1 : 0);
+  const isMobile = useMediaQuery("(max-width:768px)");
+  const visibleColumns = isMobile ? columns.filter((col) => !col.hideOnMobile) : columns;
+  const colSpan = visibleColumns.length + (actions ? 1 : 0);
   const cardShadow = "0 0 16px rgba(28, 30, 33, 0.12)";
 
   function toggleSort(key: string) {
@@ -102,7 +106,7 @@ export function DataTable<T>({
       >
         <TableHead>
           <TableRow>
-            {columns.map((col) => (
+            {visibleColumns.map((col) => (
               <TableCell
                 key={col.key}
                 align={col.align ?? "left"}
@@ -110,6 +114,7 @@ export function DataTable<T>({
                   borderBottom: "none",
                   color: "text.secondary",
                   fontWeight: 600,
+                  whiteSpace: "nowrap",
                   ...(col.width != null ? { width: col.width } : {}),
                 }}
               >
@@ -154,7 +159,7 @@ export function DataTable<T>({
           ) : (
             displayedRows.map((row) => (
               <TableRow key={getRowKey(row)} sx={{ ...cardRowSx, ...(rowSx ? rowSx(row) : {}) }}>
-                {columns.map((col) => (
+                {visibleColumns.map((col) => (
                   <TableCell key={col.key} align={col.align ?? "left"}>
                     {col.render ? col.render(row) : (fieldValue(row, col.key) as ReactNode)}
                   </TableCell>

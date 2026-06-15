@@ -53,18 +53,14 @@ describe("Card", () => {
     expect(container.querySelector(".MuiCardActions-root")).not.toBeInTheDocument();
   });
 
-  it("applique l'élévation sm par défaut", () => {
+  it("n'utilise pas l'élévation MUI (ombre centrée custom)", () => {
     const { container } = renderCard(<Card>Contenu</Card>);
-    expect(getCardRoot(container).className).toContain("MuiPaper-elevation1");
+    expect(getCardRoot(container).className).toContain("MuiPaper-elevation0");
   });
 
-  it.each([
-    ["none", 0],
-    ["sm", 1],
-    ["md", 2],
-    ["lg", 3],
-  ] as const)("mappe l'élévation %s sur le niveau %i", (elevation, level) => {
+  it.each(["none", "sm", "md", "lg"] as const)("rend l'élévation %s", (elevation) => {
     const { container } = renderCard(<Card elevation={elevation}>Contenu</Card>);
-    expect(getCardRoot(container).className).toContain(`MuiPaper-elevation${level}`);
+    expect(getCardRoot(container).className).toContain("MuiPaper-elevation0");
+    expect(screen.getByText("Contenu")).toBeInTheDocument();
   });
 });

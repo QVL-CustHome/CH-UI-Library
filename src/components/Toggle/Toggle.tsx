@@ -22,7 +22,7 @@ export function Toggle({
   disabled = false,
   label,
   size = "medium",
-  color = "primary",
+  color = "accent",
 }: ChToggleProps) {
   const s = sizes[size];
   const thumbLeft = checked ? s.track.w - s.thumb - s.offset : s.offset;

@@ -52,6 +52,8 @@ export {
   type ChInputEmailProps,
   InputPassword,
   type ChInputPasswordProps,
+  PasswordStrength,
+  type ChPasswordStrengthProps,
 } from "./Input";
 export { LanguageSelector } from "./LanguageSelector";
 export { Layout, type ChLayoutProps } from "./Layout";
@@ -63,5 +65,8 @@ export { Stack, type ChStackElement, type ChStackGap, type ChStackProps } from "
 export { Navbar, type ChNavbarItem, type ChNavbarProps } from "./Navbar";
 export { ThemeToggle, useThemeToggle, type UseThemeToggleResult } from "./ThemeToggle";
 export { Toggle, type ChToggleProps } from "./Toggle";
-export { Toast, type ChToastProps } from "./Toast";
+export { Toast, type ChToastProps, type ChToastSeverity } from "./Toast";
 export { SidePanel, type ChSidePanelProps } from "./SidePanel";
+export { ShapeBackground, type ChShapeBackgroundProps } from "./ShapeBackground";
+export { Checkbox, type ChCheckboxProps } from "./Checkbox";
+export { BulletList, type ChBulletListItem, type ChBulletListProps } from "./BulletList";

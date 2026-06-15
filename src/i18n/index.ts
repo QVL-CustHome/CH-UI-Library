@@ -3,6 +3,7 @@ export {
   ChI18nContext,
   useTranslation,
   createTranslate,
+  apiErrorMessage,
   interpolate,
   type ChI18nContextValue,
   type ChTranslate,
@@ -14,3 +15,4 @@ export {
   type ChMessages,
   type ChLocaleMessages,
 } from "./messages";
+export { chErrorMessages } from "./errors";

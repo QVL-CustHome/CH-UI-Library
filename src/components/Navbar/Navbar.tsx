@@ -64,10 +64,10 @@ export function Navbar({
             width: 44,
             height: 44,
             borderRadius: "10px",
-            bgcolor: "accent.main",
-            color: "accent.contrastText",
+            bgcolor: "primary.main",
+            color: "primary.contrastText",
             boxShadow: 2,
-            "&:hover": { bgcolor: "accent.dark" },
+            "&:hover": { bgcolor: "primary.dark" },
           }}
         >
           <Icon name="menu" size={22} />
@@ -94,9 +94,9 @@ export function Navbar({
                   width: 58,
                   height: 36,
                   borderRadius: "10px",
-                  bgcolor: "primary.main",
-                  color: "primary.contrastText",
-                  "&:hover": { bgcolor: "primary.dark" },
+                  bgcolor: "accent.main",
+                  color: "accent.contrastText",
+                  "&:hover": { bgcolor: "accent.dark" },
                 }}
               >
                 <Icon name="logout" size={20} />
@@ -126,7 +126,7 @@ export function Navbar({
             alignItems: "center",
             gap: 0.5,
             p: 1,
-            bgcolor: "accent.main",
+            bgcolor: "primary.main",
             borderRadius: "18px",
             boxShadow: 3,
           }}
@@ -148,7 +148,7 @@ export function Navbar({
                   height: 48,
                   borderRadius: "12px",
                   textDecoration: "none",
-                  color: active ? "accent.main" : "accent.contrastText",
+                  color: active ? "primary.main" : "primary.contrastText",
                   bgcolor: active ? "background.paper" : "transparent",
                   boxShadow: active ? 2 : "none",
                 }}
@@ -176,8 +176,8 @@ export function Navbar({
           flexDirection: "column",
           gap: 2,
           p: "20px 16px",
-          bgcolor: "accent.main",
-          color: "accent.contrastText",
+          bgcolor: "primary.main",
+          color: "primary.contrastText",
           overflowY: "auto",
         }}
       >
@@ -197,7 +197,7 @@ export function Navbar({
                   gap: 1.5,
                   p: "12px 14px",
                   borderRadius: "10px",
-                  color: active ? "accent.main" : "accent.contrastText",
+                  color: active ? "primary.main" : "primary.contrastText",
                   bgcolor: active ? "background.paper" : "transparent",
                   boxShadow: active ? 2 : "none",
                   fontWeight: active ? 600 : 400,
@@ -235,12 +235,12 @@ export function Navbar({
                 onClick={onLogout}
                 aria-label={t("ch.navbar.logout")}
                 sx={{
-                  color: "primary.contrastText",
-                  bgcolor: "primary.main",
+                  color: "accent.contrastText",
+                  bgcolor: "accent.main",
                   borderRadius: "10px",
                   width: "100%",
                   height: 48,
-                  "&:hover": { bgcolor: "primary.dark" },
+                  "&:hover": { bgcolor: "accent.dark" },
                 }}
               >
                 <Icon name="logout" size={24} />

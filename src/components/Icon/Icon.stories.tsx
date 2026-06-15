@@ -16,8 +16,8 @@ export const Variantes = () => (
 
 export const CouleursDuTheme = () => (
   <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
-    <Icon name="sun" variant="solid" size={32} color="var(--ch-palette-primary-main)" />
-    <Icon name="moon" variant="solid" size={32} color="var(--ch-palette-accent-main)" />
+    <Icon name="sun" variant="solid" size={32} color="var(--ch-palette-accent-main)" />
+    <Icon name="moon" variant="solid" size={32} color="var(--ch-palette-primary-main)" />
     <Icon name="sun" variant="outline" size={32} color="var(--ch-palette-text-primary)" />
   </Box>
 );

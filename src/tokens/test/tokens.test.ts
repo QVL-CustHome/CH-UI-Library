@@ -7,18 +7,18 @@ describe("tokens", () => {
   });
 
   it("expose la palette de marque CustHome (clair)", () => {
-    expect(palette.primary.main).toBe("#f4ad15");
+    expect(palette.primary.main).toBe("#1e6244");
     expect(palette.secondary.main).toBe("#bcc2a8");
-    expect(palette.accent.main).toBe("#1e6244");
+    expect(palette.accent.main).toBe("#f4ad15");
     expect(palette.background.default).toBe("#fbfaf9");
     expect(palette.text.primary).toBe("#060504");
     expect(palette.error.main).toBe("#b3261e");
   });
 
   it("expose la palette de marque CustHome (sombre)", () => {
-    expect(paletteDark.primary.main).toBe("#eaa30b");
+    expect(paletteDark.primary.main).toBe("#9de1c4");
     expect(paletteDark.secondary.main).toBe("#51573d");
-    expect(paletteDark.accent.main).toBe("#9de1c4");
+    expect(paletteDark.accent.main).toBe("#eaa30b");
     expect(paletteDark.background.default).toBe("#060504");
     expect(paletteDark.text.primary).toBe("#fbfaf9");
   });
