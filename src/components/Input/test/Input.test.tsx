@@ -12,7 +12,15 @@ function ControlledEmail({ required = true }: { required?: boolean }) {
 
 function ControlledPassword() {
   const [value, setValue] = useState("");
-  return <InputPassword label="Mot de passe" value={value} onChange={setValue} required />;
+  return (
+    <InputPassword
+      label="Mot de passe"
+      value={value}
+      onChange={setValue}
+      required
+      autoComplete="new-password"
+    />
+  );
 }
 
 describe("InputEmail", () => {
@@ -42,12 +50,28 @@ describe("InputEmail", () => {
 });
 
 describe("InputPassword", () => {
-  it("impose la longueur minimale", async () => {
+  it("rejette un mot de passe qui ne respecte pas tous les critères", async () => {
     const user = userEvent.setup();
     render(<ControlledPassword />);
-    await user.type(screen.getByLabelText(/mot de passe/i), "court");
+    await user.type(screen.getByLabelText(/^mot de passe/i), "court");
     await user.tab();
-    expect(await screen.findByText(/au moins 8 caractères/i)).toBeInTheDocument();
+    expect(await screen.findByText(/critères de sécurité/i)).toBeInTheDocument();
+  });
+
+  it("affiche les barres de conformité des critères", () => {
+    render(<ControlledPassword />);
+    expect(screen.getByRole("meter", { name: /sécurité du mot de passe/i })).toBeInTheDocument();
+    expect(screen.getByText(/au moins 8 caractères/i)).toBeInTheDocument();
+    expect(screen.getByText(/une majuscule/i)).toBeInTheDocument();
+    expect(screen.getByText(/un caractère spécial/i)).toBeInTheDocument();
+  });
+
+  it("accepte un mot de passe conforme", async () => {
+    const user = userEvent.setup();
+    render(<ControlledPassword />);
+    await user.type(screen.getByLabelText(/^mot de passe/i), "Abcdef1!");
+    await user.tab();
+    expect(screen.queryByText(/critères de sécurité/i)).not.toBeInTheDocument();
   });
 
   it("permet d'afficher puis masquer le mot de passe", async () => {

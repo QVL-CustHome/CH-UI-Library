@@ -24,6 +24,8 @@ export interface ChInputProps {
   autoFocus?: boolean;
   size?: ChInputSize;
   icon?: ChIconName;
+  pattern?: RegExp;
+  patternMessage?: string;
   validate?: (value: string) => string | null;
 }
 
@@ -43,6 +45,8 @@ export function Input({
   autoFocus = false,
   size = "medium",
   icon,
+  pattern,
+  patternMessage,
   validate,
 }: ChInputProps) {
   const { t } = useTranslation();
@@ -53,22 +57,34 @@ export function Input({
   const resolvedType = isPassword && showPassword ? "text" : type;
   const shownError = error ?? localError;
 
+  const effectiveValidate =
+    validate ??
+    (pattern
+      ? (input: string): string | null => {
+          if (required && input.trim() === "") return t("ch.validation.required");
+          if (input !== "" && !pattern.test(input)) {
+            return patternMessage ?? t("ch.validation.pattern");
+          }
+          return null;
+        }
+      : undefined);
+
   const handleChange = (next: string) => {
     onChange(next);
-    if (localError !== null && validate) {
-      setLocalError(validate(next));
+    if (localError !== null && effectiveValidate) {
+      setLocalError(effectiveValidate(next));
     }
   };
 
   const handleBlur = () => {
-    if (validate) {
-      setLocalError(validate(value));
+    if (effectiveValidate) {
+      setLocalError(effectiveValidate(value));
     }
   };
 
   const startAdornment = icon ? (
     <InputAdornment position="start">
-      <Icon name={icon} variant="outline" size={20} color="var(--ch-palette-secondary-main)" />
+      <Icon name={icon} variant="outline" size={22} color="var(--ch-palette-primary-main)" />
     </InputAdornment>
   ) : undefined;
 
@@ -80,7 +96,12 @@ export function Input({
         edge="end"
         size="small"
       >
-        <Icon name={showPassword ? "eyeOff" : "eye"} variant="outline" size={20} />
+        <Icon
+          name={showPassword ? "eyeOff" : "eye"}
+          variant="outline"
+          size={22}
+          color="var(--ch-palette-primary-main)"
+        />
       </IconButton>
     </InputAdornment>
   ) : undefined;

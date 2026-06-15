@@ -17,7 +17,7 @@ const sizeMapping = {
 
 export function Spinner({ fullPage = false, size = "medium", label = "Chargement" }: ChSpinnerProps) {
   const progress = (
-    <CircularProgress color="primary" size={sizeMapping[size]} aria-label={label} />
+    <CircularProgress color="accent" size={sizeMapping[size]} aria-label={label} />
   );
 
   if (!fullPage) {

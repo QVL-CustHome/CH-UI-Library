@@ -60,7 +60,7 @@ export function PageScaffold({
           </Heading>
         ) : null}
       </Box>
-      <Box sx={{ flex: 1, minHeight: 0, overflowY: "auto", px, pb: { xs: 12, md: 4 } }}>{children}</Box>
+      <Box sx={{ flex: 1, minHeight: 0, overflowY: "auto", px, pt: 2, pb: { xs: 12, md: 4 } }}>{children}</Box>
     </Navbar>
   );
 }

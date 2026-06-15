@@ -18,7 +18,7 @@ export interface ChButtonProps {
 }
 
 const variantMapping = {
-  primary: { variant: "contained", color: "primary" },
+  primary: { variant: "contained", color: "accent" },
   secondary: { variant: "contained", color: "secondary" },
   danger: { variant: "contained", color: "error" },
 } as const;

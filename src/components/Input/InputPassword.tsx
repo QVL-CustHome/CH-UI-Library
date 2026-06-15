@@ -1,30 +1,41 @@
+import Box from "@mui/material/Box";
 import { useTranslation } from "../../i18n";
-import { PASSWORD_MIN_LENGTH, isValidPassword } from "../../validation";
+import { isValidPassword } from "../../validation";
 import { Input, type ChInputProps } from "./Input";
+import { PasswordStrength } from "./PasswordStrength";
 
-export type ChInputPasswordProps = Omit<ChInputProps, "type" | "icon" | "validate">;
+export interface ChInputPasswordProps extends Omit<ChInputProps, "type" | "icon" | "validate"> {
+  showStrength?: boolean;
+}
 
 export function InputPassword({
   autoComplete = "current-password",
   required,
+  showStrength,
+  value,
   ...rest
 }: ChInputPasswordProps) {
   const { t } = useTranslation();
-  const validate = (value: string): string | null => {
-    if (required && value === "") return t("ch.validation.required");
-    if (value !== "" && !isValidPassword(value)) {
-      return t("ch.validation.passwordMin", { min: PASSWORD_MIN_LENGTH });
+  const enforceStrength = showStrength ?? autoComplete === "new-password";
+  const validate = (input: string): string | null => {
+    if (required && input === "") return t("ch.validation.required");
+    if (enforceStrength && input !== "" && !isValidPassword(input)) {
+      return t("ch.validation.password");
     }
     return null;
   };
   return (
-    <Input
-      type="password"
-      icon="lock"
-      autoComplete={autoComplete}
-      required={required}
-      validate={validate}
-      {...rest}
-    />
+    <Box>
+      <Input
+        type="password"
+        icon="lock"
+        autoComplete={autoComplete}
+        required={required}
+        validate={validate}
+        value={value}
+        {...rest}
+      />
+      {enforceStrength && <PasswordStrength value={value} />}
+    </Box>
   );
 }

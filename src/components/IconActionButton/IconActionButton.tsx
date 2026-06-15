@@ -14,13 +14,13 @@ export interface ChIconActionButtonProps {
 }
 
 const bgMap = {
-  default: "accent.main",
+  default: "primary.main",
   danger: "error.main",
   secondary: "secondary.main",
 } as const;
 
 const hoverBgMap = {
-  default: "accent.dark",
+  default: "primary.dark",
   danger: "error.dark",
   secondary: "secondary.dark",
 } as const;

@@ -44,11 +44,11 @@ export function MultiSelect({ options, value, onChange, label, placeholder }: Ch
               label={labelOf(item)}
               onDelete={() => remove(item)}
               sx={{
-                bgcolor: "accent.main",
-                color: "accent.contrastText",
+                bgcolor: "primary.main",
+                color: "primary.contrastText",
                 "& .MuiChip-deleteIcon": {
-                  color: "accent.contrastText",
-                  "&:hover": { color: "accent.contrastText", opacity: 0.8 },
+                  color: "primary.contrastText",
+                  "&:hover": { color: "primary.contrastText", opacity: 0.8 },
                 },
               }}
             />

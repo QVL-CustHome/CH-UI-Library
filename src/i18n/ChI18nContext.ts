@@ -23,6 +23,13 @@ export function createTranslate(messages: ChMessages): ChTranslate {
   return (key, vars) => interpolate(messages[key] ?? key, vars);
 }
 
+export function apiErrorMessage(t: ChTranslate, code: string | undefined, fallback: string): string {
+  if (!code) return fallback;
+  const key = `ch.error.${code}`;
+  const translated = t(key);
+  return translated === key ? fallback : translated;
+}
+
 export const ChI18nContext = createContext<ChI18nContextValue>({
   locale: "fr",
   locales: ["fr"],

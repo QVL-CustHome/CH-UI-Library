@@ -1,1 +1,1 @@
-export { Toast, type ChToastProps } from "./Toast";
+export { Toast, type ChToastProps, type ChToastSeverity } from "./Toast";

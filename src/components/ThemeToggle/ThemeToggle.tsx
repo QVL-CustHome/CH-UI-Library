@@ -44,7 +44,7 @@ export function ThemeToggle() {
           name={isDark ? "moon" : "sun"}
           variant="solid"
           size={16}
-          color={isDark ? "var(--ch-palette-accent-main)" : "var(--ch-palette-primary-main)"}
+          color={isDark ? "var(--ch-palette-primary-main)" : "var(--ch-palette-accent-main)"}
         />
       </Box>
     </Box>

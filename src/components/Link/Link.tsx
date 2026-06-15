@@ -30,7 +30,7 @@ export function Link({ href, component, to, size = "medium", children }: ChLinkP
       {...target}
       underline="hover"
       variant="body1"
-      sx={{ fontSize: sizeMapping[size], color: "primary.main" }}
+      sx={{ fontSize: sizeMapping[size], color: "accent.main" }}
     >
       {children}
     </Root>

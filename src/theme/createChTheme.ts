@@ -12,6 +12,18 @@ declare module "@mui/material/styles" {
   }
 }
 
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    accent: true;
+  }
+}
+
+declare module "@mui/material/CircularProgress" {
+  interface CircularProgressPropsColorOverrides {
+    accent: true;
+  }
+}
+
 const headingBase = {
   fontFamily: tokens.typography.fontFamily,
   fontWeight: tokens.typography.fontWeight.bold,
@@ -51,6 +63,35 @@ export function createChTheme(mode: ChThemeMode = "light"): Theme {
     spacing: tokens.spacing.unit,
     shape: {
       borderRadius: parseInt(tokens.radius.md, 10),
+    },
+    components: {
+      MuiOutlinedInput: {
+        styleOverrides: {
+          notchedOutline: {
+            borderWidth: 2,
+          },
+          root: ({ theme: t }) => ({
+            backgroundColor:
+              "color-mix(in srgb, var(--ch-palette-secondary-light) 32%, var(--ch-palette-background-paper))",
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: t.palette.primary.main,
+            },
+            "&:hover:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline": {
+              borderColor: t.palette.primary.dark,
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: t.palette.primary.main,
+              borderWidth: 2,
+            },
+            "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+              borderColor: t.palette.error.main,
+            },
+            "&.Mui-disabled .MuiOutlinedInput-notchedOutline": {
+              borderColor: t.palette.action.disabled,
+            },
+          }),
+        },
+      },
     },
   });
   theme.shadows[1] = tokens.shadows.sm;

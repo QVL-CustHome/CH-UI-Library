@@ -1,18 +1,29 @@
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
+import { Icon, type ChIconName } from "../Icon";
+
+export type ChToastSeverity = "success" | "error" | "info";
 
 export interface ChToastProps {
-
   open: boolean;
 
   message: string;
 
   onClose: () => void;
 
+  severity?: ChToastSeverity;
+
   duration?: number;
 }
 
-export function Toast({ open, message, onClose, duration = 3000 }: ChToastProps) {
+const severityStyles: Record<ChToastSeverity, { bg: string; fg: string; icon: ChIconName }> = {
+  success: { bg: "primary.main", fg: "primary.contrastText", icon: "check" },
+  error: { bg: "error.main", fg: "error.contrastText", icon: "cancel" },
+  info: { bg: "secondary.main", fg: "secondary.contrastText", icon: "shield" },
+};
+
+export function Toast({ open, message, onClose, severity = "success", duration = 3000 }: ChToastProps) {
+  const style = severityStyles[severity];
   return (
     <Snackbar
       open={open}
@@ -20,22 +31,26 @@ export function Toast({ open, message, onClose, duration = 3000 }: ChToastProps)
       onClose={(_, reason) => {
         if (reason !== "clickaway") onClose();
       }}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >
       <Box
         role="status"
         sx={{
-          px: 2.5,
-          py: 1.25,
-          borderRadius: "10px",
-          bgcolor: "text.primary",
-          color: "background.paper",
+          display: "flex",
+          alignItems: "center",
+          gap: 1.25,
+          px: 3.5,
+          py: 1.75,
+          borderRadius: "12px",
+          bgcolor: style.bg,
+          color: style.fg,
           boxShadow: 3,
-          fontSize: "0.9rem",
+          fontSize: "1.05rem",
           fontWeight: 500,
-          maxWidth: 420,
+          maxWidth: 560,
         }}
       >
+        <Icon name={style.icon} variant="solid" size={24} color="currentColor" />
         {message}
       </Box>
     </Snackbar>

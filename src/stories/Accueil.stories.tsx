@@ -155,7 +155,7 @@ export const Espacements = () => (
           <Typography sx={{ width: 80 }}>
             {name} ({value})
           </Typography>
-          <Box sx={{ height: 16, width: value, backgroundColor: "primary.main" }} />
+          <Box sx={{ height: 16, width: value, backgroundColor: "accent.main" }} />
         </Box>
       ))}
   </Box>
@@ -172,7 +172,7 @@ export const RadiusEtOmbres = () => (
               height: 48,
               borderRadius: value,
               border: "2px solid",
-              borderColor: "primary.main",
+              borderColor: "accent.main",
             }}
           />
           <Typography variant="caption">

@@ -1,10 +1,12 @@
+import { chErrorMessages } from "./errors";
+
 export type ChLocale = "fr" | "en";
 
 export type ChMessages = Record<string, string>;
 
 export type ChLocaleMessages = Partial<Record<ChLocale, ChMessages>>;
 
-export const chBaseMessages: Record<ChLocale, ChMessages> = {
+const baseMessages: Record<ChLocale, ChMessages> = {
   fr: {
     "ch.themeToggle.toDark": "Activer le thème sombre",
     "ch.themeToggle.toLight": "Activer le thème clair",
@@ -21,7 +23,15 @@ export const chBaseMessages: Record<ChLocale, ChMessages> = {
     "ch.deleteButton.cancel": "Annuler",
     "ch.validation.required": "Ce champ est requis.",
     "ch.validation.email": "Format d'email invalide.",
+    "ch.validation.pattern": "Format invalide.",
     "ch.validation.passwordMin": "Le mot de passe doit contenir au moins {min} caractères.",
+    "ch.validation.password": "Le mot de passe ne respecte pas tous les critères de sécurité.",
+    "ch.password.strengthLabel": "Niveau de sécurité du mot de passe",
+    "ch.password.length": "Au moins {min} caractères",
+    "ch.password.uppercase": "Une majuscule",
+    "ch.password.lowercase": "Une minuscule",
+    "ch.password.digit": "Un chiffre",
+    "ch.password.special": "Un caractère spécial",
   },
   en: {
     "ch.themeToggle.toDark": "Switch to dark theme",
@@ -39,6 +49,19 @@ export const chBaseMessages: Record<ChLocale, ChMessages> = {
     "ch.deleteButton.cancel": "Cancel",
     "ch.validation.required": "This field is required.",
     "ch.validation.email": "Invalid email format.",
+    "ch.validation.pattern": "Invalid format.",
     "ch.validation.passwordMin": "Password must be at least {min} characters long.",
+    "ch.validation.password": "Password does not meet all security criteria.",
+    "ch.password.strengthLabel": "Password security level",
+    "ch.password.length": "At least {min} characters",
+    "ch.password.uppercase": "One uppercase letter",
+    "ch.password.lowercase": "One lowercase letter",
+    "ch.password.digit": "One digit",
+    "ch.password.special": "One special character",
   },
+};
+
+export const chBaseMessages: Record<ChLocale, ChMessages> = {
+  fr: { ...baseMessages.fr, ...chErrorMessages.fr },
+  en: { ...baseMessages.en, ...chErrorMessages.en },
 };

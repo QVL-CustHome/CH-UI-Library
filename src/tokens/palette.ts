@@ -1,9 +1,9 @@
 export const palette = {
   primary: {
-    main: "#f4ad15",
-    light: "#f7c24f",
-    dark: "#c98c0a",
-    contrastText: "#060504",
+    main: "#1e6244",
+    light: "#2c8a61",
+    dark: "#154731",
+    contrastText: "#fbfaf9",
   },
   secondary: {
     main: "#bcc2a8",
@@ -13,10 +13,10 @@ export const palette = {
   },
 
   accent: {
-    main: "#1e6244",
-    light: "#2c8a61",
-    dark: "#154731",
-    contrastText: "#fbfaf9",
+    main: "#f4ad15",
+    light: "#f7c24f",
+    dark: "#c98c0a",
+    contrastText: "#060504",
   },
   error: {
     main: "#b3261e",
@@ -56,9 +56,9 @@ export const palette = {
 
 export const paletteDark = {
   primary: {
-    main: "#eaa30b",
-    light: "#f4ad15",
-    dark: "#b87f08",
+    main: "#9de1c4",
+    light: "#c2eeda",
+    dark: "#6fbf9e",
     contrastText: "#060504",
   },
   secondary: {
@@ -68,9 +68,9 @@ export const paletteDark = {
     contrastText: "#fbfaf9",
   },
   accent: {
-    main: "#9de1c4",
-    light: "#c2eeda",
-    dark: "#6fbf9e",
+    main: "#eaa30b",
+    light: "#f4ad15",
+    dark: "#b87f08",
     contrastText: "#060504",
   },
   error: {

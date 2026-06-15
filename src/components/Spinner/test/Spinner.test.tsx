@@ -18,9 +18,9 @@ describe("Spinner", () => {
     expect(screen.getByRole("progressbar", { name: "Envoi en cours" })).toBeInTheDocument();
   });
 
-  it("utilise la couleur primaire CustHome", () => {
+  it("utilise la couleur d'accent CustHome", () => {
     renderSpinner(<Spinner />);
-    expect(screen.getByRole("progressbar").className).toContain("colorPrimary");
+    expect(screen.getByRole("progressbar").className).toContain("colorAccent");
   });
 
   it("rend en inline par défaut (sans conteneur pleine page)", () => {
