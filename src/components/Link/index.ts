@@ -1,1 +1,1 @@
-export { Link, type ChLinkProps, type ChLinkSize } from "./Link";
+export { Link, type ChLinkProps, type ChLinkSize, type ChLinkColor } from "./Link";

@@ -57,12 +57,13 @@ export {
 } from "./Input";
 export { LanguageSelector } from "./LanguageSelector";
 export { Layout, type ChLayoutProps } from "./Layout";
-export { Link, type ChLinkProps, type ChLinkSize } from "./Link";
+export { Link, type ChLinkProps, type ChLinkSize, type ChLinkColor } from "./Link";
 export { PageContent, type ChPageContentProps } from "./PageContent";
 export { PageScaffold, type ChPageScaffoldProps } from "./PageScaffold";
 export { Spinner, type ChSpinnerProps, type ChSpinnerSize } from "./Spinner";
 export { Stack, type ChStackElement, type ChStackGap, type ChStackProps } from "./Stack";
 export { Navbar, type ChNavbarItem, type ChNavbarProps } from "./Navbar";
+export { SettingsMenu, type ChSettingsMenuProps } from "./SettingsMenu";
 export { ThemeToggle, useThemeToggle, type UseThemeToggleResult } from "./ThemeToggle";
 export { Toggle, type ChToggleProps } from "./Toggle";
 export { Toast, type ChToastProps, type ChToastSeverity } from "./Toast";

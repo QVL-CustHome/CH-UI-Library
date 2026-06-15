@@ -3,6 +3,7 @@ import type { ElementType, ReactNode } from "react";
 import { tokens } from "../../tokens";
 
 export type ChLinkSize = "small" | "medium";
+export type ChLinkColor = "primary" | "secondary" | "accent";
 
 export interface ChLinkProps {
 
@@ -13,6 +14,7 @@ export interface ChLinkProps {
   to?: string;
 
   size?: ChLinkSize;
+  color?: ChLinkColor;
   children: ReactNode;
 }
 
@@ -23,14 +25,14 @@ const sizeMapping = {
 
 const Root = MuiLink as ElementType;
 
-export function Link({ href, component, to, size = "medium", children }: ChLinkProps) {
+export function Link({ href, component, to, size = "medium", color = "accent", children }: ChLinkProps) {
   const target = component ? { component, to } : { href };
   return (
     <Root
       {...target}
       underline="hover"
       variant="body1"
-      sx={{ fontSize: sizeMapping[size], color: "accent.main" }}
+      sx={{ fontSize: sizeMapping[size], color: `${color}.main` }}
     >
       {children}
     </Root>
