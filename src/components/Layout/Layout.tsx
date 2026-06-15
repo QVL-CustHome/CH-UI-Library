@@ -26,7 +26,20 @@ export function Layout({
       {header !== undefined ? (
         header
       ) : (
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, marginBottom: 2 }}>
+        <Box
+          sx={{
+            position: "fixed",
+            top: { xs: 40, md: 56 },
+            left: 0,
+            right: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 1.5,
+            zIndex: 2,
+            pointerEvents: "none",
+          }}
+        >
           {logo}
           <Heading level={1} size={2} gutterBottom={false} color="primary.contrastText">
             {brand}

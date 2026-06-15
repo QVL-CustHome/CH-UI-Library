@@ -3,6 +3,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import type { ReactNode } from "react";
 import { Heading } from "../Heading";
 import { LanguageSelector } from "../LanguageSelector";
+import { SettingsMenu } from "../SettingsMenu";
 import { Stack } from "../Stack";
 import { ThemeToggle } from "../ThemeToggle";
 
@@ -10,29 +11,37 @@ export interface ChPageContentProps {
   title?: string;
   footer?: ReactNode;
   hideUtilitiesOnMobile?: boolean;
+  align?: "left" | "center";
   children: ReactNode;
 }
 
-export function PageContent({ title, footer, hideUtilitiesOnMobile = false, children }: ChPageContentProps) {
+export function PageContent({
+  title,
+  footer,
+  hideUtilitiesOnMobile = false,
+  align = "left",
+  children,
+}: ChPageContentProps) {
   const isMobile = useMediaQuery("(max-width:768px)");
-  const utilitiesDisplay = hideUtilitiesOnMobile ? { xs: "none", md: "block" } : "block";
 
   return (
     <>
-      {title ? (
-        <Heading level={2} size={isMobile ? 5 : 4}>
-          {title}
-        </Heading>
-      ) : null}
-      <Stack gap="md">{children}</Stack>
-      {footer}
+      <Box sx={{ textAlign: align === "center" ? "center" : "left" }}>
+        {title ? (
+          <Heading level={2} size={isMobile ? 5 : 4}>
+            {title}
+          </Heading>
+        ) : null}
+        <Stack gap="md">{children}</Stack>
+        {footer}
+      </Box>
       <Box
         sx={{
           position: "fixed",
           top: 16,
           right: 16,
           zIndex: (theme) => theme.zIndex.appBar,
-          display: utilitiesDisplay,
+          display: { xs: "none", md: "block" },
         }}
       >
         <LanguageSelector />
@@ -43,11 +52,12 @@ export function PageContent({ title, footer, hideUtilitiesOnMobile = false, chil
           bottom: 16,
           right: 16,
           zIndex: (theme) => theme.zIndex.appBar,
-          display: utilitiesDisplay,
+          display: { xs: "none", md: "block" },
         }}
       >
         <ThemeToggle />
       </Box>
+      {isMobile && !hideUtilitiesOnMobile && <SettingsMenu />}
     </>
   );
 }

@@ -1,11 +1,9 @@
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import Popover from "@mui/material/Popover";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Icon, type ChIconName } from "../Icon";
-import { LanguageSelector } from "../LanguageSelector";
-import { ThemeToggle } from "../ThemeToggle";
+import { SettingsMenu } from "../SettingsMenu";
 import { useTranslation } from "../../i18n";
 
 const SIDEBAR_WIDTH = 248;
@@ -41,7 +39,6 @@ export function Navbar({
 }: ChNavbarProps) {
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width:768px)");
-  const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
 
   function handleItemClick(href: string, e: React.MouseEvent) {
     if (onNavigate) {
@@ -53,57 +50,7 @@ export function Navbar({
   if (isMobile) {
     return (
       <Box sx={{ height: "100dvh", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-        <IconButton
-          onClick={(e) => setMenuAnchor(e.currentTarget)}
-          aria-label={t("ch.navbar.openMenu")}
-          sx={{
-            position: "fixed",
-            top: 12,
-            right: 12,
-            zIndex: (theme) => theme.zIndex.appBar + 1,
-            width: 44,
-            height: 44,
-            borderRadius: "10px",
-            bgcolor: "primary.main",
-            color: "primary.contrastText",
-            boxShadow: 2,
-            "&:hover": { bgcolor: "primary.dark" },
-          }}
-        >
-          <Icon name="menu" size={22} />
-        </IconButton>
-
-        <Popover
-          open={Boolean(menuAnchor)}
-          anchorEl={menuAnchor}
-          onClose={() => setMenuAnchor(null)}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-        >
-          <Box sx={{ p: 2, display: "flex", flexDirection: "column", gap: 1.5, alignItems: "center" }}>
-            <LanguageSelector width={58} />
-            <ThemeToggle />
-            {onLogout && (
-              <IconButton
-                onClick={() => {
-                  setMenuAnchor(null);
-                  onLogout();
-                }}
-                aria-label={t("ch.navbar.logout")}
-                sx={{
-                  width: 58,
-                  height: 36,
-                  borderRadius: "10px",
-                  bgcolor: "accent.main",
-                  color: "accent.contrastText",
-                  "&:hover": { bgcolor: "accent.dark" },
-                }}
-              >
-                <Icon name="logout" size={20} />
-              </IconButton>
-            )}
-          </Box>
-        </Popover>
+        <SettingsMenu onLogout={onLogout} />
 
         <Box
           component="main"
