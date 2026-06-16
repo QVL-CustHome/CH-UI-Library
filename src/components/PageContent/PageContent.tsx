@@ -26,7 +26,7 @@ export function PageContent({
 
   return (
     <>
-      <Box sx={{ textAlign: align === "center" ? "center" : "left" }}>
+      <Box textAlign={align === "center" ? "center" : "left"}>
         {title ? (
           <Heading level={2} size={isMobile ? 5 : 4}>
             {title}
@@ -38,8 +38,8 @@ export function PageContent({
       <Box
         sx={{
           position: "fixed",
-          top: 16,
-          right: 16,
+          top: "1rem",
+          right: "1rem",
           zIndex: (theme) => theme.zIndex.appBar,
           display: { xs: "none", md: "block" },
         }}
@@ -49,8 +49,8 @@ export function PageContent({
       <Box
         sx={{
           position: "fixed",
-          bottom: 16,
-          right: 16,
+          bottom: "1rem",
+          right: "1rem",
           zIndex: (theme) => theme.zIndex.appBar,
           display: { xs: "none", md: "block" },
         }}

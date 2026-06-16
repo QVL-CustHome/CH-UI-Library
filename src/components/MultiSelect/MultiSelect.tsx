@@ -29,7 +29,7 @@ export function MultiSelect({ options, value, onChange, label, placeholder }: Ch
   const remove = (target: string) => onChange(value.filter((item) => item !== target));
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+    <Box display="flex" flexDirection="column" gap="0.5rem">
       {label ? (
         <Typography variant="body2" color="text.secondary">
           {label}
@@ -37,14 +37,14 @@ export function MultiSelect({ options, value, onChange, label, placeholder }: Ch
       ) : null}
 
       {value.length > 0 ? (
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+        <Box display="flex" flexWrap="wrap" gap="0.5rem">
           {value.map((item) => (
             <Chip
               key={item}
               label={labelOf(item)}
               onDelete={() => remove(item)}
               sx={{
-                bgcolor: "primary.main",
+                backgroundColor: "primary.main",
                 color: "primary.contrastText",
                 "& .MuiChip-deleteIcon": {
                   color: "primary.contrastText",
@@ -75,13 +75,11 @@ export function MultiSelect({ options, value, onChange, label, placeholder }: Ch
           available.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "100%",
-                  gap: 1,
-                }}
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                width="100%"
+                gap="0.5rem"
               >
                 {option.label ?? option.value}
                 <Icon name="plus" size={16} />

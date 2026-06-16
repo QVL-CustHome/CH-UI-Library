@@ -47,16 +47,14 @@ export function SidePanel({
       }}
     >
       <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 1.5,
-          p: "16px 20px",
-          borderBottom: "1px solid",
-          borderColor: "divider",
-          flexShrink: 0,
-        }}
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        gap="0.75rem"
+        padding="1rem 1.25rem"
+        borderBottom="0.0625rem solid"
+        borderColor="divider"
+        flexShrink={0}
       >
         {title ? (
           <Heading level={2} size={4} gutterBottom={false}>
@@ -74,16 +72,14 @@ export function SidePanel({
         </IconButton>
       </Box>
 
-      <Box sx={{ flex: 1, overflowY: "auto", p: "20px" }}>{children}</Box>
+      <Box flex={1} padding="1.25rem" sx={{ overflowY: "auto" }}>{children}</Box>
 
       {footer && (
         <Box
-          sx={{
-            p: "16px 20px",
-            borderTop: "1px solid",
-            borderColor: "divider",
-            flexShrink: 0,
-          }}
+          padding="1rem 1.25rem"
+          borderTop="0.0625rem solid"
+          borderColor="divider"
+          flexShrink={0}
         >
           {footer}
         </Box>

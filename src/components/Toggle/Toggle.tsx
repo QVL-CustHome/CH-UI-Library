@@ -36,30 +36,30 @@ export function Toggle({
       aria-label={label}
       disabled={disabled}
       onClick={() => !disabled && onChange(!checked)}
+      position="relative"
+      width={`${s.track.w / 16}rem`}
+      height={`${s.track.h / 16}rem`}
+      padding={0}
+      border="none"
+      borderRadius={999}
+      bgcolor={checked ? `${color}.main` : "grey.400"}
+      flexShrink={0}
       sx={{
-        position: "relative",
-        width: s.track.w,
-        height: s.track.h,
-        padding: 0,
-        border: "none",
-        borderRadius: 999,
-        cursor: disabled ? "default" : "pointer",
-        bgcolor: checked ? `${color}.main` : "grey.400",
         opacity: disabled ? 0.5 : 1,
+        cursor: disabled ? "default" : "pointer",
         transition: "background-color 200ms ease",
-        flexShrink: 0,
       }}
     >
       <Box
+        position="absolute"
+        top={`${s.offset / 16}rem`}
+        left={`${thumbLeft / 16}rem`}
+        width={`${s.thumb / 16}rem`}
+        height={`${s.thumb / 16}rem`}
+        borderRadius="50%"
+        bgcolor="#fff"
+        boxShadow={1}
         sx={{
-          position: "absolute",
-          top: s.offset,
-          left: thumbLeft,
-          width: s.thumb,
-          height: s.thumb,
-          borderRadius: "50%",
-          bgcolor: "#fff",
-          boxShadow: 1,
           transition: "left 200ms cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       />

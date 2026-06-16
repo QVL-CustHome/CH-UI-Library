@@ -20,12 +20,12 @@ export function LanguageSelector({ width }: ChLanguageSelectorProps = {}) {
       onChange={(event) => setLocale(event.target.value as ChLocale)}
       aria-label={t("ch.language.label")}
       sx={{
-        minWidth: width ?? 84,
+        minWidth: width ?? "5.25rem",
         width,
         ...(width
           ? {
               fontSize: "0.8rem",
-              "& .MuiSelect-select": { pl: "8px", pr: "20px !important" },
+              "& .MuiSelect-select": { paddingLeft: "0.5rem", paddingRight: "1.25rem !important" },
               "& .MuiSelect-icon": { right: 0 },
             }
           : {}),

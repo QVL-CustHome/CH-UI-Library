@@ -12,31 +12,31 @@ export function ThemeToggle() {
       aria-checked={isDark}
       aria-label={label}
       onClick={toggle}
+      position="relative"
+      width="3.625rem"
+      height="1.875rem"
+      padding={0}
+      border="none"
+      borderRadius={999}
+      bgcolor={isDark ? "secondary.main" : "secondary.light"}
       sx={{
-        position: "relative",
-        width: 58,
-        height: 30,
-        padding: 0,
-        border: "none",
-        borderRadius: 999,
         cursor: "pointer",
-        backgroundColor: isDark ? "secondary.main" : "secondary.light",
         transition: "background-color 220ms ease",
       }}
     >
       <Box
+        position="absolute"
+        top="0.1875rem"
+        left={isDark ? "1.9375rem" : "0.1875rem"}
+        width="1.5rem"
+        height="1.5rem"
+        borderRadius="50%"
+        bgcolor="background.paper"
+        boxShadow={2}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
         sx={{
-          position: "absolute",
-          top: 3,
-          left: isDark ? 31 : 3,
-          width: 24,
-          height: 24,
-          borderRadius: "50%",
-          backgroundColor: "background.paper",
-          boxShadow: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
           transition: "left 220ms cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >

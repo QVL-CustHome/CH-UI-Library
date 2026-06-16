@@ -16,7 +16,7 @@ export function AddButton({
   "aria-label": ariaLabel,
 }: ChAddButtonProps) {
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
+    <Box display="flex" justifyContent="center" width="100%">
       <IconActionButton
         icon="plus"
         aria-label={ariaLabel}

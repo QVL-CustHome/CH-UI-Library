@@ -14,7 +14,7 @@ export interface ChPageScaffoldProps {
   children: ReactNode;
 }
 
-const px = { xs: 1.5, md: 5 };
+const px = { xs: "0.75rem", md: "2.5rem" };
 
 function activeLabel(items: ChNavbarItem[], activeHref?: string): string | undefined {
   if (!activeHref) return undefined;
@@ -47,7 +47,11 @@ export function PageScaffold({
     >
       <Box
         component="header"
-        sx={{ flexShrink: 0, pl: px, pr: { xs: 7, md: 5 }, pt: { xs: 2, md: 4 }, pb: { xs: 1.5, md: 2 } }}
+        flexShrink={0}
+        paddingLeft={px}
+        paddingRight={{ xs: "3.5rem", md: "2.5rem" }}
+        paddingTop={{ xs: "1rem", md: "2rem" }}
+        paddingBottom={{ xs: "0.75rem", md: "1rem" }}
       >
         {title ? (
           <Heading level={1} size={isMobile ? 4 : 3} gutterBottom={false}>
@@ -60,7 +64,33 @@ export function PageScaffold({
           </Heading>
         ) : null}
       </Box>
-      <Box sx={{ flex: 1, minHeight: 0, overflowY: "auto", px, pt: 2, pb: { xs: 12, md: 4 } }}>{children}</Box>
+      <Box
+        sx={(theme) => ({
+          flex: 1,
+          minHeight: 0,
+          overflowY: "auto",
+          paddingX: px,
+          paddingTop: "1rem",
+          paddingBottom: { xs: "6rem", md: "2rem" },
+          // gap permanent sous la zone scrollable (desktop) : le tableau ne touche
+          // jamais le bas de la page. N'impacte pas la navbar (flex séparé).
+          marginBottom: { xs: 0, md: "4rem" },
+          // scrollbar en couleur primaire
+          scrollbarWidth: "thin",
+          scrollbarColor: `${theme.palette.primary.main} transparent`,
+          "&::-webkit-scrollbar": { width: "0.625rem" },
+          "&::-webkit-scrollbar-track": { backgroundColor: "transparent" },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: theme.palette.primary.main,
+            borderRadius: "0.5rem",
+            border: "0.125rem solid transparent",
+            backgroundClip: "content-box",
+          },
+          "&::-webkit-scrollbar-thumb:hover": { backgroundColor: theme.palette.primary.dark },
+        })}
+      >
+        {children}
+      </Box>
     </Navbar>
   );
 }

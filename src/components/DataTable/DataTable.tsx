@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Spinner } from "../Spinner";
 
 export type ChSortDirection = "asc" | "desc";
@@ -34,6 +34,8 @@ export interface ChDataTableProps<T> {
   actionsWidth?: string | number;
   fixedLayout?: boolean;
   rowSx?: (row: T) => Record<string, unknown>;
+  /** En-têtes figées en haut au scroll (sticky). */
+  stickyHeader?: boolean;
 }
 
 function fieldValue<T>(row: T, key: string): unknown {
@@ -51,12 +53,27 @@ export function DataTable<T>({
   actionsWidth,
   fixedLayout = false,
   rowSx,
+  stickyHeader = false,
 }: ChDataTableProps<T>) {
   const [sort, setSort] = useState<{ key: string; dir: ChSortDirection } | null>(null);
   const isMobile = useMediaQuery("(max-width:768px)");
+
+  // Hauteur réelle de l'entête, pour caler la zone de fondu et l'animation de scroll.
+  const headRef = useRef<HTMLTableSectionElement | null>(null);
+  const [headH, setHeadH] = useState(0);
+  useEffect(() => {
+    if (!stickyHeader) return;
+    const el = headRef.current;
+    if (!el) return;
+    const measure = () => setHeadH(el.offsetHeight);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [stickyHeader]);
   const visibleColumns = isMobile ? columns.filter((col) => !col.hideOnMobile) : columns;
   const colSpan = visibleColumns.length + (actions ? 1 : 0);
-  const cardShadow = "0 0 16px rgba(28, 30, 33, 0.12)";
+  const cardShadow = "0 0 1rem rgba(28, 30, 33, 0.12)";
 
   function toggleSort(key: string) {
     setSort((current) => {
@@ -87,25 +104,68 @@ export function DataTable<T>({
     }
   }
 
+  // En-tête figée : reste collée en haut au scroll, fond opaque pour masquer
+  // les lignes qui défilent derrière (sinon transparence).
+  const stickyHeadSx = stickyHeader
+    ? { position: "sticky" as const, top: 0, zIndex: 2, backgroundColor: "transparent" }
+    : {};
+
   const cardRowSx = {
     boxShadow: cardShadow,
-    borderRadius: "14px",
-    "& td": { bgcolor: "background.paper", borderBottom: "none" },
-    "& td:first-of-type": { borderTopLeftRadius: "14px", borderBottomLeftRadius: "14px" },
-    "& td:last-of-type": { borderTopRightRadius: "14px", borderBottomRightRadius: "14px" },
+    borderRadius: "0.875rem",
+    "& td": { backgroundColor: "background.paper", borderBottom: "none" },
+    "& td:first-of-type": { borderTopLeftRadius: "0.875rem", borderBottomLeftRadius: "0.875rem" },
+    "& td:last-of-type": { borderTopRightRadius: "0.875rem", borderBottomRightRadius: "0.875rem" },
   };
 
+  // Inset bas de la zone d'effet : sur mobile, on remonte au-dessus de la navbar
+  // flottante (bottom 16 + ~64 de haut ≈ 80) ; sur desktop, petit décalage.
+  const bottomInset = isMobile ? 100 : 24;
+
+  // Léger rétrécissement + flou + fondu des lignes quand elles atteignent l'entête,
+  // piloté par le scroll (CSS scroll-driven animations). No-op si non supporté.
+  const rowExitSx =
+    stickyHeader && headH > 0
+      ? {
+          "@keyframes chRowExit": {
+            from: { opacity: 1, transform: "scale(1)", filter: "blur(0px)" },
+            to: { opacity: 0, transform: "scale(0.9)", filter: "blur(0.1875rem)" },
+          },
+          "@supports (animation-timeline: view())": {
+            "& tbody > tr": {
+              // Deux animations sur la même timeline (même inset) :
+              //  1) HAUT  : phase "exit"  (normal → disparu) quand la ligne passe sous l'entête.
+              //  2) BAS   : phase "entry" en INVERSÉ (disparu → normal) quand la ligne surgit du bas.
+              // Inset = (bas de l'entête + 5px) en haut, 5px en bas. fill forwards/none pour
+              // que les deux ne se chevauchent jamais sur les mêmes propriétés.
+              animationName: "chRowExit, chRowExit",
+              animationTimingFunction: "linear, linear",
+              animationDirection: "normal, reverse",
+              // Bas en `backwards` sur mobile : sous la zone, la ligne reste cachée
+              // (opacity 0) et ne réapparaît pas autour de la navbar flottante.
+              animationFillMode: isMobile ? "forwards, backwards" : "forwards, none",
+              animationTimeline: `view(block ${headH + 5}px ${bottomInset}px), view(block ${headH + 5}px ${bottomInset}px)`,
+              // Monter/baisser les 2es % pour rallonger/raccourcir chaque zone.
+              animationRange: "exit 0% exit 50%, entry 0% entry 60%",
+              transformOrigin: "center top",
+            },
+          },
+        }
+      : {};
+
   return (
-    <TableContainer sx={{ overflow: "visible" }}>
-      <Table
-        sx={{
-          borderCollapse: "separate",
-          borderSpacing: "0 14px",
-          ...(fixedLayout ? { tableLayout: "fixed" } : {}),
-        }}
-      >
-        <TableHead>
-          <TableRow>
+    <Box position="relative">
+      <TableContainer sx={{ overflow: "visible" }}>
+        <Table
+          sx={{
+            borderCollapse: "separate",
+            borderSpacing: "0 0.875rem",
+            ...(fixedLayout ? { tableLayout: "fixed" } : {}),
+            ...rowExitSx,
+          }}
+        >
+          <TableHead ref={headRef}>
+            <TableRow>
             {visibleColumns.map((col) => (
               <TableCell
                 key={col.key}
@@ -115,6 +175,7 @@ export function DataTable<T>({
                   color: "text.secondary",
                   fontWeight: 600,
                   whiteSpace: "nowrap",
+                  ...stickyHeadSx,
                   ...(col.width != null ? { width: col.width } : {}),
                 }}
               >
@@ -134,7 +195,7 @@ export function DataTable<T>({
             {actions ? (
               <TableCell
                 align="center"
-                sx={{ borderBottom: "none", ...(actionsWidth != null ? { width: actionsWidth } : {}) }}
+                sx={{ borderBottom: "none", ...stickyHeadSx, ...(actionsWidth != null ? { width: actionsWidth } : {}) }}
               >
                 {actionsHeader}
               </TableCell>
@@ -145,7 +206,7 @@ export function DataTable<T>({
           {loading ? (
             <TableRow>
               <TableCell colSpan={colSpan} align="center" sx={{ borderBottom: "none" }}>
-                <Box sx={{ display: "flex", justifyContent: "center", py: 3 }}>
+                <Box display="flex" justifyContent="center" paddingY="1.5rem">
                   <Spinner />
                 </Box>
               </TableCell>
@@ -170,6 +231,7 @@ export function DataTable<T>({
           )}
         </TableBody>
       </Table>
-    </TableContainer>
+      </TableContainer>
+    </Box>
   );
 }

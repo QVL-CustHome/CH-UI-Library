@@ -22,16 +22,16 @@ export function SettingsMenu({ onLogout }: ChSettingsMenuProps) {
         aria-label={t("ch.navbar.openMenu")}
         sx={{
           position: "fixed",
-          top: 12,
-          right: 12,
+          top: "0.75rem",
+          right: "0.75rem",
           zIndex: (theme) => theme.zIndex.appBar + 1,
-          width: 44,
-          height: 44,
-          borderRadius: "10px",
-          bgcolor: "primary.main",
+          width: "2.75rem",
+          height: "2.75rem",
+          borderRadius: "0.625rem",
+          backgroundColor: "primary.main",
           color: "primary.contrastText",
           boxShadow: 2,
-          "&:hover": { bgcolor: "primary.dark" },
+          "&:hover": { backgroundColor: "primary.dark" },
         }}
       >
         <Icon name="settings" size={22} />
@@ -43,9 +43,9 @@ export function SettingsMenu({ onLogout }: ChSettingsMenuProps) {
         onClose={() => setAnchor(null)}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
-        slotProps={{ paper: { sx: { mt: 1, bgcolor: "secondary.main", borderRadius: "12px" } } }}
+        slotProps={{ paper: { sx: { marginTop: "0.5rem", backgroundColor: "secondary.main", borderRadius: "0.75rem" } } }}
       >
-        <Box sx={{ p: 2, display: "flex", flexDirection: "column", gap: 1.5, alignItems: "center" }}>
+        <Box padding="1rem" display="flex" flexDirection="column" gap="0.75rem" alignItems="center">
           <LanguageSelector width={58} />
           <ThemeToggle />
           {onLogout && (
@@ -56,12 +56,12 @@ export function SettingsMenu({ onLogout }: ChSettingsMenuProps) {
               }}
               aria-label={t("ch.navbar.logout")}
               sx={{
-                width: 58,
-                height: 36,
-                borderRadius: "10px",
-                bgcolor: "accent.main",
+                width: "3.625rem",
+                height: "2.25rem",
+                borderRadius: "0.625rem",
+                backgroundColor: "accent.main",
                 color: "accent.contrastText",
-                "&:hover": { bgcolor: "accent.dark" },
+                "&:hover": { backgroundColor: "accent.dark" },
               }}
             >
               <Icon name="logout" size={20} />

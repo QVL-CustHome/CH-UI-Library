@@ -49,9 +49,9 @@ export function IconActionButton({
       sx={{
         width: size,
         height: size,
-        borderRadius: "10px",
+        borderRadius: "0.625rem",
         color: disabled ? "action.disabled" : fgMap[variant],
-        bgcolor: disabled ? "action.disabledBackground" : bgMap[variant],
+        backgroundColor: disabled ? "action.disabledBackground" : bgMap[variant],
         transition: "all 0.15s",
         "&:hover": {
           bgcolor: hoverBgMap[variant],

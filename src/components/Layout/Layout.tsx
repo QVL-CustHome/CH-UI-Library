@@ -27,18 +27,16 @@ export function Layout({
         header
       ) : (
         <Box
-          sx={{
-            position: "fixed",
-            top: { xs: 40, md: 56 },
-            left: 0,
-            right: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 1.5,
-            zIndex: 2,
-            pointerEvents: "none",
-          }}
+          position="fixed"
+          top={{ xs: "2.5rem", md: "3.5rem" }}
+          left={0}
+          right={0}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          gap="0.75rem"
+          zIndex={2}
+          sx={{ pointerEvents: "none" }}
         >
           {logo}
           <Heading level={1} size={2} gutterBottom={false} color="primary.contrastText">
@@ -47,7 +45,7 @@ export function Layout({
         </Box>
       )}
       <MuiCard elevation={1} style={{ width: "100%", maxWidth }}>
-        <CardContent sx={{ p: { xs: 2, sm: 3 } }}>{children}</CardContent>
+        <CardContent sx={{ padding: { xs: "1rem", sm: "1.5rem" } }}>{children}</CardContent>
       </MuiCard>
     </ShapeBackground>
   );

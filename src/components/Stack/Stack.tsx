@@ -23,11 +23,9 @@ export function Stack({ gap = "md", as = "div", label, onSubmit, children }: ChS
       component={as}
       aria-label={label}
       onSubmit={onSubmit}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: tokens.spacing[gap],
-      }}
+      display="flex"
+      flexDirection="column"
+      gap={tokens.spacing[gap]}
     >
       {children}
     </Box>

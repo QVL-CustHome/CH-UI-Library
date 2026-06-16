@@ -21,51 +21,46 @@ export function PasswordStrength({ value }: ChPasswordStrengthProps) {
   const passedCount = criteria.filter((criterion) => criterion.passed).length;
 
   return (
-    <Box sx={{ mt: 1 }}>
+    <Box marginTop="0.5rem">
       <Box
         role="meter"
         aria-label={t("ch.password.strengthLabel")}
         aria-valuenow={passedCount}
         aria-valuemin={0}
         aria-valuemax={criteria.length}
-        sx={{ display: "flex", gap: 0.5 }}
+        display="flex"
+        gap="0.25rem"
       >
         {criteria.map((criterion) => (
           <Box
             key={criterion.id}
-            sx={{
-              flex: 1,
-              height: 6,
-              borderRadius: 999,
-              bgcolor: criterion.passed ? "primary.main" : "divider",
-              transition: "background-color 0.2s ease",
-            }}
+            flex={1}
+            height="0.375rem"
+            borderRadius={999}
+            bgcolor={criterion.passed ? "primary.main" : "divider"}
+            sx={{ transition: "background-color 0.2s ease" }}
           />
         ))}
       </Box>
       <Box
         component="ul"
-        sx={{
-          listStyle: "none",
-          p: 0,
-          m: 0,
-          mt: 1,
-          display: "grid",
-          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-          gap: 0.5,
-        }}
+        padding={0}
+        margin={0}
+        marginTop="0.5rem"
+        display="grid"
+        gridTemplateColumns={{ xs: "1fr", sm: "1fr 1fr" }}
+        gap="0.25rem"
+        sx={{ listStyle: "none" }}
       >
         {criteria.map((criterion) => (
           <Box
             component="li"
             key={criterion.id}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 0.75,
-              fontSize: "0.8rem",
-              color: criterion.passed ? "primary.main" : "text.secondary",
-            }}
+            display="flex"
+            alignItems="center"
+            gap="0.375rem"
+            fontSize="0.8rem"
+            color={criterion.passed ? "primary.main" : "text.secondary"}
           >
             <Icon name={criterion.passed ? "check" : "close"} variant="outline" size={14} />
             {t(labelKey[criterion.id], { min: PASSWORD_MIN_LENGTH })}

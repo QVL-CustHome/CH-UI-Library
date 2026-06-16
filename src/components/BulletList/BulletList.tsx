@@ -15,19 +15,30 @@ export function BulletList({ items }: ChBulletListProps) {
   return (
     <Box
       component="ul"
-      sx={{ listStyle: "none", p: 0, m: 0, display: "flex", flexDirection: "column", gap: 0.75 }}
+      sx={{ listStyle: "none" }}
+      padding="0"
+      margin="0"
+      display="flex"
+      flexDirection="column"
+      gap="0.375rem"
     >
       {items.map((item) => (
         <Box
           component="li"
           key={item.key}
-          sx={{ display: "flex", alignItems: "center", gap: 1 }}
+          display="flex"
+          alignItems="center"
+          gap="0.5rem"
         >
           <Box
-            sx={{ width: 7, height: 7, borderRadius: "50%", bgcolor: "primary.main", flexShrink: 0 }}
+            width="0.4375rem"
+            height="0.4375rem"
+            borderRadius="50%"
+            bgcolor="primary.main"
+            flexShrink={0}
           />
-          <Box sx={{ flex: 1, minWidth: 0 }}>{item.content}</Box>
-          {item.action ? <Box sx={{ flexShrink: 0 }}>{item.action}</Box> : null}
+          <Box flex={1} minWidth={0}>{item.content}</Box>
+          {item.action ? <Box flexShrink={0}>{item.action}</Box> : null}
         </Box>
       ))}
     </Box>

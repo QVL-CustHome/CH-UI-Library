@@ -35,20 +35,18 @@ export function Toast({ open, message, onClose, severity = "success", duration =
     >
       <Box
         role="status"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 1.25,
-          px: 3.5,
-          py: 1.75,
-          borderRadius: "12px",
-          bgcolor: style.bg,
-          color: style.fg,
-          boxShadow: 3,
-          fontSize: "1.05rem",
-          fontWeight: 500,
-          maxWidth: 560,
-        }}
+        display="flex"
+        alignItems="center"
+        gap="0.625rem"
+        paddingX="1.75rem"
+        paddingY="0.875rem"
+        borderRadius="0.75rem"
+        bgcolor={style.bg}
+        color={style.fg}
+        boxShadow={3}
+        fontSize="1.05rem"
+        fontWeight={500}
+        maxWidth="35rem"
       >
         <Icon name={style.icon} variant="solid" size={24} color="currentColor" />
         {message}

@@ -26,13 +26,11 @@ export function Spinner({ fullPage = false, size = "medium", label = "Chargement
 
   return (
     <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "background.default",
-      }}
+      minHeight="100vh"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      bgcolor="background.default"
     >
       {progress}
     </Box>

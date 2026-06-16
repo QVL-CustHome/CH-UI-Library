@@ -16,9 +16,9 @@ export interface ChCardProps {
 
 const shadowMapping = {
   none: "none",
-  sm: "0 0 12px rgba(28, 30, 33, 0.1)",
-  md: "0 0 16px rgba(28, 30, 33, 0.12)",
-  lg: "0 0 28px rgba(28, 30, 33, 0.16)",
+  sm: "0 0 0.75rem rgba(28, 30, 33, 0.1)",
+  md: "0 0 1rem rgba(28, 30, 33, 0.12)",
+  lg: "0 0 1.75rem rgba(28, 30, 33, 0.16)",
 } as const;
 
 export function Card({ title, subtitle, actions, elevation = "sm", children }: ChCardProps) {
