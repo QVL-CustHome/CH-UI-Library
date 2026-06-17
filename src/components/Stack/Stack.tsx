@@ -14,10 +14,11 @@ export interface ChStackProps {
   label?: string;
 
   onSubmit?: FormEventHandler<HTMLFormElement>;
+  fill?: boolean;
   children: ReactNode;
 }
 
-export function Stack({ gap = "md", as = "div", label, onSubmit, children }: ChStackProps) {
+export function Stack({ gap = "md", as = "div", label, onSubmit, fill = false, children }: ChStackProps) {
   return (
     <Box
       component={as}
@@ -26,6 +27,7 @@ export function Stack({ gap = "md", as = "div", label, onSubmit, children }: ChS
       display="flex"
       flexDirection="column"
       gap={tokens.spacing[gap]}
+      {...(fill ? { flex: 1, minHeight: 0 } : {})}
     >
       {children}
     </Box>

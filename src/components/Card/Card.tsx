@@ -11,6 +11,7 @@ export interface ChCardProps {
   subtitle?: string;
   actions?: ReactNode;
   elevation?: ChCardElevation;
+  fill?: boolean;
   children: ReactNode;
 }
 
@@ -21,12 +22,30 @@ const shadowMapping = {
   lg: "0 0 1.75rem rgba(28, 30, 33, 0.16)",
 } as const;
 
-export function Card({ title, subtitle, actions, elevation = "sm", children }: ChCardProps) {
+export function Card({ title, subtitle, actions, elevation = "sm", fill = false, children }: ChCardProps) {
   return (
-    <MuiCard elevation={0} sx={{ boxShadow: shadowMapping[elevation] }}>
-      {title ? <CardHeader title={title} subheader={subtitle} /> : null}
-      <CardContent>{children}</CardContent>
-      {actions ? <CardActions>{actions}</CardActions> : null}
+    <MuiCard
+      elevation={0}
+      sx={{
+        boxShadow: shadowMapping[elevation],
+        ...(fill ? { display: "flex", flexDirection: "column", flex: 1, minHeight: 0 } : {}),
+      }}
+    >
+      {title ? (
+        <CardHeader title={title} subheader={subtitle} sx={fill ? { flexShrink: 0 } : undefined} />
+      ) : null}
+      <CardContent
+        sx={
+          fill
+            ? { flex: 1, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden" }
+            : undefined
+        }
+      >
+        {children}
+      </CardContent>
+      {actions ? (
+        <CardActions sx={fill ? { flexShrink: 0 } : undefined}>{actions}</CardActions>
+      ) : null}
     </MuiCard>
   );
 }

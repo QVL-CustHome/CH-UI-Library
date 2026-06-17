@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import type { Theme } from "@mui/material/styles";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Spinner } from "../Spinner";
 
@@ -36,6 +37,8 @@ export interface ChDataTableProps<T> {
   rowSx?: (row: T) => Record<string, unknown>;
   /** En-têtes figées en haut au scroll (sticky). */
   stickyHeader?: boolean;
+  fillHeight?: boolean;
+  maxHeight?: string | number;
 }
 
 function fieldValue<T>(row: T, key: string): unknown {
@@ -54,7 +57,10 @@ export function DataTable<T>({
   fixedLayout = false,
   rowSx,
   stickyHeader = false,
+  fillHeight = false,
+  maxHeight,
 }: ChDataTableProps<T>) {
+  const internalScroll = fillHeight || maxHeight != null;
   const [sort, setSort] = useState<{ key: string; dir: ChSortDirection } | null>(null);
   const isMobile = useMediaQuery("(max-width:768px)");
 
@@ -118,9 +124,7 @@ export function DataTable<T>({
     "& td:last-of-type": { borderTopRightRadius: "0.875rem", borderBottomRightRadius: "0.875rem" },
   };
 
-  // Inset bas de la zone d'effet : sur mobile, on remonte au-dessus de la navbar
-  // flottante (bottom 16 + ~64 de haut ≈ 80) ; sur desktop, petit décalage.
-  const bottomInset = isMobile ? 100 : 24;
+  const bottomInset = isMobile && !internalScroll ? 100 : 24;
 
   // Léger rétrécissement + flou + fondu des lignes quand elles atteignent l'entête,
   // piloté par le scroll (CSS scroll-driven animations). No-op si non supporté.
@@ -153,9 +157,34 @@ export function DataTable<T>({
         }
       : {};
 
+  const scrollbarSx = (theme: Theme) => ({
+    scrollbarWidth: "thin" as const,
+    scrollbarColor: `${theme.palette.primary.main} transparent`,
+    "&::-webkit-scrollbar": { width: "0.625rem" },
+    "&::-webkit-scrollbar-track": { backgroundColor: "transparent" },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: theme.palette.primary.main,
+      borderRadius: "0.5rem",
+      border: "0.125rem solid transparent",
+      backgroundClip: "content-box",
+    },
+    "&::-webkit-scrollbar-thumb:hover": { backgroundColor: theme.palette.primary.dark },
+  });
+
   return (
-    <Box position="relative">
-      <TableContainer sx={{ overflow: "visible" }}>
+    <Box
+      position="relative"
+      {...(fillHeight ? { display: "flex", flexDirection: "column", flex: 1, minHeight: 0 } : {})}
+    >
+      <TableContainer
+        sx={(theme) =>
+          fillHeight
+            ? { flex: 1, minHeight: 0, overflow: "auto", ...scrollbarSx(theme) }
+            : maxHeight != null
+              ? { maxHeight, overflow: "auto", ...scrollbarSx(theme) }
+              : { overflow: "visible" }
+        }
+      >
         <Table
           sx={{
             borderCollapse: "separate",

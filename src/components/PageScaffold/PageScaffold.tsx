@@ -64,31 +64,7 @@ export function PageScaffold({
           </Heading>
         ) : null}
       </Box>
-      <Box
-        sx={(theme) => ({
-          flex: 1,
-          minHeight: 0,
-          overflowY: "auto",
-          paddingX: px,
-          paddingTop: "1rem",
-          paddingBottom: { xs: "6rem", md: "2rem" },
-          // gap permanent sous la zone scrollable (desktop) : le tableau ne touche
-          // jamais le bas de la page. N'impacte pas la navbar (flex séparé).
-          marginBottom: { xs: 0, md: "4rem" },
-          // scrollbar en couleur primaire
-          scrollbarWidth: "thin",
-          scrollbarColor: `${theme.palette.primary.main} transparent`,
-          "&::-webkit-scrollbar": { width: "0.625rem" },
-          "&::-webkit-scrollbar-track": { backgroundColor: "transparent" },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: "0.5rem",
-            border: "0.125rem solid transparent",
-            backgroundClip: "content-box",
-          },
-          "&::-webkit-scrollbar-thumb:hover": { backgroundColor: theme.palette.primary.dark },
-        })}
-      >
+      <Box flex={1} minHeight={0} display="flex" flexDirection="column" overflow="hidden">
         {children}
       </Box>
     </Navbar>

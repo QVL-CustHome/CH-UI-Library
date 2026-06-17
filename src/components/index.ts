@@ -1,4 +1,5 @@
 export { AddButton, type ChAddButtonProps } from "./AddButton";
+export { ApproveButton, type ChApproveButtonProps } from "./ApproveButton";
 export { Button, type ChButtonProps, type ChButtonSize, type ChButtonVariant } from "./Button";
 export { Card, type ChCardElevation, type ChCardProps } from "./Card";
 export { ConfirmDialog, type ChConfirmDialogProps } from "./ConfirmDialog";
@@ -15,6 +16,7 @@ export {
   type ChMultiSelectProps,
 } from "./MultiSelect";
 export { StatusChip, type ChStatusChipProps, type ChStatusTone } from "./StatusChip";
+export { Legend, type ChLegendProps, type ChLegendEntry, type ChLegendStatus } from "./Legend";
 export {
   DescriptionList,
   type ChDescriptionItem,
