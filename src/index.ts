@@ -120,6 +120,8 @@ export {
   type ChConfirmDialogProps,
   DeleteButton,
   type ChDeleteButtonProps,
+  EditButton,
+  type ChEditButtonProps,
   DataTable,
   type ChColumn,
   type ChDataTableProps,

@@ -20,6 +20,8 @@ export interface ChNavbarProps {
   onNavigate?: (href: string) => void;
   userName?: string;
   onLogout?: () => void;
+  /** Contenu additionnel affiché en bas de la barre latérale (desktop). */
+  footer?: ReactNode;
   children: ReactNode;
 }
 
@@ -35,6 +37,7 @@ export function Navbar({
   onNavigate,
   userName,
   onLogout,
+  footer,
   children,
 }: ChNavbarProps) {
   const { t } = useTranslation();
@@ -64,8 +67,6 @@ export function Navbar({
         </Box>
 
         <Box
-          component="nav"
-          aria-label={t("ch.navbar.navigation")}
           sx={{
             position: "fixed",
             bottom: "1rem",
@@ -73,16 +74,38 @@ export function Navbar({
             right: "1rem",
             zIndex: (theme) => theme.zIndex.appBar,
             display: "flex",
-            justifyContent: "space-around",
-            alignItems: "center",
-            gap: "0.25rem",
-            padding: "0.5rem",
-            backgroundColor: "primary.main",
-            borderRadius: "1.125rem",
-            boxShadow: 3,
+            flexDirection: "column",
+            gap: "0.5rem",
           }}
         >
-          {items.map((item) => {
+          {footer && (
+            <Box
+              sx={{
+                backgroundColor: "primary.main",
+                color: "primary.contrastText",
+                borderRadius: "1.125rem",
+                padding: "0.6rem 0.9rem",
+                boxShadow: 3,
+              }}
+            >
+              {footer}
+            </Box>
+          )}
+          <Box
+            component="nav"
+            aria-label={t("ch.navbar.navigation")}
+            sx={{
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+              gap: "0.25rem",
+              padding: "0.5rem",
+              backgroundColor: "primary.main",
+              borderRadius: "1.125rem",
+              boxShadow: 3,
+            }}
+          >
+            {items.map((item) => {
             const active = isItemActive(item.href, activeHref);
             return (
               <Box
@@ -106,6 +129,7 @@ export function Navbar({
               </Box>
             );
           })}
+          </Box>
         </Box>
       </Box>
     );
@@ -161,6 +185,15 @@ export function Navbar({
             );
           })}
         </Box>
+
+        {footer && (
+          <Box
+            borderTop="0.0625rem solid rgba(255,255,255,0.25)"
+            paddingTop="1rem"
+          >
+            {footer}
+          </Box>
+        )}
 
         {(userName || onLogout) && (
           <Box

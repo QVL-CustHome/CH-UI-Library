@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+import MuiCheckbox from "@mui/material/Checkbox";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import type { Theme } from "@mui/material/styles";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Spinner } from "../Spinner";
 
 export type ChSortDirection = "asc" | "desc";
@@ -39,6 +40,22 @@ export interface ChDataTableProps<T> {
   stickyHeader?: boolean;
   fillHeight?: boolean;
   maxHeight?: string | number;
+  /** Rend la ligne déplaçable (glisser-déposer). */
+  draggableRow?: (row: T) => boolean;
+  /** Indique si la ligne peut recevoir un élément déposé. */
+  canDropRow?: (row: T) => boolean;
+  /** Appelé au dépôt : (ligne cible, clé de la ligne déposée). */
+  onRowDrop?: (target: T, draggedKey: string) => void;
+  /** Appelé au double-clic sur une ligne. */
+  onRowDoubleClick?: (row: T) => void;
+  /** Active la sélection : colonne de cases à cocher, clic, Ctrl/Maj+clic, cadre. */
+  selectable?: boolean;
+  /** Clés sélectionnées (sélection contrôlée). */
+  selectedKeys?: string[];
+  /** Appelé quand la sélection change. */
+  onSelectionChange?: (keys: string[]) => void;
+  /** Appelé au clic droit sur une ligne (menu contextuel). */
+  onRowContextMenu?: (row: T, event: React.MouseEvent) => void;
 }
 
 function fieldValue<T>(row: T, key: string): unknown {
@@ -59,10 +76,102 @@ export function DataTable<T>({
   stickyHeader = false,
   fillHeight = false,
   maxHeight,
+  draggableRow,
+  canDropRow,
+  onRowDrop,
+  onRowDoubleClick,
+  selectable = false,
+  selectedKeys,
+  onSelectionChange,
+  onRowContextMenu,
 }: ChDataTableProps<T>) {
   const internalScroll = fillHeight || maxHeight != null;
   const [sort, setSort] = useState<{ key: string; dir: ChSortDirection } | null>(null);
+  const [dragOverKey, setDragOverKey] = useState<string | null>(null);
   const isMobile = useMediaQuery("(max-width:768px)");
+
+  const isSelControlled = selectedKeys != null;
+  const [internalSel, setInternalSel] = useState<string[]>([]);
+  const selected = isSelControlled ? selectedKeys : internalSel;
+  const selectedSet = new Set(selected);
+  const showSelect = selectable && selected.length > 0;
+  const anchorRef = useRef<string | null>(null);
+  const clickTimer = useRef<number | null>(null);
+  const tbodyRef = useRef<HTMLTableSectionElement | null>(null);
+  const marqueeStart = useRef<{ x: number; y: number } | null>(null);
+  const marqueeBase = useRef<Set<string>>(new Set());
+  const [marqueeRect, setMarqueeRect] = useState<{
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+  } | null>(null);
+
+  const commitSelection = useCallback(
+    (keys: string[]) => {
+      if (!isSelControlled) setInternalSel(keys);
+      onSelectionChange?.(keys);
+    },
+    [isSelControlled, onSelectionChange],
+  );
+
+  const onMarqueeMove = useCallback(
+    (e: MouseEvent) => {
+      const start = marqueeStart.current;
+      if (!start) return;
+      const left = Math.min(start.x, e.clientX);
+      const top = Math.min(start.y, e.clientY);
+      const width = Math.abs(e.clientX - start.x);
+      const height = Math.abs(e.clientY - start.y);
+      setMarqueeRect({ left, top, width, height });
+      const hit = new Set(marqueeBase.current);
+      tbodyRef.current?.querySelectorAll<HTMLTableRowElement>("tr[data-rowkey]").forEach((tr) => {
+        const r = tr.getBoundingClientRect();
+        const intersects = !(
+          r.right < left ||
+          r.left > left + width ||
+          r.bottom < top ||
+          r.top > top + height
+        );
+        if (intersects) hit.add(tr.getAttribute("data-rowkey") as string);
+      });
+      commitSelection([...hit]);
+    },
+    [commitSelection],
+  );
+
+  const onMarqueeUp = useCallback(() => {
+    marqueeStart.current = null;
+    setMarqueeRect(null);
+    window.removeEventListener("mousemove", onMarqueeMove);
+    window.removeEventListener("mouseup", onMarqueeUp);
+  }, [onMarqueeMove]);
+
+  const onContainerMouseDown = (e: React.MouseEvent) => {
+    if (!selectable || e.button !== 0) return;
+    const target = e.target as HTMLElement;
+    if (target.closest('button, a, input, label, [contenteditable="true"], tr[draggable="true"]'))
+      return;
+    e.preventDefault();
+    const additive = e.ctrlKey || e.metaKey;
+    marqueeStart.current = { x: e.clientX, y: e.clientY };
+    marqueeBase.current = additive ? new Set(selected) : new Set();
+    if (!additive) {
+      commitSelection([]);
+      anchorRef.current = null;
+    }
+    window.addEventListener("mousemove", onMarqueeMove);
+    window.addEventListener("mouseup", onMarqueeUp);
+  };
+
+  useEffect(
+    () => () => {
+      window.removeEventListener("mousemove", onMarqueeMove);
+      window.removeEventListener("mouseup", onMarqueeUp);
+      if (clickTimer.current) window.clearTimeout(clickTimer.current);
+    },
+    [onMarqueeMove, onMarqueeUp],
+  );
 
   // Hauteur réelle de l'entête, pour caler la zone de fondu et l'animation de scroll.
   const headRef = useRef<HTMLTableSectionElement | null>(null);
@@ -78,7 +187,7 @@ export function DataTable<T>({
     return () => ro.disconnect();
   }, [stickyHeader]);
   const visibleColumns = isMobile ? columns.filter((col) => !col.hideOnMobile) : columns;
-  const colSpan = visibleColumns.length + (actions ? 1 : 0);
+  const colSpan = visibleColumns.length + (actions ? 1 : 0) + (showSelect ? 1 : 0);
   const cardShadow = "0 0 1rem rgba(28, 30, 33, 0.12)";
 
   function toggleSort(key: string) {
@@ -109,6 +218,67 @@ export function DataTable<T>({
       });
     }
   }
+
+  const displayedKeys = displayedRows.map(getRowKey);
+  const allSelected = displayedKeys.length > 0 && displayedKeys.every((k) => selectedSet.has(k));
+  const someSelected = !allSelected && displayedKeys.some((k) => selectedSet.has(k));
+
+  const toggleSelectAll = () => {
+    commitSelection(allSelected ? [] : displayedKeys);
+    anchorRef.current = null;
+  };
+
+  const handleRowClick = (e: React.MouseEvent, key: string) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('button, a, input, label, [contenteditable="true"], [data-no-select="true"]'))
+      return;
+    if (e.shiftKey && anchorRef.current) {
+      const a = displayedKeys.indexOf(anchorRef.current);
+      const b = displayedKeys.indexOf(key);
+      if (a >= 0 && b >= 0) {
+        const [lo, hi] = a < b ? [a, b] : [b, a];
+        const base = e.ctrlKey || e.metaKey ? new Set(selected) : new Set<string>();
+        displayedKeys.slice(lo, hi + 1).forEach((k) => base.add(k));
+        commitSelection([...base]);
+      }
+    } else if (e.ctrlKey || e.metaKey) {
+      const next = new Set(selected);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      commitSelection([...next]);
+      anchorRef.current = key;
+    } else if (onRowDoubleClick) {
+      // Diffère la sélection pour qu'un double-clic (navigation) ne déclenche pas
+      // d'abord la sélection — ce qui décalait la ligne sous le curseur.
+      if (clickTimer.current) window.clearTimeout(clickTimer.current);
+      clickTimer.current = window.setTimeout(() => {
+        commitSelection([key]);
+        anchorRef.current = key;
+        clickTimer.current = null;
+      }, 220);
+    } else {
+      commitSelection([key]);
+      anchorRef.current = key;
+    }
+  };
+
+  const handleRowDoubleClick = onRowDoubleClick
+    ? (row: T) => {
+        if (clickTimer.current) {
+          window.clearTimeout(clickTimer.current);
+          clickTimer.current = null;
+        }
+        onRowDoubleClick(row);
+      }
+    : undefined;
+
+  const toggleRow = (key: string) => {
+    const next = new Set(selected);
+    if (next.has(key)) next.delete(key);
+    else next.add(key);
+    commitSelection([...next]);
+    anchorRef.current = key;
+  };
 
   // En-tête figée : reste collée en haut au scroll, fond opaque pour masquer
   // les lignes qui défilent derrière (sinon transparence).
@@ -177,6 +347,7 @@ export function DataTable<T>({
       {...(fillHeight ? { display: "flex", flexDirection: "column", flex: 1, minHeight: 0 } : {})}
     >
       <TableContainer
+        onMouseDown={selectable ? onContainerMouseDown : undefined}
         sx={(theme) =>
           fillHeight
             ? { flex: 1, minHeight: 0, overflow: "auto", ...scrollbarSx(theme) }
@@ -195,6 +366,20 @@ export function DataTable<T>({
         >
           <TableHead ref={headRef}>
             <TableRow>
+            {showSelect ? (
+              <TableCell
+                padding="checkbox"
+                sx={{ borderBottom: "none", width: "3rem", ...stickyHeadSx }}
+              >
+                <MuiCheckbox
+                  color="primary"
+                  checked={allSelected}
+                  indeterminate={someSelected}
+                  onChange={toggleSelectAll}
+                  inputProps={{ "aria-label": "Tout sélectionner" }}
+                />
+              </TableCell>
+            ) : null}
             {visibleColumns.map((col) => (
               <TableCell
                 key={col.key}
@@ -231,7 +416,7 @@ export function DataTable<T>({
             ) : null}
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody ref={tbodyRef}>
           {loading ? (
             <TableRow>
               <TableCell colSpan={colSpan} align="center" sx={{ borderBottom: "none" }}>
@@ -247,20 +432,116 @@ export function DataTable<T>({
               </TableCell>
             </TableRow>
           ) : (
-            displayedRows.map((row) => (
-              <TableRow key={getRowKey(row)} sx={{ ...cardRowSx, ...(rowSx ? rowSx(row) : {}) }}>
-                {visibleColumns.map((col) => (
-                  <TableCell key={col.key} align={col.align ?? "left"}>
-                    {col.render ? col.render(row) : (fieldValue(row, col.key) as ReactNode)}
-                  </TableCell>
-                ))}
-                {actions ? <TableCell align="right">{actions(row)}</TableCell> : null}
-              </TableRow>
-            ))
+            displayedRows.map((row) => {
+              const key = getRowKey(row);
+              const isDraggable = draggableRow?.(row) ?? false;
+              const isDropTarget = canDropRow?.(row) ?? false;
+              const isDragOver = isDropTarget && dragOverKey === key;
+              const isSelected = selectedSet.has(key);
+              return (
+                <TableRow
+                  key={key}
+                  data-rowkey={key}
+                  selected={isSelected}
+                  draggable={isDraggable}
+                  onDragStart={
+                    isDraggable
+                      ? (e: React.DragEvent) => {
+                          e.dataTransfer.setData("text/plain", key);
+                          e.dataTransfer.effectAllowed = "move";
+                        }
+                      : undefined
+                  }
+                  onDragOver={
+                    isDropTarget
+                      ? (e: React.DragEvent) => {
+                          e.preventDefault();
+                          e.dataTransfer.dropEffect = "move";
+                          if (dragOverKey !== key) setDragOverKey(key);
+                        }
+                      : undefined
+                  }
+                  onDragLeave={
+                    isDropTarget
+                      ? () => setDragOverKey((k) => (k === key ? null : k))
+                      : undefined
+                  }
+                  onDrop={
+                    isDropTarget
+                      ? (e: React.DragEvent) => {
+                          e.preventDefault();
+                          const draggedKey = e.dataTransfer.getData("text/plain");
+                          setDragOverKey(null);
+                          if (draggedKey && draggedKey !== key) onRowDrop?.(row, draggedKey);
+                        }
+                      : undefined
+                  }
+                  onClick={selectable ? (e) => handleRowClick(e, key) : undefined}
+                  onContextMenu={
+                    onRowContextMenu
+                      ? (e) => {
+                          e.preventDefault();
+                          onRowContextMenu(row, e);
+                        }
+                      : undefined
+                  }
+                  onDoubleClick={handleRowDoubleClick ? () => handleRowDoubleClick(row) : undefined}
+                  sx={{
+                    ...cardRowSx,
+                    ...(rowSx ? rowSx(row) : {}),
+                    ...(onRowDoubleClick || selectable ? { userSelect: "none" } : {}),
+                    ...(isDraggable || onRowDoubleClick || selectable ? { cursor: "pointer" } : {}),
+                    ...(isSelected
+                      ? { "& td": { backgroundColor: "action.selected" } }
+                      : {}),
+                    ...(isDragOver
+                      ? {
+                          boxShadow: "0 0 0 0.125rem var(--ch-palette-primary-main)",
+                          "& td": { backgroundColor: "action.hover" },
+                        }
+                      : {}),
+                  }}
+                >
+                  {showSelect ? (
+                    <TableCell padding="checkbox">
+                      <MuiCheckbox
+                        color="primary"
+                        checked={isSelected}
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={() => toggleRow(key)}
+                        inputProps={{ "aria-label": "Sélectionner la ligne" }}
+                      />
+                    </TableCell>
+                  ) : null}
+                  {visibleColumns.map((col) => (
+                    <TableCell key={col.key} align={col.align ?? "left"}>
+                      {col.render ? col.render(row) : (fieldValue(row, col.key) as ReactNode)}
+                    </TableCell>
+                  ))}
+                  {actions ? <TableCell align="right">{actions(row)}</TableCell> : null}
+                </TableRow>
+              );
+            })
           )}
         </TableBody>
       </Table>
       </TableContainer>
+      {marqueeRect ? (
+        <Box
+          sx={{
+            position: "fixed",
+            left: marqueeRect.left,
+            top: marqueeRect.top,
+            width: marqueeRect.width,
+            height: marqueeRect.height,
+            border: "0.0625rem solid",
+            borderColor: "primary.main",
+            backgroundColor: "rgba(33, 150, 243, 0.12)",
+            zIndex: 1400,
+            pointerEvents: "none",
+          }}
+        />
+      ) : null}
     </Box>
   );
 }

@@ -11,6 +11,7 @@ export interface ChPageScaffoldProps {
   onNavigate?: (href: string) => void;
   userName?: string;
   onLogout?: () => void;
+  footer?: ReactNode;
   children: ReactNode;
 }
 
@@ -32,6 +33,7 @@ export function PageScaffold({
   onNavigate,
   userName,
   onLogout,
+  footer,
   children,
 }: ChPageScaffoldProps) {
   const pageTitle = activeLabel(items, activeHref);
@@ -44,6 +46,7 @@ export function PageScaffold({
       onNavigate={onNavigate}
       userName={userName}
       onLogout={onLogout}
+      footer={footer}
     >
       <Box
         component="header"

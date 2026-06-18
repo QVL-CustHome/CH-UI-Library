@@ -33,6 +33,14 @@ import CancelOutline from "../../assets/icons/cancel-outline.svg?react";
 import CancelSolid from "../../assets/icons/cancel-solid.svg?react";
 import SaveOutline from "../../assets/icons/save-outline.svg?react";
 import SaveSolid from "../../assets/icons/save-solid.svg?react";
+import FolderIcon from "../../assets/icons/folder.svg?react";
+import ImageIcon from "../../assets/icons/image.svg?react";
+import FileIcon from "../../assets/icons/file.svg?react";
+import DownloadIcon from "../../assets/icons/download.svg?react";
+import UploadIcon from "../../assets/icons/upload.svg?react";
+import SearchIcon from "../../assets/icons/search.svg?react";
+import RefreshIcon from "../../assets/icons/refresh.svg?react";
+import MoreIcon from "../../assets/icons/more.svg?react";
 
 export const icons = {
   moon: { outline: MoonOutline, solid: MoonSolid },
@@ -55,6 +63,14 @@ export const icons = {
   check: { outline: CheckOutline, solid: CheckSolid },
   cancel: { outline: CancelOutline, solid: CancelSolid },
   save: { outline: SaveOutline, solid: SaveSolid },
+  folder: { outline: FolderIcon, solid: FolderIcon },
+  image: { outline: ImageIcon, solid: ImageIcon },
+  file: { outline: FileIcon, solid: FileIcon },
+  download: { outline: DownloadIcon, solid: DownloadIcon },
+  upload: { outline: UploadIcon, solid: UploadIcon },
+  search: { outline: SearchIcon, solid: SearchIcon },
+  refresh: { outline: RefreshIcon, solid: RefreshIcon },
+  more: { outline: MoreIcon, solid: MoreIcon },
 } as const;
 
 export type ChIconName = keyof typeof icons;

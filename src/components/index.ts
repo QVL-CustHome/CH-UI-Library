@@ -4,6 +4,7 @@ export { Button, type ChButtonProps, type ChButtonSize, type ChButtonVariant } f
 export { Card, type ChCardElevation, type ChCardProps } from "./Card";
 export { ConfirmDialog, type ChConfirmDialogProps } from "./ConfirmDialog";
 export { DeleteButton, type ChDeleteButtonProps } from "./DeleteButton";
+export { EditButton, type ChEditButtonProps } from "./EditButton";
 export {
   DataTable,
   type ChColumn,
