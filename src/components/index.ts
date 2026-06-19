@@ -2,6 +2,7 @@ export { AddButton, type ChAddButtonProps } from "./AddButton";
 export { ApproveButton, type ChApproveButtonProps } from "./ApproveButton";
 export { Button, type ChButtonProps, type ChButtonSize, type ChButtonVariant } from "./Button";
 export { Card, type ChCardElevation, type ChCardProps } from "./Card";
+export { CardGrid, type ChCardGridProps, type ChCardGridGap } from "./CardGrid";
 export { ConfirmDialog, type ChConfirmDialogProps } from "./ConfirmDialog";
 export { DeleteButton, type ChDeleteButtonProps } from "./DeleteButton";
 export { EditButton, type ChEditButtonProps } from "./EditButton";
@@ -38,7 +39,20 @@ export {
   type ChHeadingProps,
   type ChHeadingSize,
 } from "./Heading";
-export { Icon, type ChIconName, type ChIconProps, type ChIconVariant } from "./Icon";
+export {
+  Divider,
+  type ChDividerProps,
+  type ChDividerOrientation,
+  type ChDividerSpacing,
+} from "./Divider";
+export {
+  Icon,
+  type ChIconName,
+  type ChIconProps,
+  type ChIconVariant,
+  type ChIconSize,
+  type ChIconColor,
+} from "./Icon";
 export {
   IconActionButton,
   type ChIconActionButtonProps,
@@ -74,7 +88,19 @@ export {
   type ChStackJustify,
   type ChStackPadding,
 } from "./Stack";
+export {
+  Menu,
+  type ChMenuProps,
+  type ChMenuPosition,
+  MenuItem,
+  type ChMenuItemProps,
+} from "./Menu";
 export { Navbar, type ChNavbarItem, type ChNavbarProps } from "./Navbar";
+export {
+  ProgressBar,
+  type ChProgressBarProps,
+  type ChProgressBarColor,
+} from "./ProgressBar";
 export { SettingsMenu, type ChSettingsMenuProps } from "./SettingsMenu";
 export { ThemeToggle, useThemeToggle, type UseThemeToggleResult } from "./ThemeToggle";
 export { Toggle, type ChToggleProps } from "./Toggle";

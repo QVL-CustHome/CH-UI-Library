@@ -48,7 +48,7 @@ export function Toast({ open, message, onClose, severity = "success", duration =
         fontWeight={500}
         maxWidth="35rem"
       >
-        <Icon name={style.icon} variant="solid" size={24} color="currentColor" />
+        <Icon name={style.icon} variant="solid" size="md" color="inherit" />
         {message}
       </Box>
     </Snackbar>

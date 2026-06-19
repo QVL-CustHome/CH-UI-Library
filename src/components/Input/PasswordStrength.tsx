@@ -62,7 +62,7 @@ export function PasswordStrength({ value }: ChPasswordStrengthProps) {
             fontSize="0.8rem"
             color={criterion.passed ? "primary.main" : "text.secondary"}
           >
-            <Icon name={criterion.passed ? "check" : "close"} variant="outline" size={14} />
+            <Icon name={criterion.passed ? "check" : "close"} variant="outline" size="xs" />
             {t(labelKey[criterion.id], { min: PASSWORD_MIN_LENGTH })}
           </Box>
         ))}

@@ -84,7 +84,7 @@ export function Input({
 
   const startAdornment = icon ? (
     <InputAdornment position="start">
-      <Icon name={icon} variant="outline" size={22} color="var(--ch-palette-primary-main)" />
+      <Icon name={icon} variant="outline" size="sm" color="primary" />
     </InputAdornment>
   ) : undefined;
 
@@ -99,8 +99,8 @@ export function Input({
         <Icon
           name={showPassword ? "eyeOff" : "eye"}
           variant="outline"
-          size={22}
-          color="var(--ch-palette-primary-main)"
+          size="sm"
+          color="primary"
         />
       </IconButton>
     </InputAdornment>
