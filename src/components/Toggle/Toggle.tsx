@@ -57,7 +57,7 @@ export function Toggle({
         width={`${s.thumb / 16}rem`}
         height={`${s.thumb / 16}rem`}
         borderRadius="50%"
-        bgcolor="#fff"
+        bgcolor="common.white"
         boxShadow={1}
         sx={{
           transition: "left 200ms cubic-bezier(0.4, 0, 0.2, 1)",

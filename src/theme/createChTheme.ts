@@ -24,6 +24,8 @@ declare module "@mui/material/CircularProgress" {
   }
 }
 
+const remToPx = (value: string): number => parseFloat(value) * 16;
+
 const headingBase = {
   fontFamily: tokens.typography.fontFamily,
   fontWeight: tokens.typography.fontWeight.bold,
@@ -62,7 +64,7 @@ export function createChTheme(mode: ChThemeMode = "light"): Theme {
     },
     spacing: tokens.spacing.unit,
     shape: {
-      borderRadius: parseInt(tokens.radius.md, 10),
+      borderRadius: remToPx(tokens.radius.md),
     },
     components: {
       MuiOutlinedInput: {

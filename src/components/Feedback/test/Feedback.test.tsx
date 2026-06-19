@@ -8,44 +8,26 @@ function renderFeedback(ui: React.ReactElement) {
   return render(<ChThemeProvider>{ui}</ChThemeProvider>);
 }
 
-describe("Feedback — API rétro-compatible (portail Authenticator)", () => {
+describe("Feedback — rendu du message et de la sévérité", () => {
   it("affiche le message d'erreur en sévérité error", () => {
-    renderFeedback(<Feedback error="Identifiants invalides" />);
+    renderFeedback(<Feedback severity="error">Identifiants invalides</Feedback>);
     const alert = screen.getByRole("alert");
     expect(alert).toHaveTextContent("Identifiants invalides");
     expect(alert.className).toContain("Error");
   });
 
   it("affiche le message d'info en sévérité info", () => {
-    renderFeedback(<Feedback info="Un email vous a été envoyé" />);
+    renderFeedback(<Feedback severity="info">Un email vous a été envoyé</Feedback>);
     const alert = screen.getByRole("alert");
     expect(alert).toHaveTextContent("Un email vous a été envoyé");
     expect(alert.className).toContain("Info");
   });
 
-  it("priorise l'erreur sur l'info", () => {
-    renderFeedback(<Feedback error="Erreur API" info="Information" />);
-    expect(screen.getByRole("alert")).toHaveTextContent("Erreur API");
-    expect(screen.queryByText("Information")).not.toBeInTheDocument();
+  it("utilise la sévérité info par défaut", () => {
+    renderFeedback(<Feedback>Message neutre</Feedback>);
+    expect(screen.getByRole("alert").className).toContain("Info");
   });
 
-  it("ne rend rien sans message", () => {
-    const { container } = renderFeedback(<Feedback />);
-    expect(container.querySelector(".MuiAlert-root")).not.toBeInTheDocument();
-  });
-
-  it("ne rend rien avec error et info null", () => {
-    const { container } = renderFeedback(<Feedback error={null} info={null} />);
-    expect(container.querySelector(".MuiAlert-root")).not.toBeInTheDocument();
-  });
-
-  it("ne rend rien avec des messages vides", () => {
-    const { container } = renderFeedback(<Feedback error="" info="" />);
-    expect(container.querySelector(".MuiAlert-root")).not.toBeInTheDocument();
-  });
-});
-
-describe("Feedback — sévérités étendues", () => {
   it.each(["success", "error", "info", "warning"] as const)(
     "rend la sévérité %s avec children",
     (severity) => {
@@ -56,22 +38,25 @@ describe("Feedback — sévérités étendues", () => {
     }
   );
 
-  it("utilise la sévérité info par défaut avec children", () => {
-    renderFeedback(<Feedback>Message neutre</Feedback>);
-    expect(screen.getByRole("alert").className).toContain("Info");
+  it("expose le rôle alert (accessibilité)", () => {
+    renderFeedback(<Feedback severity="warning">Attention</Feedback>);
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+  });
+});
+
+describe("Feedback — absence de message", () => {
+  it("ne rend rien sans children", () => {
+    const { container } = renderFeedback(<Feedback />);
+    expect(container.querySelector(".MuiAlert-root")).not.toBeInTheDocument();
   });
 
-  it("error prime sur severity et children", () => {
-    renderFeedback(
-      <Feedback severity="success" error="Échec">
-        Réussi
-      </Feedback>
-    );
-    const alert = screen.getByRole("alert");
-    expect(alert).toHaveTextContent("Échec");
-    expect(alert.className).toContain("Error");
+  it("ne rend rien avec children null", () => {
+    const { container } = renderFeedback(<Feedback severity="error">{null}</Feedback>);
+    expect(container.querySelector(".MuiAlert-root")).not.toBeInTheDocument();
   });
+});
 
+describe("Feedback — fermeture", () => {
   it("affiche un bouton de fermeture qui déclenche onClose", async () => {
     const user = userEvent.setup();
     const onClose = vi.fn();
@@ -84,8 +69,8 @@ describe("Feedback — sévérités étendues", () => {
     expect(onClose).toHaveBeenCalledOnce();
   });
 
-  it("expose le rôle alert (accessibilité)", () => {
-    renderFeedback(<Feedback severity="warning">Attention</Feedback>);
-    expect(screen.getByRole("alert")).toBeInTheDocument();
+  it("n'affiche pas de bouton de fermeture sans onClose", () => {
+    renderFeedback(<Feedback severity="success">Compte créé</Feedback>);
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 });

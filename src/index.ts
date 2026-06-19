@@ -94,6 +94,10 @@ export {
   type ChStackElement,
   type ChStackGap,
   type ChStackProps,
+  type ChStackDirection,
+  type ChStackAlign,
+  type ChStackJustify,
+  type ChStackPadding,
   ThemeToggle,
   useThemeToggle,
   type UseThemeToggleResult,
@@ -147,6 +151,12 @@ export {
   type ChMessages,
   type ChLocaleMessages,
 } from "./i18n";
+export {
+  ApiError,
+  createApiClient,
+  type ApiClient,
+  type ApiClientOptions,
+} from "./http";
 export {
   EMAIL_REGEX,
   NAME_REGEX,

@@ -26,8 +26,8 @@ const hoverBgMap = {
 } as const;
 
 const fgMap = {
-  default: "#fff",
-  danger: "#fff",
+  default: "common.white",
+  danger: "common.white",
   secondary: "secondary.contrastText",
 } as const;
 

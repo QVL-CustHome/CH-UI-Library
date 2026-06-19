@@ -64,7 +64,16 @@ export { Link, type ChLinkProps, type ChLinkSize, type ChLinkColor } from "./Lin
 export { PageContent, type ChPageContentProps } from "./PageContent";
 export { PageScaffold, type ChPageScaffoldProps } from "./PageScaffold";
 export { Spinner, type ChSpinnerProps, type ChSpinnerSize } from "./Spinner";
-export { Stack, type ChStackElement, type ChStackGap, type ChStackProps } from "./Stack";
+export {
+  Stack,
+  type ChStackElement,
+  type ChStackGap,
+  type ChStackProps,
+  type ChStackDirection,
+  type ChStackAlign,
+  type ChStackJustify,
+  type ChStackPadding,
+} from "./Stack";
 export { Navbar, type ChNavbarItem, type ChNavbarProps } from "./Navbar";
 export { SettingsMenu, type ChSettingsMenuProps } from "./SettingsMenu";
 export { ThemeToggle, useThemeToggle, type UseThemeToggleResult } from "./ThemeToggle";
