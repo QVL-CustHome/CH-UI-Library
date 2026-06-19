@@ -11,6 +11,9 @@ export {
   type ChColumn,
   type ChDataTableProps,
   type ChSortDirection,
+  useInView,
+  type UseInViewOptions,
+  type UseInViewResult,
 } from "./DataTable";
 export {
   MultiSelect,

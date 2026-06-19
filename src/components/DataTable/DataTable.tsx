@@ -11,6 +11,9 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import type { Theme } from "@mui/material/styles";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Spinner } from "../Spinner";
+import { AnimatedRow } from "./AnimatedRow";
+import { useKeyboardNav } from "./useKeyboardNav";
+import { useScrollGradients } from "./useScrollGradients";
 
 export type ChSortDirection = "asc" | "desc";
 
@@ -56,6 +59,16 @@ export interface ChDataTableProps<T> {
   onSelectionChange?: (keys: string[]) => void;
   /** Appelé au clic droit sur une ligne (menu contextuel). */
   onRowContextMenu?: (row: T, event: React.MouseEvent) => void;
+  /** Anime l'apparition des lignes quand elles entrent dans le viewport. */
+  animateRows?: boolean;
+  /** Affiche des fondus haut/bas pilotés par le scroll sur le conteneur scrollable. */
+  showGradients?: boolean;
+  /** Active la navigation clavier (flèches haut/bas, Entrée) avec scroll auto. */
+  enableKeyboardNav?: boolean;
+  /** Affiche la scrollbar du conteneur scrollable (masquée si false). */
+  displayScrollbar?: boolean;
+  /** Appelé à l'activation d'une ligne au clavier (Entrée). */
+  onRowActivate?: (row: T) => void;
 }
 
 function fieldValue<T>(row: T, key: string): unknown {
@@ -84,11 +97,19 @@ export function DataTable<T>({
   selectedKeys,
   onSelectionChange,
   onRowContextMenu,
+  animateRows = false,
+  showGradients = false,
+  enableKeyboardNav = false,
+  displayScrollbar = true,
+  onRowActivate,
 }: ChDataTableProps<T>) {
   const internalScroll = fillHeight || maxHeight != null;
   const [sort, setSort] = useState<{ key: string; dir: ChSortDirection } | null>(null);
   const [dragOverKey, setDragOverKey] = useState<string | null>(null);
   const isMobile = useMediaQuery("(max-width:48rem)");
+  const { scrollRef, scrollEl, topOpacity, bottomOpacity } = useScrollGradients(
+    showGradients && internalScroll,
+  );
 
   const isSelControlled = selectedKeys != null;
   const [internalSel, setInternalSel] = useState<string[]>([]);
@@ -96,6 +117,7 @@ export function DataTable<T>({
   const selectedSet = new Set(selected);
   const showSelect = selectable && selected.length > 0;
   const anchorRef = useRef<string | null>(null);
+  const animatedKeys = useRef<Set<string>>(new Set());
   const clickTimer = useRef<number | null>(null);
   const tbodyRef = useRef<HTMLTableSectionElement | null>(null);
   const marqueeStart = useRef<{ x: number; y: number } | null>(null);
@@ -189,6 +211,7 @@ export function DataTable<T>({
   const visibleColumns = isMobile ? columns.filter((col) => !col.hideOnMobile) : columns;
   const colSpan = visibleColumns.length + (actions ? 1 : 0) + (showSelect ? 1 : 0);
   const cardShadow = "0 0 1rem rgba(28, 30, 33, 0.12)";
+  const shadowInset = "1rem";
 
   function toggleSort(key: string) {
     setSort((current) => {
@@ -222,6 +245,14 @@ export function DataTable<T>({
   const displayedKeys = displayedRows.map(getRowKey);
   const allSelected = displayedKeys.length > 0 && displayedKeys.every((k) => selectedSet.has(k));
   const someSelected = !allSelected && displayedKeys.some((k) => selectedSet.has(k));
+
+  const { selectedIndex, onKeyDown, tabIndex } = useKeyboardNav<T>({
+    enabled: enableKeyboardNav,
+    rows: displayedRows,
+    getRowKey,
+    scrollEl,
+    onActivate: onRowActivate ?? onRowDoubleClick,
+  });
 
   const toggleSelectAll = () => {
     commitSelection(allSelected ? [] : displayedKeys);
@@ -341,18 +372,46 @@ export function DataTable<T>({
     "&::-webkit-scrollbar-thumb:hover": { backgroundColor: theme.palette.primary.dark },
   });
 
+  const hiddenScrollbarSx = {
+    scrollbarWidth: "none" as const,
+    "&::-webkit-scrollbar": { display: "none" },
+  };
+
+  const containerScrollbarSx = (theme: Theme) =>
+    displayScrollbar ? scrollbarSx(theme) : hiddenScrollbarSx;
+
+  const gradientHeight = "2.5rem";
+  const showTopGradient = showGradients && internalScroll && topOpacity > 0;
+  const showBottomGradient = showGradients && internalScroll && bottomOpacity > 0;
+
   return (
     <Box
       position="relative"
       {...(fillHeight ? { display: "flex", flexDirection: "column", flex: 1, minHeight: 0 } : {})}
     >
       <TableContainer
+        ref={internalScroll ? scrollRef : undefined}
         onMouseDown={selectable ? onContainerMouseDown : undefined}
+        onKeyDown={enableKeyboardNav ? onKeyDown : undefined}
+        tabIndex={tabIndex}
         sx={(theme) =>
           fillHeight
-            ? { flex: 1, minHeight: 0, overflow: "auto", ...scrollbarSx(theme) }
+            ? {
+                flex: 1,
+                minHeight: 0,
+                overflow: "auto",
+                paddingX: shadowInset,
+                marginX: `-${shadowInset}`,
+                ...containerScrollbarSx(theme),
+              }
             : maxHeight != null
-              ? { maxHeight, overflow: "auto", ...scrollbarSx(theme) }
+              ? {
+                  maxHeight,
+                  overflow: "auto",
+                  paddingX: shadowInset,
+                  marginX: `-${shadowInset}`,
+                  ...containerScrollbarSx(theme),
+                }
               : { overflow: "visible" }
         }
       >
@@ -432,15 +491,21 @@ export function DataTable<T>({
               </TableCell>
             </TableRow>
           ) : (
-            displayedRows.map((row) => {
+            displayedRows.map((row, index) => {
               const key = getRowKey(row);
               const isDraggable = draggableRow?.(row) ?? false;
               const isDropTarget = canDropRow?.(row) ?? false;
               const isDragOver = isDropTarget && dragOverKey === key;
               const isSelected = selectedSet.has(key);
+              const isKeyboardFocused = enableKeyboardNav && selectedIndex === index;
               return (
-                <TableRow
+                <AnimatedRow
                   key={key}
+                  animate={animateRows}
+                  scrollRoot={scrollEl}
+                  index={index}
+                  alreadyAnimated={animatedKeys.current.has(key)}
+                  onAnimated={() => animatedKeys.current.add(key)}
                   data-rowkey={key}
                   selected={isSelected}
                   draggable={isDraggable}
@@ -494,6 +559,9 @@ export function DataTable<T>({
                     ...(isSelected
                       ? { "& td": { backgroundColor: "action.selected" } }
                       : {}),
+                    ...(isKeyboardFocused && !isSelected
+                      ? { "& td": { backgroundColor: "action.hover" } }
+                      : {}),
                     ...(isDragOver
                       ? {
                           boxShadow: "0 0 0 0.125rem var(--ch-palette-primary-main)",
@@ -519,13 +587,43 @@ export function DataTable<T>({
                     </TableCell>
                   ))}
                   {actions ? <TableCell align="right">{actions(row)}</TableCell> : null}
-                </TableRow>
+                </AnimatedRow>
               );
             })
           )}
         </TableBody>
       </Table>
       </TableContainer>
+      {showTopGradient ? (
+        <Box
+          sx={(theme) => ({
+            position: "absolute",
+            top: stickyHeader ? `${headH}px` : 0,
+            left: 0,
+            right: 0,
+            height: gradientHeight,
+            opacity: topOpacity,
+            pointerEvents: "none",
+            zIndex: 1,
+            background: `linear-gradient(to bottom, ${theme.palette.background.paper}, transparent)`,
+          })}
+        />
+      ) : null}
+      {showBottomGradient ? (
+        <Box
+          sx={(theme) => ({
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: gradientHeight,
+            opacity: bottomOpacity,
+            pointerEvents: "none",
+            zIndex: 1,
+            background: `linear-gradient(to top, ${theme.palette.background.paper}, transparent)`,
+          })}
+        />
+      ) : null}
       {marqueeRect ? (
         <Box
           sx={{
