@@ -34,7 +34,7 @@ export function SettingsMenu({ onLogout }: ChSettingsMenuProps) {
           "&:hover": { backgroundColor: "primary.dark" },
         }}
       >
-        <Icon name="settings" size={22} />
+        <Icon name="settings" size="sm" />
       </IconButton>
 
       <Popover
@@ -64,7 +64,7 @@ export function SettingsMenu({ onLogout }: ChSettingsMenuProps) {
                 "&:hover": { backgroundColor: "accent.dark" },
               }}
             >
-              <Icon name="logout" size={20} />
+              <Icon name="logout" size="sm" />
             </IconButton>
           )}
         </Box>

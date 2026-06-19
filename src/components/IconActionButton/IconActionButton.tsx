@@ -1,6 +1,6 @@
 import MuiIconButton from "@mui/material/IconButton";
 import type { MouseEventHandler } from "react";
-import { Icon, type ChIconName } from "../Icon";
+import { Icon, type ChIconName, type ChIconSize } from "../Icon";
 
 export type ChIconActionButtonVariant = "default" | "danger" | "secondary";
 
@@ -39,7 +39,7 @@ export function IconActionButton({
   onClick,
   "aria-label": ariaLabel,
 }: ChIconActionButtonProps) {
-  const iconSize = Math.round(size * 0.7);
+  const iconSize: ChIconSize = size >= 48 ? "lg" : size >= 32 ? "md" : "sm";
 
   return (
     <MuiIconButton

@@ -82,7 +82,7 @@ export function MultiSelect({ options, value, onChange, label, placeholder }: Ch
                 gap="0.5rem"
               >
                 {option.label ?? option.value}
-                <Icon name="plus" size={16} />
+                <Icon name="plus" size="xs" />
               </Box>
             </MenuItem>
           ))

@@ -14,8 +14,8 @@ describe("Icon", () => {
     expect(svg).toHaveAttribute("aria-hidden", "true");
   });
 
-  it("applique la couleur fournie au SVG (fill currentColor)", () => {
-    const { container } = render(<Icon name="sun" variant="solid" color="rgb(255, 0, 0)" />);
-    expect(container.querySelector("svg")).toHaveStyle({ color: "rgb(255, 0, 0)" });
+  it("résout la couleur via la variable de palette du thème", () => {
+    const { container } = render(<Icon name="sun" variant="solid" color="error" />);
+    expect(container.querySelector("svg")).toHaveStyle({ color: "var(--ch-palette-error-main)" });
   });
 });

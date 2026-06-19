@@ -68,7 +68,7 @@ export function SidePanel({
           aria-label={t("ch.sidePanel.close")}
           sx={{ color: "text.secondary" }}
         >
-          <Icon name="close" size={22} />
+          <Icon name="close" size="sm" />
         </IconButton>
       </Box>
 

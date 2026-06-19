@@ -24,6 +24,12 @@ declare module "@mui/material/CircularProgress" {
   }
 }
 
+declare module "@mui/material/LinearProgress" {
+  interface LinearProgressPropsColorOverrides {
+    accent: true;
+  }
+}
+
 const remToPx = (value: string): number => parseFloat(value) * 16;
 
 const headingBase = {

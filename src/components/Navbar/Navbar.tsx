@@ -125,7 +125,7 @@ export function Navbar({
                 boxShadow={active ? 2 : "none"}
                 sx={{ textDecoration: "none" }}
               >
-                {item.icon ? <Icon name={item.icon} size={24} /> : item.label}
+                {item.icon ? <Icon name={item.icon} size="md" /> : item.label}
               </Box>
             );
           })}
@@ -179,7 +179,7 @@ export function Navbar({
                   "&:hover": active ? {} : { backgroundColor: "rgba(255,255,255,0.15)" },
                 }}
               >
-                {item.icon && <Icon name={item.icon} size={26} />}
+                {item.icon && <Icon name={item.icon} size="md" />}
                 {item.label}
               </Box>
             );
@@ -221,7 +221,7 @@ export function Navbar({
                   "&:hover": { backgroundColor: "accent.dark" },
                 }}
               >
-                <Icon name="logout" size={24} />
+                <Icon name="logout" size="md" />
               </IconButton>
             )}
           </Box>

@@ -43,8 +43,8 @@ export function ThemeToggle() {
         <Icon
           name={isDark ? "moon" : "sun"}
           variant="solid"
-          size={16}
-          color={isDark ? "var(--ch-palette-primary-main)" : "var(--ch-palette-accent-main)"}
+          size="xs"
+          color={isDark ? "primary" : "accent"}
         />
       </Box>
     </Box>
