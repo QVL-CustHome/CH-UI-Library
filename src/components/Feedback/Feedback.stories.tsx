@@ -16,10 +16,10 @@ export const Severites = () => (
   </Box>
 );
 
-export const ApiRetroCompatible = () => (
+export const ErreurEtInformation = () => (
   <Box sx={{ display: "flex", flexDirection: "column", gap: 2, maxWidth: 480 }}>
-    <Feedback error="Erreur renvoyée par l'API" />
-    <Feedback info="Message d'information du portail" />
+    <Feedback severity="error">Erreur renvoyée par l'API</Feedback>
+    <Feedback severity="info">Message d'information du portail</Feedback>
   </Box>
 );
 

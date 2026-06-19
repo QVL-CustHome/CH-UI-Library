@@ -88,7 +88,7 @@ export function DataTable<T>({
   const internalScroll = fillHeight || maxHeight != null;
   const [sort, setSort] = useState<{ key: string; dir: ChSortDirection } | null>(null);
   const [dragOverKey, setDragOverKey] = useState<string | null>(null);
-  const isMobile = useMediaQuery("(max-width:768px)");
+  const isMobile = useMediaQuery("(max-width:48rem)");
 
   const isSelControlled = selectedKeys != null;
   const [internalSel, setInternalSel] = useState<string[]>([]);
@@ -302,7 +302,7 @@ export function DataTable<T>({
     stickyHeader && headH > 0
       ? {
           "@keyframes chRowExit": {
-            from: { opacity: 1, transform: "scale(1)", filter: "blur(0px)" },
+            from: { opacity: 1, transform: "scale(1)", filter: "blur(0rem)" },
             to: { opacity: 0, transform: "scale(0.9)", filter: "blur(0.1875rem)" },
           },
           "@supports (animation-timeline: view())": {

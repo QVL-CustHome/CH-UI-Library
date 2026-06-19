@@ -37,7 +37,7 @@ export function PageScaffold({
   children,
 }: ChPageScaffoldProps) {
   const pageTitle = activeLabel(items, activeHref);
-  const isMobile = useMediaQuery("(max-width:768px)");
+  const isMobile = useMediaQuery("(max-width:48rem)");
 
   return (
     <Navbar

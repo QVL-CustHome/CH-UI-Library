@@ -26,7 +26,7 @@ export function PageContent({
   fillHeight = false,
   children,
 }: ChPageContentProps) {
-  const isMobile = useMediaQuery("(max-width:768px)");
+  const isMobile = useMediaQuery("(max-width:48rem)");
 
   return (
     <>

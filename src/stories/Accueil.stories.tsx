@@ -54,11 +54,11 @@ export const Couleurs = () => (
             <Box key={shade} sx={{ textAlign: "center" }}>
               <Box
                 sx={{
-                  width: 96,
-                  height: 48,
+                  width: "6rem",
+                  height: "3rem",
                   backgroundColor: value,
                   borderRadius: 1,
-                  border: "1px solid",
+                  border: "0.0625rem solid",
                   borderColor: "divider",
                 }}
               />
@@ -83,11 +83,11 @@ export const Couleurs = () => (
             <Box key={name} sx={{ textAlign: "center" }}>
               <Box
                 sx={{
-                  width: 96,
-                  height: 48,
+                  width: "6rem",
+                  height: "3rem",
                   backgroundColor: value,
                   borderRadius: 1,
-                  border: "1px solid",
+                  border: "0.0625rem solid",
                   borderColor: "divider",
                 }}
               />
@@ -168,10 +168,10 @@ export const RadiusEtOmbres = () => (
         <Box key={name} sx={{ textAlign: "center" }}>
           <Box
             sx={{
-              width: 120,
-              height: 48,
+              width: "7.5rem",
+              height: "3rem",
               borderRadius: value,
-              border: "2px solid",
+              border: "0.125rem solid",
               borderColor: "accent.main",
             }}
           />

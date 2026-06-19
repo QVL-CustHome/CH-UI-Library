@@ -25,7 +25,7 @@ export function Form({
   return (
     <Stack as="form" gap={gap} onSubmit={handleSubmit}>
       {children}
-      <Feedback error={error} />
+      {error ? <Feedback severity="error">{error}</Feedback> : null}
       {submitLabel && (
         <Button type="submit" loading={loading} fullWidth>
           {submitLabel}

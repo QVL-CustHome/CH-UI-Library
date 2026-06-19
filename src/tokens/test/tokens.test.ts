@@ -54,7 +54,10 @@ describe("tokens", () => {
 
   it("expose espacements, radius et ombres", () => {
     expect(spacing.unit).toBe(8);
-    expect(radius.md).toBe("8px");
+    expect(radius.sm).toBe("0.25rem");
+    expect(radius.md).toBe("0.5rem");
+    expect(radius.lg).toBe("0.75rem");
+    expect(radius.pill).toBe("62.4375rem");
     expect(shadows.md).toContain("rgba");
   });
 });
