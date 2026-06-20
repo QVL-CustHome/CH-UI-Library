@@ -2,6 +2,8 @@ export function navigateTo(url: string): void {
   window.location.assign(url);
 }
 
+export const REDIRECT_INTENT_PARAM = "redirect";
+
 export interface ChLoginUrlOptions {
   authPortalUrl: string;
   loginPath?: string;
@@ -17,5 +19,7 @@ export function buildLoginUrl({
 }: ChLoginUrlOptions): string {
   const redirect = encodeURIComponent(window.location.href);
   document.cookie = `${redirectCookieName}=${redirect}; path=/; max-age=${redirectCookieMaxAge}; SameSite=Lax`;
-  return `${authPortalUrl}${loginPath}`;
+  const loginUrl = new URL(loginPath, authPortalUrl);
+  loginUrl.searchParams.set(REDIRECT_INTENT_PARAM, "1");
+  return loginUrl.toString();
 }
