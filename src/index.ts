@@ -184,6 +184,7 @@ export {
   type ChCurrentUserProviderProps,
   navigateTo,
   buildLoginUrl,
+  REDIRECT_INTENT_PARAM,
   type ChLoginUrlOptions,
   useRouteGuard,
   type RouteGuardState,
