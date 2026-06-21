@@ -6,6 +6,7 @@ import { Navbar, type ChNavbarItem } from "../Navbar";
 
 export interface ChPageScaffoldProps {
   title?: string;
+  navbarTitle?: string;
   items: ChNavbarItem[];
   activeHref?: string;
   onNavigate?: (href: string) => void;
@@ -27,7 +28,8 @@ function activeLabel(items: ChNavbarItem[], activeHref?: string): string | undef
 }
 
 export function PageScaffold({
-  title = "CustHome",
+  title,
+  navbarTitle,
   items,
   activeHref,
   onNavigate,
@@ -42,6 +44,7 @@ export function PageScaffold({
   return (
     <Navbar
       items={items}
+      title={navbarTitle}
       activeHref={activeHref}
       onNavigate={onNavigate}
       userName={userName}

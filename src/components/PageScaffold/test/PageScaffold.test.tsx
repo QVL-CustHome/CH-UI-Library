@@ -41,14 +41,23 @@ describe("PageScaffold", () => {
     mockMatchMedia(false);
   });
 
-  it("affiche le titre CustHome par defaut et le contenu", () => {
+  it("n'affiche aucun titre par defaut et rend le contenu", () => {
     renderScaffold(
       <PageScaffold items={items}>
         <p>contenu de page</p>
       </PageScaffold>,
     );
-    expect(screen.getByRole("heading", { name: "CustHome" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "CustHome" })).toBeNull();
     expect(screen.getByText("contenu de page")).toBeInTheDocument();
+  });
+
+  it("affiche le navbarTitle dans la navbar", () => {
+    renderScaffold(
+      <PageScaffold navbarTitle="CustHome" items={items}>
+        <p>x</p>
+      </PageScaffold>,
+    );
+    expect(screen.getByRole("heading", { name: "CustHome" })).toBeInTheDocument();
   });
 
   it("permet de personnaliser le titre", () => {
