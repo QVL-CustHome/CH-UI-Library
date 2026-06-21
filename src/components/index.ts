@@ -104,6 +104,7 @@ export {
   type ChProgressBarProps,
   type ChProgressBarColor,
 } from "./ProgressBar";
+export { Separator, type ChSeparatorProps, type ChSeparatorVariant } from "./Separator";
 export { SettingsMenu, type ChSettingsMenuProps } from "./SettingsMenu";
 export { ThemeToggle, useThemeToggle, type UseThemeToggleResult } from "./ThemeToggle";
 export { Toggle, type ChToggleProps } from "./Toggle";

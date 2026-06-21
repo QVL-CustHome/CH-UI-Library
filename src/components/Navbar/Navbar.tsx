@@ -2,7 +2,9 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import type { ReactNode } from "react";
+import { Heading } from "../Heading";
 import { Icon, type ChIconName } from "../Icon";
+import { Separator } from "../Separator";
 import { SettingsMenu } from "../SettingsMenu";
 import { useTranslation } from "../../i18n";
 
@@ -16,11 +18,11 @@ export interface ChNavbarItem {
 
 export interface ChNavbarProps {
   items: ChNavbarItem[];
+  title?: string;
   activeHref?: string;
   onNavigate?: (href: string) => void;
   userName?: string;
   onLogout?: () => void;
-  /** Contenu additionnel affiché en bas de la barre latérale (desktop). */
   footer?: ReactNode;
   children: ReactNode;
 }
@@ -33,6 +35,7 @@ function isItemActive(itemHref: string, activeHref?: string): boolean {
 
 export function Navbar({
   items,
+  title,
   activeHref,
   onNavigate,
   userName,
@@ -152,6 +155,21 @@ export function Navbar({
         color="primary.contrastText"
         sx={{ overflowY: "auto" }}
       >
+        {title && (
+          <Box display="flex" flexDirection="column" gap="0.875rem">
+            <Heading
+              level={1}
+              size={4}
+              align="center"
+              gutterBottom={false}
+              color="primary.contrastText"
+            >
+              {title}
+            </Heading>
+            <Separator variant="normal" />
+          </Box>
+        )}
+
         <Box display="flex" flexDirection="column" gap="0.375rem" flex={1}>
           {items.map((item) => {
             const active = isItemActive(item.href, activeHref);
@@ -187,43 +205,38 @@ export function Navbar({
         </Box>
 
         {footer && (
-          <Box
-            borderTop="0.0625rem solid rgba(255,255,255,0.25)"
-            paddingTop="1rem"
-          >
+          <Box display="flex" flexDirection="column" gap="1rem">
+            <Separator variant="normal" />
             {footer}
           </Box>
         )}
 
         {(userName || onLogout) && (
-          <Box
-            borderTop="0.0625rem solid rgba(255,255,255,0.25)"
-            paddingTop="1rem"
-            display="flex"
-            flexDirection="column"
-            gap="0.5rem"
-          >
-            {userName && (
-              <Box fontSize="0.95rem" fontWeight={600} sx={{ wordBreak: "break-word" }}>
-                {userName}
-              </Box>
-            )}
-            {onLogout && (
-              <IconButton
-                onClick={onLogout}
-                aria-label={t("ch.navbar.logout")}
-                sx={{
-                  color: "accent.contrastText",
-                  backgroundColor: "accent.main",
-                  borderRadius: "0.625rem",
-                  width: "100%",
-                  height: "3rem",
-                  "&:hover": { backgroundColor: "accent.dark" },
-                }}
-              >
-                <Icon name="logout" size="md" />
-              </IconButton>
-            )}
+          <Box display="flex" flexDirection="column" gap="1rem">
+            <Separator variant="normal" />
+            <Box display="flex" flexDirection="column" gap="0.5rem">
+              {userName && (
+                <Box fontSize="0.95rem" fontWeight={600} sx={{ wordBreak: "break-word" }}>
+                  {userName}
+                </Box>
+              )}
+              {onLogout && (
+                <IconButton
+                  onClick={onLogout}
+                  aria-label={t("ch.navbar.logout")}
+                  sx={{
+                    color: "accent.contrastText",
+                    backgroundColor: "accent.main",
+                    borderRadius: "0.625rem",
+                    width: "100%",
+                    height: "3rem",
+                    "&:hover": { backgroundColor: "accent.dark" },
+                  }}
+                >
+                  <Icon name="logout" size="md" />
+                </IconButton>
+              )}
+            </Box>
           </Box>
         )}
       </Box>
