@@ -68,8 +68,5 @@
   },
   "engines": {
     "node": ">=20"
-  },
-  "dependencies": {
-    "ch-portail-admin": "file:../CH-Portail-Admin"
   }
 }
